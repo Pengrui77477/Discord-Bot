@@ -87,7 +87,7 @@ client.once("ready", () => {
   client.user.setActivity(random.activity, {
     type: random.type,
   });
-  setInterval(async function() {
+  setInterval(async function () {
     client.users.cache.tap((coll) => (users = coll.size));
     client.guilds.cache.tap((coll) => (guilds = coll.size));
     random = status[Math.floor(Math.random() * Math.floor(status.length))];
@@ -98,104 +98,98 @@ client.once("ready", () => {
 });
 const Database = require("@replit/database");
 const dataBase = new Database();
-client.on("guildMemberAdd", async (member) => {
 
+client.on("guildMemberAdd", async (member) => {
   try {
-    const a = Math.random() * 1000;
-    // const sendChannel = member.guild.channels.cache.get('928466320691970100');
-    const sendChannel = member.guild.channels.cache.get('928834522500452406');
-    if(member.guild.id==="928834522500452403"){
-      if(member.user.id==="930991445312163880"){
+
+    //在指定的服务器下
+    if (member.guild.id === "930041271748284446") {
+
+      //判断是否为nft系列的铸造者
+      if (member.user.id === "930991445312163880") {
+        dataBase.get("nftName").then(value => {
+          await member.guild.channels.create(`PlaNFT-${value}`, {
+            type: 'GUILD_TEXT',
+          })
+            .then(async (channel) => {
+              const categoryId = '930765258023395358';
+              channel.setParent(categoryId);
+
+              //发送邀请
+              try {
+                let invite = await channel.createInvite({
+                  maxAge: 0,
+                  maxUses: 1,
+                })
+                  .catch(() => { console.log; });
+                sendChannel.send(`Welcome PlaNFT!\n To accept, click on the following invite! ${invite}`);
+              } catch (err) {
+                console.log(err);
+              };
+
+              //设置铸造者的角色
+              var role = member.guild.roles.cache.find(role => role.name === "founder");
+              member.roles.add(role);
+
+              //在创建的私密频道内设置铸造者的权限
+              channel.permissionOverwrites.create(member.user, {
+                VIEW_CHANNEL: true,
+                //管理频道
+                MANAGE_CHANNELS: true,
+              })
+                .then(channel => console.log(channel.permissionOverwrites.cache.get(member.user.id)))
+                .catch(console.error);
+
+              //将创建的私密频道插入数据库
+              dataBase.set(`PlaNFT-${value}-channel`, channel.id).then(() => {
+                console.log(`PlaNFT-${value}-channel is inserted!`);
+              })
+            })
+        })
+
+        //nft其他成员
+      } else {
+        dataBase.get(`PlaNFT-${value}-channel`).then(value => {
+          const channel = member.guild.channels.cache.get(value);
+          channel.permissionOverwrites.create(member.user, {
+            VIEW_CHANNEL: true,
+
+          })
+            .then(channel => console.log(channel.permissionOverwrites.cache.get(member.user.id)))
+            .catch(console.error);
+        });
+        // dataBase.list().then(value=>{
+        //   console.log(value)
+        // });
+
+      }
+    }
+    //930991445312163880
+    //根据nft系列信息创建新服务器
+    if (member.guild.id === "930041271748284446") {
+      const sendChannel = member.guild.channels.cache.get('930041271748284449');
+      if (member.user.id === "930991445312163880") {
         const Guild = await client.guilds.create("test_PlaNFT", {
           channels: [
             { "name": "channel-1" },
             { "name": "channel-2" },
           ]
         });
-
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-        // dataBase.set("test_PlaNFT_id",Guild.id);
+        dataBase.set("test_PlaNFT_guildId", Guild.id);
         dataBase.set("test_PlaNFT_channelId", GuildChannel.id);
         const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-        sendChannel.send(`Here is a new server. Click join :${Invite.url}`);
-        setTimeout(async ()=>{
-          const nftOwner = Guild.members.cache.get("930991445312163880");
-          console.log(nftOwner);
-        },20000);
-        if(client.id===Guild.id){
-          if(nftOwner!==''){
-            GuildChannel.send(`Now I will to transfer the server to \`${nftOwner.user.username}\``);
-          }else{
-            Guild.channel.send('没有找到这个人');
-          }
-        }
-        // GuildChannel.send(`Now I will to transfer the server to \`${nftOwner.user.username}\``);
+        sendChannel.send(`Here is a new server. Click join:${Invite.url}`);
 
-        // setTimeout(async () => {
-        //   await Guild.setOwner(nftOwner.user)
-        //     .then(guild => guild.fetchOwner())
-        //     .then(owner => console.log(`Update the owner :${owner}`));
-        // }, 3000);
       }
     }
-    // if(member.guild.id==="928834522500452403"){
-    //   // if(member.user.id==="930991445312163880"){
-    //   //nft铸造者
-    //   if(member.user.id==="928445836004831294"){
-    //     await member.guild.channels.create(`test-channel-${a.toFixed()}`, {
-    //       type: 'GUILD_TEXT',
-    //     })
-    //       .then(async (channel) => {
-    //         // const categoryId = '931098760296153100';
-    //         const categoryId = '932526514220716062';
-    //         channel.setParent(categoryId);
-    //         try {
-    //           let invite = await channel.createInvite({
-    //             maxAge: 0,
-    //             maxUses: 1,
-    //           })
-    //             .catch(() => {
-    //               console.log;
-    //             });
-    //           sendChannel.send(`Welcome PlaNFT!\n To accept, click on the following invite! ${invite}`);
-    //         } catch (err) {
-    //           console.log(err);
-    //         };
-    //         dataBase.set(`test-channel-${a.toFixed()}`,channel.id).then(()=>{
-    //           console.log(`test-channel-${a.toFixed()} is inserted!`);
-    //         })
-    //         // _channel.push(channel.id);
-    //         channel.permissionOverwrites.create(member.user, {
-    //           VIEW_CHANNEL: true,
-    //           //管理频道
-    //           MANAGE_CHANNELS: true,
-    //         })
-    //           .then(channel => console.log(channel.permissionOverwrites.cache.get(member.user.id)))
-    //           .catch(console.error);
-    //       })
-    //   //nft其他成员
-    //   }else{
-    //     dataBase.get('test-channel-181').then(value=>{
-    //       const channel=member.guild.channels.cache.get(value);
-    //       channel.permissionOverwrites.create(member.user, {
-    //           VIEW_CHANNEL: true,
-    //           //管理频道
-    //           // MANAGE_CHANNELS: true,
-    //         })
-    //           .then(channel => console.log(channel.permissionOverwrites.cache.get(member.user.id)))
-    //           .catch(console.error);
-    //     });
-    //     // dataBase.list().then(value=>{
-    //     //   console.log(value)
-    //     // });
 
-    //   }
-    // }
   } catch (err) {
     console.log(err);
   }
 
   if (member.user.bot) return;
+  if (client.id !== "927771963655598080") return;
   try {
     const Embed = new MessageEmbed()
       .setTitle('Welcome to the plaNFT Discord Channel')
@@ -212,6 +206,36 @@ client.on("guildMemberAdd", async (member) => {
     console.log(err)
   }
 });
+
+// setGuildOwner();
+client.on("guildMemberAdd", async member => {
+  dataBase.get("test_PlaNFT_guildId").then(async value => {
+    
+    if (member.guild.id === value) {
+      if(member.user.id==='930991445312163880'){
+      // if(member.user.id==='930991445312163880')
+        console.log("hello!")
+        const Guild = await client.guilds.cache.get(value);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+        setTimeout(async () => {
+          if (Guild.members.cache.get("930991445312163880")) {
+            const nftOwner = Guild.members.cache.get("930991445312163880");
+            GuildChannel.send(`Now I will to transfer the server to \`@${nftOwner.user.username}\``);
+            setTimeout(async ()=>{
+              await Guild.setOwner(nftOwner.user)
+              .then(guild => guild.fetchOwner())
+              .then(owner => console.log(`Update the owner :${owner}`));
+            },7000);
+          } else {
+            GuildChannel.send('没有找到这个人');
+          }
+        }, 5000);
+      }
+    }
+  });
+});
+
+
 client.on("messageCreate", async message => {
   // const reg=["fuck","我操你妈","nmsl"]
   // console.log(message.channel);
