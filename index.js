@@ -1,6 +1,6 @@
 const express = require("express");
 
-const fs = require("fs");
+// const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [
@@ -12,18 +12,18 @@ const intent = [
   'GUILD_MESSAGE_REACTIONS',
 ];
 const client = new Discord.Client({ intents: intent });
-client.commands = new Discord.Collection();
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter((file) => file.endsWith(".js"));
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
+// client.commands = new Discord.Collection();
+// const commandFiles = fs
+//   .readdirSync("./commands")
+//   .filter((file) => file.endsWith(".js"));
+// for (const file of commandFiles) {
+//   const command = require(`./commands/${file}`);
+//   client.commands.set(command.name, command);
+// }
 
 const app = express();
 app.use(express.json());
-const port=3001;
+const port=3002;
 
 const Database = require("@replit/database");
 const db = new Database();
@@ -161,7 +161,9 @@ client.on("messageCreate",async message =>{
     const Guild = await client.guilds.create("test_Guild", {
       channels: [
         { "name": "channel-1" },
-      ]
+      ],
+      verification_level:3,
+
     });
     // console.log(Guild);
     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
@@ -223,41 +225,41 @@ client.once("ready", () => {
   }, 60000);
 });
 
-let prefix = ".";
-client.on("messageCreate", async (message) => {
-  if (
-    message.content == `<@${client.user.id}>` ||
-    message.content == `<@!${client.user.id}>`
-  )
-    return message.channel.send(`The prefix is \`${prefix}\`.`);
+// let prefix = ".";
+// client.on("messageCreate", async (message) => {
+//   if (
+//     message.content == `<@${client.user.id}>` ||
+//     message.content == `<@!${client.user.id}>`
+//   )
+//     return message.channel.send(`The prefix is \`${prefix}\`.`);
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
+//   const args = message.content.slice(prefix.length).trim().split(/ +/);
 
-  const commandName = args.shift().toLowerCase();
+//   const commandName = args.shift().toLowerCase();
 
-  const command =
-    client.commands.get(commandName) ||
-    client.commands.find(
-      (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
-    );
-  if (!command) return;
-  if (command.guildOnly && message.channel.type !== "GUILD_TEXT") {
-    return message.reply("I can't execute that command inside DMs!");
-  }
-  if (command.args && !args.length) {
-    let reply = `You didn't provide any arguments! \n`;
+//   const command =
+//     client.commands.get(commandName) ||
+//     client.commands.find(
+//       (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+//     );
+//   if (!command) return;
+//   if (command.guildOnly && message.channel.type !== "GUILD_TEXT") {
+//     return message.reply("I can't execute that command inside DMs!");
+//   }
+//   if (command.args && !args.length) {
+//     let reply = `You didn't provide any arguments! \n`;
 
-    if (command.usage) {
-      reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
-    }
-    return message.reply(reply);
-  }
-  try {
-    command.execute(message, args);
-  } catch (error) {
-    console.error(error);
-    message.reply(`执行时发生错误: \n ${error}`);
-  }
-});
+//     if (command.usage) {
+//       reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+//     }
+//     return message.reply(reply);
+//   }
+//   try {
+//     command.execute(message, args);
+//   } catch (error) {
+//     console.error(error);
+//     message.reply(`执行时发生错误: \n ${error}`);
+//   }
+// });
 
 client.login('OTMzMjU2MDcxNTU0OTQwOTc5.Yee4cg.kVIS1RsgTHfJOSbARFQN_2yLQFU');
