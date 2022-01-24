@@ -57,7 +57,7 @@ client.on('guildMemberAdd', async member => {
       .addComponents(
         new Discord.MessageButton()
           .setCustomId(`deletable`)
-          .setLabel('verify')
+          .setLabel('Verification completed')
           .setStyle('PRIMARY')
       );
     const sendUrl = `https://test.planft.com/`;
