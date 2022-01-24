@@ -23,6 +23,7 @@ for (const file of commandFiles) {
 
 const app = express();
 app.use(express.json());
+const port=3001;
 
 const Database = require("@replit/database");
 const db = new Database();
