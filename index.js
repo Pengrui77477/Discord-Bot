@@ -21,15 +21,13 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-
-
 const app = express();
 app.use(express.json());
 
 const Database = require("@replit/database");
 const db = new Database();
 
-app.get("/", (req, res) => res.send("Hello world!"));
+app.get("/", (req, res) => res.send("Rob listening at http://localhost:8080"));
 // 接收创建服务器的请求
 app.post("/createChannel", (req, res) => {
   res.send("createChannel");
@@ -41,10 +39,11 @@ app.post("/createChannel", (req, res) => {
 app.post("/discordAuth", (req, res) => {
   res.send("createChannel");
   console.log(req.body);
-  db.set("userInfo", req.body);
-
+  db.set(`${req.body.userId}`, req.body);
 });
-db.get("userInfo").then(res => console.log(res));
+// db.delete("928830430172577792");
+// db.delete("930991445312163880");
+db.list().then(res => console.log(res));
 
 
 app.listen(8080, () =>
@@ -62,11 +61,11 @@ client.on('guildMemberAdd', async member => {
           .setStyle('PRIMARY')
       );
     const sendUrl = `https://test.planft.com/`;
-    const verifyUrl = `http://192.168.50.91:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+    const verifyUrl = `http://192.168.50.70:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle('Welcome to the plaNFT ')
+      .setTitle('Welcome to the plaNFT 👋')
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
                       • Second, click the button to obtain permission`)
       .addFields(
@@ -77,75 +76,103 @@ client.on('guildMemberAdd', async member => {
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
-    client.once('interactionCreate', async (interaction) => {
-      db.get('userInfo').then(async userInfo => {
+    client.on('interactionCreate', async (interaction) => {
+      db.get(`${member.user.id}`).then(async userInfo => {
         console.log(userInfo);
         //校验   member.guild.id===userInfo.guildId && member.user.id === userInfo.userId && 
-        if (userInfo.nftOwner && userInfo.nftFollower) {
-          let role = await member.guild.roles.cache.find(role => role.name === "founder");
-          if (!role) {
-            member.guild.roles.create({
-              name: 'founder',
-              color: '#ff4000',
-              hoist: true,
-              permissions: [Permissions.FLAGS.ADMINISTRATOR]
-            }).then(role => {
+        if (userInfo) {
+          if (userInfo.nftOwner && userInfo.nftFollower) {
+            let role = await member.guild.roles.cache.find(role => role.name === "founder");
+            if (!role) {
+              member.guild.roles.create({
+                name: 'founder',
+                color: '#ff4000',
+                hoist: true,
+                permissions: [Permissions.FLAGS.ADMINISTRATOR]
+              }).then(role => {
+                member.roles.add(role);
+              })
+            } else {
               member.roles.add(role);
-            })
-          } else {
-            member.roles.add(role);
-          }
-
-          const embed = new MessageEmbed()
-            .setColor('#f542d4')
-            .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
-            .setTimestamp()
-            .setFooter({ text: 'PlaNFT' });
-          member.user.send({ embeds: [embed] })
-
-        } else if (!userInfo.nftOwner && userInfo.nftFollower) {
-          let role = await member.guild.roles.cache.find(role => role.name === "follower");
-          if (!role) {
-            member.guild.roles.create({
-              name: 'follower',
-              color: '#00ffff',
-              hoist: true,
-              permissions: [Permissions.FLAGS.VIEW_CHANNEL]
-            }).then(role => {
+            }
+            const embed = new MessageEmbed()
+              .setColor('#f542d4')
+              .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+              .setDescription('You are the caster')
+              .setTimestamp()
+              .setFooter({ text: 'PlaNFT' });
+            member.user.send({ embeds: [embed] })
+            return ;
+          } else if (!userInfo.nftOwner && userInfo.nftFollower) {
+            let role = await member.guild.roles.cache.find(role => role.name === "follower");
+            if (!role) {
+              member.guild.roles.create({
+                name: 'follower',
+                color: '#00ffff',
+                hoist: true,
+                permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+              }).then(role => {
+                member.roles.add(role);
+              })
+            } else {
               member.roles.add(role);
-            })
+            }
+            const embed = new MessageEmbed()
+              .setColor('#f542d4')
+              .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+              .setDescription('You are the follower')              
+              .setTimestamp()
+              .setFooter({ text: 'PlaNFT' });
+            member.user.send({ embeds: [embed] })
+
           } else {
-            member.roles.add(role);
+            const embed = new MessageEmbed()
+              .setColor('#f542d4')
+              .setTitle(`❌  Sorry, you're not a follower of the NFT`)
+              .setTimestamp()
+              .setFooter({ text: 'PlaNFT' });
+            member.user.send({ embeds: [embed] })
+            member.kick();
           }
-
-          const embed = new MessageEmbed()
-            .setColor('#f542d4')
-            .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
-            .setTimestamp()
-            .setFooter({ text: 'PlaNFT' });
-          member.user.send({ embeds: [embed] })
-
         } else {
           const embed = new MessageEmbed()
             .setColor('#f542d4')
-            .setTitle(`❌  Sorry, you're not a follower of the NFT`)
+            .setTitle(`Please click the link above first`)
             .setTimestamp()
             .setFooter({ text: 'PlaNFT' });
           member.user.send({ embeds: [embed] })
-          member.kick();
         }
-
       })
-      interaction.deferUpdate()
+      try{
+        await interaction.deferUpdate();
+      }catch(err){
+        console.log(err)
+      }
     })
   } catch (err) {
     console.log(err)
   }
 
 });
-
-
-
+client.on("messageCreate",async message =>{
+  if (message.author.bot) return;
+  if (message.content == "group") {
+    const Guild = await client.guilds.create("test_Guild", {
+      channels: [
+        { "name": "channel-1" },
+      ]
+    });
+    // console.log(Guild);
+    const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+    const channelId = GuildChannel.id;
+    db.set("channelId", channelId).then(() => {
+      console.log("success");
+    })
+    const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+    // console.log(Invite);
+    message.channel.send(`邀请您进群: ${Invite.url}`);
+  };
+})
 
 client.once("ready", () => {
   console.log("Bot is ready!");
@@ -185,7 +212,7 @@ client.once("ready", () => {
   client.user.setActivity(random.activity, {
     type: random.type,
   });
-  setInterval(async function () {
+  setInterval(async function() {
     client.users.cache.tap((coll) => (users = coll.size));
     client.guilds.cache.tap((coll) => (guilds = coll.size));
     random = status[Math.floor(Math.random() * Math.floor(status.length))];
