@@ -26,17 +26,17 @@ app.use(express.json());
 
 const Database = require("@replit/database");
 const db = new Database();
-
+const port = 3001
 app.get("/", (req, res) => res.send("Rob listening at http://localhost:8080"));
 // 接收创建服务器的请求
-app.post("/createChannel", (req, res) => {
+app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
   console.log(req.body);
   db.set("nftName", req.body.nftName)
 });
 
 // 接收验证结果
-app.post("/discordAuth", (req, res) => {
+app.post("/discord/discordAuth", (req, res) => {
   res.send("createChannel");
   console.log(req.body);
   db.set(`${req.body.userId}`, req.body);
@@ -46,7 +46,7 @@ app.post("/discordAuth", (req, res) => {
 db.list().then(res => console.log(res));
 
 
-app.listen(8080, () =>
+app.listen(port, () =>
   console.log(`Rob listening at http://localhost:8080`)
 );
 client.on('guildMemberAdd', async member => {
