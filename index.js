@@ -164,5 +164,4 @@ client.on("messageCreate", async (message) => {
     message.reply(`执行时发生错误: \n ${error}`);
   }
 });
-
 client.login(process.env.token);

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const discordInfo = require('./db/discord_info');
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [
@@ -14,20 +14,13 @@ const fs = require("fs");
 
 const client = new Discord.Client({ intents: intent });
 
-client.commands = new Discord.Collection();
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter((file) => file.endsWith(".js"));
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
+
 
 const app = express();
 app.use(express.json());
 const port = 3002;
 
-let userMap = new Map();
+// let userMap = new Map();
 
 app.get("/", (req, res) => res.send("hello world"));
 // 接收创建服务器的请求
@@ -39,9 +32,10 @@ app.post("/discord/createChannel", (req, res) => {
 app.post("/discord/discordAuth", (req, res) => {
   res.send("createChannel");
   console.log(req.body)
-  const userId = req.body.userId
-  const nftFollower = req.body.nftFollower
-  userMap.set(userId, nftFollower)
+  // const userId = req.body.userId
+  // const nftFollower = req.body.nftFollower
+  // userMap.set(userId, nftFollower)
+  discordInfo.setInfo(req.body);
 });
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
@@ -79,15 +73,15 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const userId = interaction.user.id
-  const bool = userMap.get(userId);
+  const info=await discordInfo.getInfo(interaction.user.id);
+  const bool = info.nft_owner;
   console.log(bool);
 
-  const guildId = '930041271748284446';
-  const Guild = await client.guilds.cache.get(guildId);
+  const guildId = info.guild_id;
+  const Guild =client.guilds.cache.get(guildId);
 
   if (bool == 1) {
-    let role = await Guild.roles.cache.find(role => role.name === "founder");
+    let role =Guild.roles.cache.find(role => role.name === "founder");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
     if (!role) {
       Guild.roles.create({
@@ -100,7 +94,6 @@ client.on('interactionCreate', async (interaction) => {
       })
     } else {
       member.roles.add(role);
-      // console.log(member)
     }
 
     embed = new MessageEmbed()
@@ -127,7 +120,14 @@ client.once("ready", () => {
   console.log(`Rob is ready!`);
 });
 let prefix = ".";
-
+client.commands = new Discord.Collection();
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
 client.on("messageCreate", async (message) => {
   if (
     message.content == `<@${client.user.id}>` ||

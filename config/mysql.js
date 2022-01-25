@@ -14,5 +14,4 @@ const config = {
     port: process.env.port,
     database: process.env.database
 }
-console.log(config)
 module.exports = mysql.createPool(config);
