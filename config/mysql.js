@@ -7,7 +7,6 @@ require('dotenv').config()
 //     port: '3306',
 //     database: 'discord'
 // }
-
 const config = {
     host: process.env.host,
     user: process.env.user,
@@ -15,4 +14,5 @@ const config = {
     port: process.env.port,
     database: process.env.database
 }
+console.log(config)
 module.exports = mysql.createPool(config);

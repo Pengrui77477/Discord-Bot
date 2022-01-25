@@ -164,5 +164,5 @@ client.on("messageCreate", async (message) => {
     message.reply(`执行时发生错误: \n ${error}`);
   }
 });
-console.log(process.env.host)
+
 client.login(process.env.token);
