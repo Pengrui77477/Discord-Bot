@@ -10,6 +10,7 @@ const intent = [
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
 ];
+
 const fs = require("fs");
 const client = new Discord.Client({ intents: intent });
 client.commands = new Discord.Collection();
@@ -28,10 +29,8 @@ const port = 3002;
 let userMap = new Map();
 
 app.get("/", (req, res) => res.send(`hello world`));
-const Database = require("@replit/database");
-const db = new Database();
-const port = 3001
-app.get("/", (req, res) => res.send("Rob listening at http://localhost:8080"));
+const port = 3002
+app.get("/", (req, res) => res.send("hello world"));
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
