@@ -123,7 +123,7 @@ client.on('interactionCreate', async (interaction) => {
 })
 
 client.once("ready", () => {
-  console.log(`Rob listening at http://localhost:${port}`);
+  console.log(`Rob is ready!`);
 });
 let prefix = ".";
 
