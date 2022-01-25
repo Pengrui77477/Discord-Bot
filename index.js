@@ -27,7 +27,7 @@ const port = 3002;
 
 let userMap = new Map();
 
-app.get("/", (req, res) => res.send("Rob listening at http://localhost:3002"));
+app.get("/", (req, res) => res.send(`hello world`));
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
@@ -42,7 +42,7 @@ app.post("/discord/discordAuth", (req, res) => {
   userMap.set(userId, nftFollower)
 });
 app.listen(port, () =>
-  console.log(`Rob listening at http://localhost:3002`)
+  console.log(`Rob listening at http://localhost:${port}`)
 );
 
 client.on('guildMemberAdd', async member => {
@@ -122,7 +122,7 @@ client.on('interactionCreate', async (interaction) => {
 })
 
 client.once("ready", () => {
-  console.log("Bot is ready!");
+  console.log(`Rob listening at http://localhost:${port}`);
 });
 let prefix = ".";
 
