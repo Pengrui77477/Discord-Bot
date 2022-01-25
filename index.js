@@ -1,5 +1,6 @@
 const express = require("express");
-
+const fs = require("fs");
+require('dotenv').config()
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [
@@ -10,17 +11,9 @@ const intent = [
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
 ];
-
-const fs = require("fs");
 const client = new Discord.Client({ intents: intent });
-client.commands = new Discord.Collection();
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter((file) => file.endsWith(".js"));
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
+
+
 
 const app = express();
 app.use(express.json());
@@ -104,7 +97,7 @@ client.on('interactionCreate', async (interaction) => {
 
     embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+      .setTitle('✅ Verification successful! Now you can chat freely in your guild!')
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     interaction.user.send({ embeds: [embed] });
@@ -126,6 +119,15 @@ client.once("ready", () => {
   console.log(`Rob is ready!`);
 });
 let prefix = ".";
+
+client.commands = new Discord.Collection();
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
 
 client.on("messageCreate", async (message) => {
   if (
@@ -162,5 +164,5 @@ client.on("messageCreate", async (message) => {
     message.reply(`执行时发生错误: \n ${error}`);
   }
 });
-
-client.login('OTMzMjU2MDcxNTU0OTQwOTc5.Yee4cg.yRvdwc2pO9cGsmFFzmMxWrGVZvI');
+console.log(process.env.host)
+client.login(process.env.token);

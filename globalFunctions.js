@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+require('dotenv').config()
 const globalFunctions = {
   getGif: async function (query, limit, variable) {
         const giphy = await fetch(
@@ -9,7 +10,7 @@ const globalFunctions = {
             })
 
         const result = giphy.data[Math.floor(Math.random() * Math.floor(giphy.data.length))].images.original.url;
-        // console.log(result);
+        console.log(process.env.GIPHY_KEY);
         return result;
     },
   getImage: function (message, query, random) {
