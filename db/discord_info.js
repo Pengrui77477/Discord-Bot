@@ -8,7 +8,7 @@ discordInfo.setInfo=function(params){
             const sql="insert into discord_info (user_id,guild_id,nft_owner,nft_follower) value (?,?,?,?)";
             connection.query(sql, [params.userId, params.guildId, params.nftOwner,params.nftFollower], function (err, result) {
                 if (err) reject(err);
-                resolve(result.length === 0 ? null : result[0]);
+                resolve(result.protocol41);
             });
             connection.release();
         })
