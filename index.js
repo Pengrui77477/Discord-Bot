@@ -163,4 +163,4 @@ client.on("messageCreate", async (message) => {
   }
 });
 
-client.login('OTMzMjU2MDcxNTU0OTQwOTc5.Yee4cg.kVIS1RsgTHfJOSbARFQN_2yLQFU');
+client.login('OTMzMjU2MDcxNTU0OTQwOTc5.Yee4cg.yRvdwc2pO9cGsmFFzmMxWrGVZvI');
