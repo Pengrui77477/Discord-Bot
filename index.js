@@ -25,9 +25,16 @@ const app = express();
 app.use(express.json());
 const port = 3002;
 
+<<<<<<< HEAD
 let userMap = new Map();
 
 app.get("/", (req, res) => res.send(`hello world`));
+=======
+const Database = require("@replit/database");
+const db = new Database();
+const port = 3001
+app.get("/", (req, res) => res.send("Rob listening at http://localhost:8080"));
+>>>>>>> 4e1538c18716971c6f5cce0b300881b3b9205201
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
