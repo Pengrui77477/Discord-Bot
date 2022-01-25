@@ -58,7 +58,7 @@ client.on('guildMemberAdd', async member => {
           .setStyle('PRIMARY')
       );
     const sendUrl = `https://test.planft.com/`;
-    const verifyUrl = `http://192.168.50.54:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+    const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
