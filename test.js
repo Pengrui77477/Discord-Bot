@@ -145,7 +145,7 @@ for (const file of commandFiles) {
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
 
-  if (message.content == ".guild") {
+  if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
       channels: [
         { "name": "channel-1" },
@@ -159,7 +159,7 @@ client.on("messageCreate", async message => {
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
   if(message.content===".showTable"){
-    console.log(client.guilds);
+    console.log(client.guilds.cache);
   }
 })
 client.on("messageCreate", async (message) => {
