@@ -77,6 +77,7 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('interactionCreate', async (interaction) => {
+  console.log(interaction);
   const data={
     userId:interaction.user.id,
     guildId:interaction.guild.id
@@ -84,9 +85,9 @@ client.on('interactionCreate', async (interaction) => {
   const info = await discordInfo.getInfo(data);
   console.log(info)
   const bool = info.nft_owner;
-  
-  const Guild = client.guilds.cache.get(data.guildId);
 
+  const Guild = client.guilds.cache.get(data.guildId);
+  const sendChannel=interaction.guild.channels.cache.get("935723971310133268");
   if (bool == 1) {
     let role = Guild.roles.cache.find(role => role.name === "Owner");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
@@ -112,8 +113,8 @@ client.on('interactionCreate', async (interaction) => {
       .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    interaction.user.send({ embeds: [embed] });
-
+    // interaction.user.send({ embeds: [embed] });
+    sendChannel.send({ embeds: [embed] });
   } else {
 
     const embed = new MessageEmbed()
@@ -121,7 +122,8 @@ client.on('interactionCreate', async (interaction) => {
       .setTitle(`❌  Sorry, you're not a follower of the NFT`)
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    interaction.user.send({ embeds: [embed] })
+    // interaction.user.send({ embeds: [embed] })
+    sendChannel.send({ embeds: [embed] });
 
   }
   await interaction.deferUpdate();
