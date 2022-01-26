@@ -150,17 +150,8 @@ client.on("messageCreate", async (message) => {
   )
     return message.channel.send(`The prefix is \`${prefix}\`.`);
   
-  if(message.author.bot) return;
-  if(message.content==='.verification'){
-    const row = new Discord.MessageActionRow()
-      .addComponents(
-        new Discord.MessageButton()
-          .setCustomId(`deletable`)
-          .setLabel('Verification completed')
-          .setStyle('PRIMARY')
-      );
-    message.channel.send({components: [row]});
-  }
+  if(message.author.bot)  return;
+
   const args = message.content.slice(prefix.length).trim().split(/ +/);
 
   const commandName = args.shift().toLowerCase();
