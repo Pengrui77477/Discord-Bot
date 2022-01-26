@@ -14,18 +14,21 @@ module.exports = {
   category: "Fun",
   guildOnly: true,
   execute(message, args) {
-    const Guild = await client.guilds.create("test-PlaNFT-Guild", {
-      channels: [
-        { "name": "channel-1" },
-      ]
-    });
-    const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-    const channelId = GuildChannel.id;
-    db.set("channelId", channelId).then(() => {
-      console.log("success");
-    })
-    const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    message.channel.send(`邀请您进群: ${Invite.url}`);
+    async function fn1(){
+      const Guild = await client.guilds.create("test-PlaNFT-Guild", {
+        channels: [
+          { "name": "channel-1" },
+        ]
+      });
+      const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+      const channelId = GuildChannel.id;
+      db.set("channelId", channelId).then(() => {
+        console.log("success");
+      })
+      const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+      message.channel.send(`邀请您进群: ${Invite.url}`);
+    }
+    fn1()
   },
 };
 
