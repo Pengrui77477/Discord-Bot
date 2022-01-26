@@ -29,13 +29,15 @@ app.post("/discord/createChannel", (req, res) => {
 });
 
 // 接收验证结果
-app.post("/discord/discordAuth", (req, res) => {
+app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
-  // const userId = req.body.userId
-  // const nftFollower = req.body.nftFollower
-  // userMap.set(userId, nftFollower)
-  discordInfo.setInfo(req.body);
+  const res =await discordInfo.getInfo(req.body);
+  if(res){
+    await discordInfo.updateInfo(req.body);
+    return null;
+  }
+  await discordInfo.setInfo(req.body);
 });
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
@@ -73,9 +75,10 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const info=await discordInfo.getInfo(interaction.user.id);
+  const info=await discordInfo.getguildId(interaction.user.id);
+  console.log(info)
   const bool = info.nft_owner;
-  console.log(bool);
+  // console.log(bool);
 
   const guildId = info.guild_id;
   const Guild =client.guilds.cache.get(guildId);
