@@ -1,6 +1,5 @@
 const express = require("express");
-const fs = require("fs");
-require('dotenv').config()
+const discordInfo = require('./db/discord_info');
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [
@@ -11,6 +10,8 @@ const intent = [
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
 ];
+const fs = require("fs");
+
 const client = new Discord.Client({ intents: intent });
 
 
@@ -19,22 +20,26 @@ const app = express();
 app.use(express.json());
 const port = 3002;
 
-let userMap = new Map();
 
 app.get("/", (req, res) => res.send("hello world"));
+
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
 });
 
 // 接收验证结果
-app.post("/discord/discordAuth", (req, res) => {
+app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
-  const userId = req.body.userId
-  const nftFollower = req.body.nftFollower
-  userMap.set(userId, nftFollower)
+  const judge =await discordInfo.getInfo(req.body);
+  if(judge){
+    await discordInfo.updateInfo(req.body);
+    return null;
+  }
+  await discordInfo.setInfo(req.body);
 });
+
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
@@ -71,15 +76,15 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const userId = interaction.user.id
-  const bool = userMap.get(userId);
-  console.log(bool);
+  const info=await discordInfo.getguildId(interaction.user.id);
+  console.log(info)
+  const bool = info.nft_owner;
 
-  const guildId = '930041271748284446';
-  const Guild = await client.guilds.cache.get(guildId);
+  const guildId = info.guild_id;
+  const Guild =client.guilds.cache.get(guildId);
 
   if (bool == 1) {
-    let role = await Guild.roles.cache.find(role => role.name === "founder");
+    let role =Guild.roles.cache.find(role => role.name === "founder");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
     if (!role) {
       Guild.roles.create({
@@ -92,12 +97,11 @@ client.on('interactionCreate', async (interaction) => {
       })
     } else {
       member.roles.add(role);
-      // console.log(member)
     }
 
     embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle('✅ Verification successful! Now you can chat freely in your guild!')
+      .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     interaction.user.send({ embeds: [embed] });
@@ -118,8 +122,8 @@ client.on('interactionCreate', async (interaction) => {
 client.once("ready", () => {
   console.log(`Rob is ready!`);
 });
-let prefix = ".";
 
+let prefix = ".";
 client.commands = new Discord.Collection();
 const commandFiles = fs
   .readdirSync("./commands")
@@ -128,7 +132,6 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
-
 client.on("messageCreate", async (message) => {
   if (
     message.content == `<@${client.user.id}>` ||
@@ -164,4 +167,5 @@ client.on("messageCreate", async (message) => {
     message.reply(`执行时发生错误: \n ${error}`);
   }
 });
+
 client.login(process.env.token);
