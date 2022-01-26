@@ -158,8 +158,11 @@ client.on("messageCreate", async message => {
     // console.log(Invite);
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
-  if(message.content===".showTable"){
+  if (message.content === ".showtable") {
     console.log(client.guilds.cache);
+    client.guilds.cache.get("928466320159301643").delete()
+      .then(g => console.log(`Deleted the guild ${g}`))
+      .catch(console.error);
   }
 })
 client.on("messageCreate", async (message) => {
