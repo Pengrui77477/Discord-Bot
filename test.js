@@ -59,7 +59,7 @@ client.on('guildMemberAdd', async member => {
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle('Welcome to the plaNFT 👋')
+      .setTitle(`Welcome to the plaNFT ${member} 👋`)
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
                       • Second, click the button to obtain permission`)
       .addFields(
@@ -68,19 +68,24 @@ client.on('guildMemberAdd', async member => {
       )
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+    const sendChannel=member.guild.channels.cache.get("935723971310133268");
+    sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
+    // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
   } catch (err) {
     console.log(err)
   }
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const info = await discordInfo.getguildId(interaction.user.id);
+  const data={
+    userId:interaction.user.id,
+    guildId:interaction.guild.id
+  }
+  const info = await discordInfo.getInfo(data);
   console.log(info)
   const bool = info.nft_owner;
-
-  const guildId = info.guild_id;
-  const Guild = client.guilds.cache.get(guildId);
+  
+  const Guild = client.guilds.cache.get(data.guildId);
 
   if (bool == 1) {
     let role = Guild.roles.cache.find(role => role.name === "Owner");
