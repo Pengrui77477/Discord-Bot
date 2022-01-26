@@ -159,7 +159,7 @@ client.on("messageCreate", async (message) => {
           .setLabel('Verification completed')
           .setStyle('PRIMARY')
       );
-    message.channels.send({components: [row]});
+    message.channel.send({components: [row]});
   }
   const args = message.content.slice(prefix.length).trim().split(/ +/);
 
