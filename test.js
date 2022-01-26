@@ -1,5 +1,6 @@
 const express = require("express");
 const discordInfo = require('./db/discord_info');
+const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [
@@ -10,8 +11,6 @@ const intent = [
   'GUILD_MESSAGES',
   'GUILD_MESSAGE_REACTIONS',
 ];
-const fs = require("fs");
-
 const client = new Discord.Client({ intents: intent });
 
 
@@ -47,13 +46,13 @@ client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
   //机器人发送私信
   try {
-    const row = new Discord.MessageActionRow()
-      .addComponents(
-        new Discord.MessageButton()
-          .setCustomId(`deletable`)
-          .setLabel('Verification completed')
-          .setStyle('PRIMARY')
-      );
+    // const row = new Discord.MessageActionRow()
+    //   .addComponents(
+    //     new Discord.MessageButton()
+    //       .setCustomId(`deletable`)
+    //       .setLabel('Verification completed')
+    //       .setStyle('PRIMARY')
+    //   );
     const sendUrl = `https://test.planft.com/`;
     const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
     const statement = 'After verification, please click the button below';
