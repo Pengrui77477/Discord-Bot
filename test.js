@@ -78,7 +78,6 @@ client.on('interactionCreate', async (interaction) => {
   const info=await discordInfo.getguildId(interaction.user.id);
   console.log(info)
   const bool = info.nft_owner;
-  // console.log(bool);
 
   const guildId = info.guild_id;
   const Guild =client.guilds.cache.get(guildId);
