@@ -83,7 +83,7 @@ client.on('interactionCreate', async (interaction) => {
   const Guild = client.guilds.cache.get(guildId);
 
   if (bool == 1) {
-    let role = Guild.roles.cache.find(role => role.name === "founder");
+    let role = Guild.roles.cache.find(role => role.name === "Owner");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
     if (!role) {
       Guild.roles.create({
