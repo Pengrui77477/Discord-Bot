@@ -119,7 +119,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`❌  Sorry, you're not a follower of the NFT`)
+      .setTitle(`❌  Sorry,${interaction.user.username} you're not a follower of the NFT`)
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     // interaction.user.send({ embeds: [embed] })
