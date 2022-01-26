@@ -32,8 +32,8 @@ app.post("/discord/createChannel", (req, res) => {
 app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
-  const judge =await discordInfo.getInfo(req.body);
-  if(judge){
+  const judge = await discordInfo.getInfo(req.body);
+  if (judge) {
     await discordInfo.updateInfo(req.body);
     return null;
   }
@@ -75,22 +75,26 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  const info=await discordInfo.getguildId(interaction.user.id);
+  const info = await discordInfo.getguildId(interaction.user.id);
   console.log(info)
   const bool = info.nft_owner;
 
   const guildId = info.guild_id;
-  const Guild =client.guilds.cache.get(guildId);
+  const Guild = client.guilds.cache.get(guildId);
 
   if (bool == 1) {
-    let role =Guild.roles.cache.find(role => role.name === "founder");
+    let role = Guild.roles.cache.find(role => role.name === "founder");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
     if (!role) {
       Guild.roles.create({
-        name: 'founder',
-        color: '#ff4000',
+        // name: 'founder',
+        // color: '#ff4000',
+        // hoist: true,
+        // permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        name: 'Owner',
+        color: '#00ffff',
         hoist: true,
-        permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        permissions: [Permissions.FLAGS.VIEW_CHANNEL]
       }).then(role => {
         member.roles.add(role);
       })
