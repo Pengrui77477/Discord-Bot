@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const {MessageEmbed}=require("discord.js");
 module.exports = {
     name: "sendbutton",
     description: "create an button.",
@@ -13,7 +14,8 @@ module.exports = {
                     .setStyle('PRIMARY')
             );
         try {
-            message.channel.send({ components: [row] });
+            //({ ephemeral: true, embeds: [Embed]});
+            message.channel.send({content:'Please click the verify button',ephemeral: true, components: [row] });
         } catch (err) {
             console.log(err)
         }
