@@ -32,8 +32,8 @@ app.post("/discord/createChannel", (req, res) => {
 app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
-  const res =await discordInfo.getInfo(req.body);
-  if(res){
+  const judge =await discordInfo.getInfo(req.body);
+  if(judge){
     await discordInfo.updateInfo(req.body);
     return null;
   }
