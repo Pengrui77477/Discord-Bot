@@ -59,9 +59,9 @@ client.on('guildMemberAdd', async member => {
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT ${member} 👋`)
+      .setTitle(`Welcome to the plaNFT ${member.user.tag} 👋`)
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-                      • Second, click the button to obtain permission`)
+                      • Second, go to the server's verification channel and click the verification button`)
       .addFields(
         { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
         { name: 'Then click the button to obtain the guild permission', value: `${statement}`, },
@@ -70,7 +70,7 @@ client.on('guildMemberAdd', async member => {
       .setFooter({ text: 'PlaNFT' });
     // const sendChannel=member.guild.channels.cache.get("935723971310133268");
     // sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
-    member.user.send({ ephemeral: true, embeds: [Embed]});
+    member.user.send({ ephemeral: true, embeds: [Embed] });
   } catch (err) {
     console.log(err)
   }
@@ -78,9 +78,9 @@ client.on('guildMemberAdd', async member => {
 
 client.on('interactionCreate', async (interaction) => {
   console.log(interaction);
-  const data={
-    userId:interaction.user.id,
-    guildId:interaction.guild.id
+  const data = {
+    userId: interaction.user.id,
+    guildId: interaction.guild.id
   }
   const info = await discordInfo.getInfo(data);
   console.log(info)
@@ -120,7 +120,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`❌  Sorry @${interaction.user.username} , you're not a follower of the NFT`)
+      .setTitle(`❌  Sorry ${interaction.user.username} , you're not a follower of the NFT`)
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     interaction.user.send({ embeds: [embed] })
@@ -149,8 +149,8 @@ client.on("messageCreate", async (message) => {
     message.content == `<@!${client.user.id}>`
   )
     return message.channel.send(`The prefix is \`${prefix}\`.`);
-  
-  if(message.author.bot)  return;
+
+  if (message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
 

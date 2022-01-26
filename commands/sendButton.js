@@ -15,7 +15,7 @@ module.exports = {
             );
         try {
             //({ ephemeral: true, embeds: [Embed]});
-            message.channel.send({content:'Please click the verify button',ephemeral: true, components: [row] });
+            message.channel.send({content:'Please click the Verification button after clicking the link our robot sent to you',ephemeral: true, components: [row] });
         } catch (err) {
             console.log(err)
         }
