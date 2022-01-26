@@ -68,9 +68,9 @@ client.on('guildMemberAdd', async member => {
       )
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    const sendChannel=member.guild.channels.cache.get("935723971310133268");
-    sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
-    // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+    // const sendChannel=member.guild.channels.cache.get("935723971310133268");
+    // sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
+    member.user.send({ ephemeral: true, embeds: [Embed]});
   } catch (err) {
     console.log(err)
   }
@@ -87,7 +87,8 @@ client.on('interactionCreate', async (interaction) => {
   const bool = info.nft_owner;
 
   const Guild = client.guilds.cache.get(data.guildId);
-  const sendChannel=interaction.guild.channels.cache.get("935723971310133268");
+  // const sendChannel=interaction.guild.channels.cache.get("935723971310133268");
+
   if (bool == 1) {
     let role = Guild.roles.cache.find(role => role.name === "Owner");
     let member = await Guild.members.fetch(`${interaction.user.id}`);
@@ -113,8 +114,8 @@ client.on('interactionCreate', async (interaction) => {
       .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    // interaction.user.send({ embeds: [embed] });
-    sendChannel.send({ embeds: [embed] });
+    interaction.user.send({ embeds: [embed] });
+    // sendChannel.send({ embeds: [embed] });
   } else {
 
     const embed = new MessageEmbed()
@@ -122,8 +123,8 @@ client.on('interactionCreate', async (interaction) => {
       .setTitle(`❌  Sorry @${interaction.user.username} , you're not a follower of the NFT`)
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
-    // interaction.user.send({ embeds: [embed] })
-    sendChannel.send({ embeds: [embed] });
+    interaction.user.send({ embeds: [embed] })
+    // sendChannel.send({ embeds: [embed] });
 
   }
   await interaction.deferUpdate();
@@ -131,6 +132,7 @@ client.on('interactionCreate', async (interaction) => {
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
+
 });
 let prefix = ".";
 client.commands = new Discord.Collection();
@@ -147,7 +149,18 @@ client.on("messageCreate", async (message) => {
     message.content == `<@!${client.user.id}>`
   )
     return message.channel.send(`The prefix is \`${prefix}\`.`);
-
+  
+  if(message.author.bot) return;
+  if(message.content==='.verification'){
+    const row = new Discord.MessageActionRow()
+      .addComponents(
+        new Discord.MessageButton()
+          .setCustomId(`deletable`)
+          .setLabel('Verification completed')
+          .setStyle('PRIMARY')
+      );
+    message.channels.send({components: [row]});
+  }
   const args = message.content.slice(prefix.length).trim().split(/ +/);
 
   const commandName = args.shift().toLowerCase();
