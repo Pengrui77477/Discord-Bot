@@ -74,6 +74,7 @@ app.post("/discord/discordAuth", async (req, res) => {
         member.send({ embeds: [embed] })
     }
 });
+
 app.listen(port, () =>
     console.log(`Rob listening at http://localhost:${port}`)
 );
@@ -96,8 +97,6 @@ client.on('guildMemberAdd', async member => {
             )
             .setTimestamp()
             .setFooter({ text: 'PlaNFT' });
-        // const sendChannel=member.guild.channels.cache.get("935723971310133268");
-        // sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
         member.user.send({ ephemeral: true, embeds: [Embed] });
 
     } catch (err) {
