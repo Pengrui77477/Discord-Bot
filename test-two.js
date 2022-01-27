@@ -25,6 +25,15 @@ app.get("/", (req, res) => res.send("hello world"));
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
     res.send("createChannel");
+    console.log(req.body);
+    // const Guild = await client.guilds.create(`${req.body.nftName}`, {
+    //     channels: [
+    //         { "name": "channel-1" },
+    //     ]
+    // });
+    // const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+    // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+    // console.log(Invite.url);
 });
 
 
