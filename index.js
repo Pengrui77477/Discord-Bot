@@ -1,5 +1,5 @@
 const express = require("express");
-const discordInfo = require('./db/discord_info');
+const discordInfo = require('./service/db/discord_info');
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
 const intent = [

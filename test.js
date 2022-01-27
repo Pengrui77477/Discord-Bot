@@ -1,5 +1,5 @@
 const express = require("express");
-const discordInfo = require('./db/discord_info');
+const discordInfo = require('./service/db/discord_info');
 const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
@@ -27,6 +27,8 @@ app.post("/discord/createChannel", (req, res) => {
   res.send("createChannel");
 });
 
+
+
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
@@ -41,6 +43,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
+
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
@@ -70,6 +73,7 @@ client.on('guildMemberAdd', async member => {
     // const sendChannel=member.guild.channels.cache.get("935723971310133268");
     // sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
     member.user.send({ ephemeral: true, embeds: [Embed] });
+
   } catch (err) {
     console.log(err)
   }
@@ -151,18 +155,20 @@ client.on("messageCreate", async message => {
         { "name": "channel-1" },
       ]
     });
-    // console.log(Guild);
     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-    const channelId = GuildChannel.id;
     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    // console.log(Invite);
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
+  if (message.content === ".transfer") {
+    message.channel.send(`Now I will to transfer the guild to \`@${message.author.username}\``);
+    setTimeout(async () => {
+      await message.guild.setOwner(message.author)
+        .then(guild => guild.fetchOwner())
+        .then(owner => console.log(`Update the owner :${owner}`));
+    }, 2000);
+  }
   if (message.content === ".showtable") {
     console.log(client.guilds.cache);
-    client.guilds.cache.get("928466320159301643").delete()
-      .then(g => console.log(`Deleted the guild ${g}`))
-      .catch(console.error);
   }
 })
 client.on("messageCreate", async (message) => {

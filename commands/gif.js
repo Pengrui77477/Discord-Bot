@@ -1,5 +1,4 @@
-const { MessageEmbed } = require("discord.js");
-const globalFunctions = require("../globalFunctions");
+const globalFunctions = require("../service/methods/globalFunctions");
 module.exports = {
   name: "gif",
   description: "Find the GIF you want.",
