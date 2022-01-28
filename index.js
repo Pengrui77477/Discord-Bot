@@ -33,7 +33,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const Guild =client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  const member =Guild.members.cache.get(`${req.body.userId}`);
+  const member =Guild.members.cache.get(req.body.userId);
   //如何用户存在当前服务器
   if (member) {
     if (req.body.nftOwner) {
