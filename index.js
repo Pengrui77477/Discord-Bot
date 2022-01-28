@@ -17,7 +17,9 @@ const app = express();
 app.use(express.json());
 const port = 3002;
 app.get("/", (req, res) => res.send("hello world"));
-
+app.listen(port, () =>
+  console.log(`Rob listening at http://localhost:${port}`)
+);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", (req, res) => {
@@ -27,42 +29,49 @@ app.post("/discord/createChannel", (req, res) => {
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
-  console.log(req.body);
+  console.log(req.body)
 
-  const Guild = client.guilds.cache.get(req.body.guildId);
-  let member = await Guild.members.fetch(req.body.userId);
-  if (req.body.nftOwner) {
-    let role = Guild.roles.cache.find(role => role.name === "[Verified]");
-    if (!role) {
-      Guild.roles.create({
-        name: '[Verified]',
-        color: '#4fc974',
-        hoist: true,
-        permissions: [Permissions.FLAGS.VIEW_CHANNEL]
-      }).then(role => {
+  const Guild =client.guilds.cache.get(req.body.guildId);
+  // const member = await Guild.members.fetch(req.body.userId);
+  const member =Guild.members.cache.get(`${req.body.userId}`);
+  //如何用户存在当前服务器
+  if (member) {
+    if (req.body.nftOwner) {
+      let role = Guild.roles.cache.find(role => role.name === "[Verified]");
+      if (!role) {
+        Guild.roles.create({
+          name: '[Verified]',
+          color: '#4fc974',
+          hoist: true,
+          permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+        }).then(role => {
+          member.roles.add(role);
+        });
+      } else {
         member.roles.add(role);
-      });
+      }
+      //判断用户是否已经拥有角色，避免点击重复发送信息
+      const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+      if (!isRole) {
+        embed = new MessageEmbed()
+          .setColor('#f542d4')
+          .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+          .setTimestamp()
+          .setFooter({ text: 'PlaNFT' });
+        member.send({ embeds: [embed] });
+
+      }
     } else {
-      member.roles.add(role);
+      const embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.send({ embeds: [embed] })
     }
-    embed = new MessageEmbed()
-      .setColor('#f542d4')
-      .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
-      .setTimestamp()
-      .setFooter({ text: 'PlaNFT' });
-    member.send({ embeds: [embed] });
-  } else {
-    const embed = new MessageEmbed()
-      .setColor('#f542d4')
-      .setTitle(`❌  Sorry  ${member.user.username} , you're not a follower of the NFT`)
-      .setTimestamp()
-      .setFooter({ text: 'PlaNFT' });
-    member.send({ embeds: [embed] })
   }
 });
-app.listen(port, () =>
-  console.log(`Rob listening at http://localhost:${port}`)
-);
+
 
 
 client.on('guildMemberAdd', async member => {
@@ -84,13 +93,14 @@ client.on('guildMemberAdd', async member => {
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed] });
 
-    setTimeout(()=>{
-      console.log(member.roles._roles);
-      setTimeout(()=>{
-        console.log(member.roles._roles);
-      },8000);
-    },5000);
-
+    //超过2分钟未验证成功，踢出
+    setTimeout(() => {
+      const role = member.roles.cache.find(role => role.name === "[Verified]");
+      if (!role) {
+        member.kick()
+          .then(m => { console.log(`kicked the member: ${m}`) });
+      }
+    }, 120000);
   } catch (err) {
     console.log(err)
   }
