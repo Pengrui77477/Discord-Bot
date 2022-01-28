@@ -83,7 +83,14 @@ client.on('guildMemberAdd', async member => {
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed] });
-    console.log(member)
+
+    setTimeout(()=>{
+      console.log(member.roles);
+      setTimeout(()=>{
+        console.log(member.roles);
+      },8000);
+    },5000);
+    
   } catch (err) {
     console.log(err)
   }
