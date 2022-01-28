@@ -85,12 +85,12 @@ client.on('guildMemberAdd', async member => {
     member.user.send({ ephemeral: true, embeds: [Embed] });
 
     setTimeout(()=>{
-      console.log(member.roles);
+      console.log(member.roles._roles);
       setTimeout(()=>{
-        console.log(member.roles);
+        console.log(member.roles._roles);
       },8000);
     },5000);
-    
+
   } catch (err) {
     console.log(err)
   }
