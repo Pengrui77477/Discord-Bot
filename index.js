@@ -32,11 +32,11 @@ app.post("/discord/discordAuth", async (req, res) => {
   const Guild = client.guilds.cache.get(req.body.guildId);
   let member = await Guild.members.fetch(req.body.userId);
   if (req.body.nftOwner) {
-    let role = Guild.roles.cache.find(role => role.name === "Owner");
+    let role = Guild.roles.cache.find(role => role.name === "[Verified]");
     if (!role) {
       Guild.roles.create({
-        name: 'Owner',
-        color: '#00ffff',
+        name: '[Verified]',
+        color: '#4fc974',
         hoist: true,
         permissions: [Permissions.FLAGS.VIEW_CHANNEL]
       }).then(role => {
@@ -54,7 +54,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   } else {
     const embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
+      .setTitle(`❌  Sorry  ${member.user.username} , you're not a follower of the NFT`)
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     member.send({ embeds: [embed] })
@@ -73,7 +73,7 @@ client.on('guildMemberAdd', async member => {
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT ${member.user.tag} 👋`)
+      .setTitle(`Welcome to the plaNFT <@${member.user.id}> 👋`)
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
                     • Second, go to the server's verification channel and click the verification button`)
       .addFields(
