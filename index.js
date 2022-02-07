@@ -108,12 +108,13 @@ client.on('guildMemberAdd', async member => {
 
 client.on('guildMemberRemove', async member =>{
   userInfo.delInfo(member);
+
 })
 
 //定时操作，避免过久未响应宕机
 setInterval(()=>{
-  console.log('update')
-},120000);
+  console.log('refresh')
+},100000);
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
