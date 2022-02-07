@@ -14,7 +14,13 @@ userInfo.setInfo = function (params) {
         })
     })
 }
-
+// userInfo.getInfo=function(params){
+//     return new Promise(function(resolve,reject){
+//         mysql.getConnection(function(err,connection){
+//             const sql="select "
+//         })
+//     })
+// }
 userInfo.delInfo=function(params){
     return new Promise(function(resolve,reject){
         mysql.getConnection(function(err,connection){

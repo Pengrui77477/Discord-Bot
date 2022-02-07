@@ -35,7 +35,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   const Guild =client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   const member =Guild.members.cache.get(req.body.userId);
-  //如何用户存在当前服务器
+  //如果用户存在当前服务器
   if (member) {
     if (req.body.nftOwner) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
@@ -80,10 +80,9 @@ client.on('guildMemberAdd', async member => {
   //机器人发送私信
   try {
     const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-    const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT <@${member.user.username}> 👋`)
+      .setTitle(`Welcome to the plaNFT ${member.user.username} 👋`)
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
                     • Second, go to the server's verification channel and click the verification button`)
       .addFields(
@@ -100,7 +99,7 @@ client.on('guildMemberAdd', async member => {
         member.kick()
           .then(m => { console.log(`kicked the member: ${m}`) });
       }
-    }, 120000);
+    }, 200000);
   } catch (err) {
     console.log(err)
   }
