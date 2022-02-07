@@ -107,7 +107,7 @@ client.on('guildMemberAdd', async member => {
 });
 
 client.on('guildMemberRemove', async member =>{
-  console.log(member);
+  userInfo.delInfo(member);
 })
 
 //定时操作，避免过久未响应宕机
