@@ -73,7 +73,6 @@ app.post("/discord/discordAuth", async (req, res) => {
 });
 
 
-
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
   //机器人发送私信
@@ -82,12 +81,11 @@ client.on('guildMemberAdd', async member => {
     const statement = 'After verification, please click the button below';
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT <@${member.user.id}> 👋`)
+      .setTitle(`Welcome to the plaNFT <@${member.user.username}> 👋`)
       .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
                     • Second, go to the server's verification channel and click the verification button`)
       .addFields(
         { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
-        { name: 'Then click the button to obtain the guild permission', value: `${statement}`, },
       )
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
@@ -105,6 +103,11 @@ client.on('guildMemberAdd', async member => {
     console.log(err)
   }
 });
+
+//定时操作，避免过久未响应
+setInterval(()=>{
+  console.log('update')
+},120000);
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
