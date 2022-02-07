@@ -15,4 +15,17 @@ userInfo.setInfo = function (params) {
     })
 }
 
+userInfo.delInfo=function(params){
+    return new Promise(function(resolve,reject){
+        mysql.getConnection(function(err,connection){
+            const sql="delete from discord_userinfo where user_id=? and guild_id=?";
+            connection.query(sql,[params.user.id,params.guild.id],function(err,result){
+                if(err) reject(err);
+                resolve(result);
+            });
+            connection.release();
+        })
+    })
+}
+
 module.exports=userInfo;

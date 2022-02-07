@@ -60,6 +60,7 @@ app.post("/discord/discordAuth", async (req, res) => {
           .setTimestamp()
           .setFooter({ text: 'PlaNFT' });
         member.send({ embeds: [embed] });
+        //将该用户信息插入数据库
         userInfo.setInfo(member);
       }
     } else {
@@ -104,6 +105,10 @@ client.on('guildMemberAdd', async member => {
     console.log(err)
   }
 });
+
+client.on('guildMemberRemove', async member =>{
+  console.log(member);
+})
 
 //定时操作，避免过久未响应宕机
 setInterval(()=>{
