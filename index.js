@@ -1,5 +1,6 @@
 const express = require("express");
 // const discordInfo = require('./service/db/discord_info');
+const userInfo = require('./service/db/discord_userInfo');
 const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
@@ -59,7 +60,7 @@ app.post("/discord/discordAuth", async (req, res) => {
           .setTimestamp()
           .setFooter({ text: 'PlaNFT' });
         member.send({ embeds: [embed] });
-
+        userInfo.setInfo(member);
       }
     } else {
       const embed = new MessageEmbed()
@@ -90,7 +91,7 @@ client.on('guildMemberAdd', async member => {
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed] });
-
+    
     //超过2分钟未验证成功，踢出
     setTimeout(() => {
       const role = member.roles.cache.find(role => role.name === "[Verified]");
@@ -104,7 +105,7 @@ client.on('guildMemberAdd', async member => {
   }
 });
 
-//定时操作，避免过久未响应
+//定时操作，避免过久未响应宕机
 setInterval(()=>{
   console.log('update')
 },120000);
