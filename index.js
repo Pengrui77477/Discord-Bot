@@ -93,13 +93,13 @@ client.on('guildMemberAdd', async member => {
     member.user.send({ ephemeral: true, embeds: [Embed] });
     
     //超过2分钟未验证成功，踢出
-    setTimeout(() => {
-      const role = member.roles.cache.find(role => role.name === "[Verified]");
-      if (!role) {
-        member.kick()
-          .then(m => { console.log(`kicked the member: ${m}`) });
-      }
-    }, 200000);
+    // setTimeout(() => {
+    //   const role = member.roles.cache.find(role => role.name === "[Verified]");
+    //   if (!role) {
+    //     member.kick()
+    //       .then(m => { console.log(`kicked the member: ${m}`) });
+    //   }
+    // }, 200000);
   } catch (err) {
     console.log(err)
   }
