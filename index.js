@@ -65,8 +65,10 @@ app.post("/discord/discordAuth", async (req, res) => {
         userInfo.setInfo(member);
       }
     } else {
+      //判断用户是否已经拥有角色，避免点击重复发送信息
       const isRole = member.roles.cache.find(role => role.name === "[Verified]");
       if (isRole) return;
+
       const embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
@@ -115,7 +117,7 @@ client.on('guildMemberRemove', async member =>{
 
 //定时操作，避免过久未响应宕机
 setInterval(()=>{
-  console.log('refresh')
+  console.log('refresh...')
 },30000);
 
 client.once("ready", () => {
