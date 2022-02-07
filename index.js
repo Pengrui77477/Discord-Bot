@@ -84,8 +84,8 @@ client.on('guildMemberAdd', async member => {
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
       .setTitle(`Welcome to the plaNFT ${member.user.username} 👋`)
-      .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-                    • Second, go to the server's verification channel and click the verification button`)
+      // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
+      //               • Second, go to the server's verification channel and click the verification button`)
       .addFields(
         { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
       )

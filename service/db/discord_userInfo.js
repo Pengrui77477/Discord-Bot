@@ -14,13 +14,18 @@ userInfo.setInfo = function (params) {
         })
     })
 }
-// userInfo.getInfo=function(params){
-//     return new Promise(function(resolve,reject){
-//         mysql.getConnection(function(err,connection){
-//             const sql="select "
-//         })
-//     })
-// }
+userInfo.getInfo=function(params){
+    return new Promise(function(resolve,reject){
+        mysql.getConnection(function(err,connection){
+            const sql="select (user_id,guild_id) from discord_userinfo where user_id=?";
+            connection.query(sql, [params.user.id], function (err, result) {
+                if (err) reject(err);
+                resolve(result);
+            });
+            connection.release();
+        })
+    })
+}
 userInfo.delInfo=function(params){
     return new Promise(function(resolve,reject){
         mysql.getConnection(function(err,connection){
