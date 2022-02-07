@@ -35,6 +35,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   const Guild =client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   const member =Guild.members.cache.get(req.body.userId);
+
   //如果用户存在当前服务器
   if (member) {
     if (req.body.nftOwner) {
@@ -113,7 +114,7 @@ client.on('guildMemberRemove', async member =>{
 //定时操作，避免过久未响应宕机
 setInterval(()=>{
   console.log('refresh')
-},100000);
+},30000);
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
