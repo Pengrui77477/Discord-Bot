@@ -83,7 +83,7 @@ client.on('guildMemberAdd', async member => {
     const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
     const Embed = new MessageEmbed()
       .setColor('#f542d4')
-      .setTitle(`Hi !  ${member.user.username} . Welcome to the plaNFT 👋`)
+      .setTitle(`Hi,${member.user.username}. Welcome to the plaNFT 👋`)
       // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
       //               • Second, go to the server's verification channel and click the verification button`)
       .addFields(
