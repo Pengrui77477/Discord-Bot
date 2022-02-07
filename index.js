@@ -65,6 +65,8 @@ app.post("/discord/discordAuth", async (req, res) => {
         userInfo.setInfo(member);
       }
     } else {
+      const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+      if (isRole) return;
       const embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
