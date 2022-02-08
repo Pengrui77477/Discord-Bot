@@ -23,8 +23,17 @@ app.listen(port, () =>
 );
 
 // 接收创建服务器的请求
-app.post("/discord/createChannel", (req, res) => {
+app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
+  console.log(req.body);
+  // const Guild = await client.guilds.create(`${req.body.nftName}`, {
+  //   channels: [
+  //     { "name": "channel-1" },
+  //   ]
+  // });
+  // const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+  // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+  // console.log(Invite.url);
 });
 
 // 接收验证结果
@@ -32,9 +41,9 @@ app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
 
-  const Guild =client.guilds.cache.get(req.body.guildId);
+  const Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  const member =Guild.members.cache.get(req.body.userId);
+  const member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
   if (member) {
@@ -96,7 +105,7 @@ client.on('guildMemberAdd', async member => {
       .setTimestamp()
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed] });
-    
+
     //超过2分钟未验证成功，踢出
     // setTimeout(() => {
     //   const role = member.roles.cache.find(role => role.name === "[Verified]");
@@ -110,15 +119,15 @@ client.on('guildMemberAdd', async member => {
   }
 });
 
-client.on('guildMemberRemove', async member =>{
+client.on('guildMemberRemove', async member => {
   userInfo.delInfo(member);
 
 })
 
 //定时操作，避免过久未响应宕机
-setInterval(()=>{
+setInterval(() => {
   console.log('refresh...')
-},30000);
+}, 30000);
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
