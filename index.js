@@ -1,6 +1,6 @@
 const express = require("express");
-// const discordInfo = require('./service/db/discord_info');
-const userInfo = require('./service/db/discord_userInfo');
+const discordInfo = require('./service/db/discord_info');
+// const userInfo = require('./service/db/discord_userInfo');
 const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions } = require('discord.js');
@@ -27,14 +27,22 @@ app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
 
   console.log(req.body);
-  // const Guild = await client.guilds.create(`${req.body.nftName}`, {
-  //   channels: [
-  //     { "name": "channel-1" },
-  //   ]
-  // });
-  // const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-  // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-  // console.log(Invite.url);
+  const Guild = await client.guilds.create(`${req.body.data.title}`, {
+    channels: [
+      { "name": "channel-1" },
+    ]
+  });
+  const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+  const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+  console.log(Invite.url);
+  //guild_id,guild_name,invite_link,chain_symbol
+  const info={
+    guild_id:Guild.id,
+    guild_name:Guild.name,
+    invite_link:Invite.url,
+    chain_symbol:req.body.data.chainSymbol
+  };
+  discordInfo.setInfo(info);
 });
 
 // 接收验证结果
@@ -72,7 +80,7 @@ app.post("/discord/discordAuth", async (req, res) => {
           .setFooter({ text: 'PlaNFT' });
         member.send({ embeds: [embed] });
         //将该用户信息插入数据库
-        userInfo.setInfo(member);
+        // userInfo.setInfo(member);
       }
     } else {
       //判断用户是否已经拥有角色，避免点击重复发送信息
@@ -120,10 +128,10 @@ client.on('guildMemberAdd', async member => {
   }
 });
 
-client.on('guildMemberRemove', async member => {
-  userInfo.delInfo(member);
+// client.on('guildMemberRemove', async member => {
+//   userInfo.delInfo(member);
 
-})
+// })
 
 //定时操作，避免过久未响应宕机
 setInterval(() => {
@@ -156,6 +164,7 @@ client.on("messageCreate", async message => {
     })
       .then(
         channel => {
+
           channel.createChannel('Text-1', {
             type: 'GUILD_TEST',
             permissionOverwrites: [{
@@ -163,6 +172,7 @@ client.on("messageCreate", async message => {
               deny: ['VIEW_CHANNEL'],
             }]
           });
+
           // channel.setPosition(2)
           //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
           //   .catch(console.error);
@@ -174,12 +184,15 @@ client.on("messageCreate", async message => {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
       channels: [
         { "name": "channel-1" },
-      ]
+      ],
+      roles
     });
     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
+
+
   if (message.content === ".transfer") {
     message.channel.send(`Now I will to transfer the guild to \`@${message.author.username}\``);
     setTimeout(async () => {
