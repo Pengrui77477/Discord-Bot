@@ -154,7 +154,11 @@ client.on("messageCreate", async message => {
         deny: ['VIEW_CHANNEL'],
       }]
     })
-      .then(channel => { console.log(`Created the channel : ${channel}`)})
+      .then(
+        channel => {
+          console.log(channel);
+        }
+      )
   }
 
   if (message.content == ".createguild") {
