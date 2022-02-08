@@ -142,8 +142,20 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
+
+  if (message.content === "createCategoryChannel") {
+    await message.guild.channels.create(`nft-1`, {
+      type: 'GUILD_CATEGORY',
+      permissionOverwrites: [{
+        id: message.guild.id,
+        deny: ['VIEW_CHANNEL'],
+      }]
+    })
+      .then(channel => { console.log(`Created the channel : ${channel}`)})
+  }
 
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
@@ -167,6 +179,7 @@ client.on("messageCreate", async message => {
     console.log(client.guilds.cache);
   }
 })
+
 client.on("messageCreate", async (message) => {
   if (
     message.content == `<@${client.user.id}>` ||
