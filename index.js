@@ -156,7 +156,16 @@ client.on("messageCreate", async message => {
     })
       .then(
         channel => {
-          console.log(channel);
+          channel.createChannel('Text-1', {
+            type: 'GUILD_TEST',
+            permissionOverwrites: [{
+              id: message.guild.id,
+              allow: ['VIEW_CHANNEL'],
+            }]
+          });
+          channel.setPosition(2)
+            .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
+            .catch(console.error);
         }
       )
   }
