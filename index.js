@@ -25,6 +25,7 @@ app.listen(port, () =>
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
+
   console.log(req.body);
   // const Guild = await client.guilds.create(`${req.body.nftName}`, {
   //   channels: [
