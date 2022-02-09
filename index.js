@@ -178,9 +178,7 @@ client.on("messageCreate", async message => {
       )
   }
   if (message.content == ".template") {
-    client.fetchGuildTemplate('https://discord.new/VYfrTKrCHVVc')
-      .then(template => console.log(template.code))
-      .catch(console.error);
+    console.log(message.guild.GuildTemplate)
   }
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
