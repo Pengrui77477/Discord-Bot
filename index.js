@@ -40,7 +40,8 @@ app.post("/discord/createChannel", async (req, res) => {
         guild_name: Guild.name,
         invite_link: Invite.url,
         chain_symbol: data.chainSymbol,
-        contract_address:data.contractAddress
+        contract_address:data.contractAddress,
+        mint_name:data.userInfo.teleUsername
       };
       discordInfo.setInfo(info);
     });
