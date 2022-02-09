@@ -30,20 +30,20 @@ app.post("/discord/createChannel", async (req, res) => {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     const temp = await TemplateGuild.fetchTemplates();
     console.log(temp);
-    // temp.forEach(async template => {
-    //   // console.log(template);
-    //   const Guild = await template.createGuild("test-template");
-    //   const GuildChannel = Guild.channels.cache.find(channel => channel.name == "常规");
-    //   const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //   console.log(Invite.url);
-    //   const info = {
-    //     guild_id: Guild.id,
-    //     guild_name: Guild.name,
-    //     invite_link: Invite.url,
-    //     chain_symbol: req.body.data.chainSymbol
-    //   };
-    //   discordInfo.setInfo(info);
-    // });
+    temp.forEach(async template => {
+      // console.log(template);
+      const Guild = await template.createGuild(`${req.body.data.title}`);
+      const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+      const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+      console.log(Invite.url);
+      const info = {
+        guild_id: Guild.id,
+        guild_name: Guild.name,
+        invite_link: Invite.url,
+        chain_symbol: req.body.data.chainSymbol
+      };
+      discordInfo.setInfo(info);
+    });
   } catch (err) {
     console.log(err)
   }
