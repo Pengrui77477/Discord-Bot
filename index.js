@@ -36,11 +36,11 @@ app.post("/discord/createChannel", async (req, res) => {
   const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
   console.log(Invite.url);
   //guild_id,guild_name,invite_link,chain_symbol
-  const info={
-    guild_id:Guild.id,
-    guild_name:Guild.name,
-    invite_link:Invite.url,
-    chain_symbol:req.body.data.chainSymbol
+  const info = {
+    guild_id: Guild.id,
+    guild_name: Guild.name,
+    invite_link: Invite.url,
+    chain_symbol: req.body.data.chainSymbol
   };
   discordInfo.setInfo(info);
 });
@@ -154,7 +154,7 @@ for (const file of commandFiles) {
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
 
-  if (message.content === "createCategoryChannel") {
+  if (message.content === ".createCategoryChannel") {
     await message.guild.channels.create(`nft-1`, {
       type: 'GUILD_CATEGORY',
       permissionOverwrites: [{
@@ -162,24 +162,26 @@ client.on("messageCreate", async message => {
         deny: ['VIEW_CHANNEL'],
       }]
     })
-      .then(
-        channel => {
+      .then(channel => {
+        channel.createChannel('Text-1', {
+          type: 'GUILD_TEST',
+          permissionOverwrites: [{
+            id: message.guild.id,
+            deny: ['VIEW_CHANNEL'],
+          }]
+        });
 
-          channel.createChannel('Text-1', {
-            type: 'GUILD_TEST',
-            permissionOverwrites: [{
-              id: message.guild.id,
-              deny: ['VIEW_CHANNEL'],
-            }]
-          });
-
-          // channel.setPosition(2)
-          //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
-          //   .catch(console.error);
-        }
+        // channel.setPosition(2)
+        //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
+        //   .catch(console.error);
+      }
       )
   }
-
+  if (message.content == ".template") {
+    client.fetchGuildTemplate('https://discord.new/VYfrTKrCHVVc')
+      .then(template => console.log(`Obtained template with code: ${template.code}`))
+      .catch(console.error);
+  }
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
       channels: [
