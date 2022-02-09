@@ -26,7 +26,7 @@ app.listen(port, () =>
 app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
   console.log(req.body);
-  let data=req.body.data;
+  let data = req.body.data;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -40,8 +40,8 @@ app.post("/discord/createChannel", async (req, res) => {
         guild_name: Guild.name,
         invite_link: Invite.url,
         chain_symbol: data.chainSymbol,
-        contract_address:data.contractAddress,
-        mint_name:data.userInfo.teleUsername
+        contract_address: data.contractAddress,
+        mint_name: data.userInfo.teleUsername
       };
       discordInfo.setInfo(info);
     });
@@ -190,8 +190,7 @@ client.on("messageCreate", async message => {
         // channel.setPosition(2)
         //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
         //   .catch(console.error);
-      }
-      )
+      })
   }
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
@@ -205,9 +204,9 @@ client.on("messageCreate", async message => {
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
 
-  if(message.content==".leave"){
+  if (message.content == ".leave") {
     message.guild.leave()
-      .then(g=>console.log(`Left the guild ${g}`))
+      .then(g => console.log(`Left the guild : ${g}`))
       .catch(console.error);
   }
 
