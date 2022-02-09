@@ -32,6 +32,12 @@ app.post("/discord/createChannel", async (req, res) => {
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
       const Guild = await template.createGuild(`${data.title}`);
+
+      //设置机器人自身的角色
+      const robRole = Guild.members.cache.get(Guild.ownerId);
+      let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+      robRole.roles.add(role);
+      
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
@@ -222,6 +228,19 @@ client.on("messageCreate", async message => {
     console.log(client.guilds.cache);
   }
 })
+
+// setInterval(async ()=>{
+//   const TestGuild = client.guilds.cache.get('940819652915920996');
+//   await TestGuild.channels.create(`Test-PlaNFT-channel-${(Math.random()*100).toFixed()}`, {
+//     type: 'GUILD_CATEGORY',
+//     permissionOverwrites: [{
+//       id: message.guild.id,
+//       // deny: ['VIEW_CHANNEL'],
+//     }]
+//   })
+//     .then(channel => { console.log(`Created the channel : ${channel.id}`) })
+//     .catch(console.error);
+// },1000)
 
 client.on("messageCreate", async (message) => {
   if (
