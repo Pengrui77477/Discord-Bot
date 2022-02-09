@@ -166,6 +166,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
 
@@ -204,6 +205,11 @@ client.on("messageCreate", async message => {
     message.channel.send(`邀请您进群: ${Invite.url}`);
   };
 
+  if(message.content==".leave"){
+    message.guild.leave()
+      .then(g=>console.log(`Left the guild ${g}`))
+      .catch(console.error);
+  }
 
   if (message.content === ".transfer") {
     message.channel.send(`Now I will to transfer the guild to \`@${message.author.username}\``);
