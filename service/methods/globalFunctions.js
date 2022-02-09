@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 require('dotenv').config()
-console.log(process.env.GIPHY_KEY);
 const globalFunctions = {
   getGif: async function (query, limit, variable) {
         const giphy = await fetch(
