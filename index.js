@@ -178,7 +178,7 @@ client.on("messageCreate", async message => {
       )
   }
   if (message.content == ".template") {
-    console.log(client.GuildTemplate)
+    console.log(client.guilds);
   }
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
