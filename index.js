@@ -179,7 +179,7 @@ client.on("messageCreate", async message => {
   }
   if (message.content == ".template") {
     client.fetchGuildTemplate('https://discord.new/VYfrTKrCHVVc')
-      .then(template => console.log(`Obtained template with code: ${template.code}`))
+      .then(template => console.log(template.code))
       .catch(console.error);
   }
   if (message.content == ".createguild") {
