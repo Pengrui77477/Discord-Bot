@@ -26,11 +26,12 @@ app.listen(port, () =>
 app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
   console.log(req.body);
+  let data=req.body.data;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
-      const Guild = await template.createGuild(`${req.body.data.title}`);
+      const Guild = await template.createGuild(`${data.title}`);
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
@@ -38,7 +39,8 @@ app.post("/discord/createChannel", async (req, res) => {
         guild_id: Guild.id,
         guild_name: Guild.name,
         invite_link: Invite.url,
-        chain_symbol: req.body.data.chainSymbol
+        chain_symbol: data.chainSymbol,
+        contract_address:data.contractAddress
       };
       discordInfo.setInfo(info);
     });
