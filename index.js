@@ -29,7 +29,6 @@ app.post("/discord/createChannel", async (req, res) => {
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     const temp = await TemplateGuild.fetchTemplates();
-    console.log(temp);
     temp.forEach(async template => {
       // console.log(template);
       const Guild = await template.createGuild(`${req.body.data.title}`);
