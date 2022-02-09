@@ -25,24 +25,38 @@ app.listen(port, () =>
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   res.send("createChannel");
-
   console.log(req.body);
-  const Guild = await client.guilds.create(`${req.body.data.title}`, {
-    channels: [
-      { "name": "channel-1" },
-    ]
-  });
-  const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-  const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-  console.log(Invite.url);
+  try {
+    const TemplateGuild = client.guilds.cache.get('936435431254413392');
+    const temp = await TemplateGuild.fetchTemplates();
+    console.log(temp);
+    // temp.forEach(async template => {
+    //   // console.log(template);
+    //   const Guild = await template.createGuild("test-template");
+    //   const GuildChannel = Guild.channels.cache.find(channel => channel.name == "常规");
+    //   const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+    //   console.log(Invite.url);
+    //   const info = {
+    //     guild_id: Guild.id,
+    //     guild_name: Guild.name,
+    //     invite_link: Invite.url,
+    //     chain_symbol: req.body.data.chainSymbol
+    //   };
+    //   discordInfo.setInfo(info);
+    // });
+  } catch (err) {
+    console.log(err)
+  }
+  // const Guild = await client.guilds.create(`${req.body.data.title}`, {
+  //   channels: [
+  //     { "name": "channel-1" },
+  //   ]
+  // });
+  // const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
+  // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+  // console.log(Invite.url);
   //guild_id,guild_name,invite_link,chain_symbol
-  const info = {
-    guild_id: Guild.id,
-    guild_name: Guild.name,
-    invite_link: Invite.url,
-    chain_symbol: req.body.data.chainSymbol
-  };
-  discordInfo.setInfo(info);
+  
 });
 
 // 接收验证结果
@@ -176,9 +190,6 @@ client.on("messageCreate", async message => {
         //   .catch(console.error);
       }
       )
-  }
-  if (message.content == ".template") {
-    console.log(client.guilds);
   }
   if (message.content == ".createguild") {
     const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
