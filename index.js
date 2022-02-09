@@ -28,8 +28,7 @@ app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
-    const temp = await TemplateGuild.fetchTemplates();
-    temp.forEach(async template => {
+    (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
       const Guild = await template.createGuild(`${req.body.data.title}`);
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
@@ -55,7 +54,7 @@ app.post("/discord/createChannel", async (req, res) => {
   // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
   // console.log(Invite.url);
   //guild_id,guild_name,invite_link,chain_symbol
-  
+
 });
 
 // 接收验证结果
