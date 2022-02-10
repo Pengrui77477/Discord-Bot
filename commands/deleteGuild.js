@@ -7,7 +7,7 @@ module.exports = {
       message.guild.delete()
       .then(g => {
         console.log(`Deleted the guild ${g}`);
-        discordInfo.updateInfo(g.id);
+        discordInfo.updateInfo(g);
       })
       .catch(console.error);
     },
