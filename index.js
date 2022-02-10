@@ -3,7 +3,7 @@ const discordInfo = require('./service/db/discord_info');
 // const userInfo = require('./service/db/discord_userInfo');
 const fs = require("fs");
 const Discord = require("discord.js");
-const { MessageEmbed, Permissions } = require('discord.js');
+const { MessageEmbed, Permissions } = Discord;
 const intent = [
   'GUILD_PRESENCES',
   'GUILD_MEMBERS',
