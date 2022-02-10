@@ -56,7 +56,9 @@ app.post("/discord/createChannel", async (req, res) => {
         invite_link: Invite.url,
         chain_symbol: data.chainSymbol,
         contract_address: data.contractAddress,
-        mint_name: data.userInfo.teleUsername
+        mint_name: user.username,
+        user_id:user.id,
+        access_token:token.access_token
       };
       discordInfo.setInfo(info);
       res.send(info);
