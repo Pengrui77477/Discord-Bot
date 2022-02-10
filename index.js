@@ -25,8 +25,9 @@ app.listen(port, () =>
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
-  let data = req.body.data;
-
+  const data = req.body.data;
+  const user=req.body.data.val;
+  const token=req.body.data.token;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -41,6 +42,14 @@ app.post("/discord/createChannel", async (req, res) => {
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
+
+      //通过OAuth2将成员自动拉进服务器
+      await Guild.members.add(user,{
+        accessToken:token.access_token
+      })
+
+
+
       const info = {
         guild_id: Guild.id,
         guild_name: Guild.name,
@@ -58,8 +67,8 @@ app.post("/discord/createChannel", async (req, res) => {
 
   //第二版 创建频道
   // try {
-  //   const Guild = client.guilds.cache.get('936435431254413392');
-  //   await Guild.channels.create(`${data.title}`, {
+  //   const Guild = client.guilds.cache.get('940920098577870888');
+  //   await Guild.channels.create(`Test-PlaNFT-channel-${data.title}`, {
   //     type: 'GUILD_CATEGORY',
   //     permissionOverwrites: [{
   //       id: Guild.id,
@@ -67,17 +76,24 @@ app.post("/discord/createChannel", async (req, res) => {
   //     }]
   //   })
   //     .then(categoryChannel => {
-  //       categoryChannel.createChannel(`${data.title}-1`, {
+  //       const member = Guild.members.cache.get('928445836004831294');
+  //       if (!categoryChannel.permissionsFor(member).has("VIEW_CHANNEL")) {
+  //         categoryChannel.permissionOverwrites.create(message.author, {
+  //           'VIEW_CHANNEL': true,
+  //           // 'EMBED_LINKS': null,
+  //           // 'ATTACH_FILES': false,
+  //         })
+  //       }
+  //       categoryChannel.createChannel(`${data.title}`, {
   //         type: 'GUILD_TEXT',
   //         permissionOverwrites: [{
   //           id: Guild.id,
-  //           deny: ['VIEW_CHANNEL'],
+  //           // deny: ['VIEW_CHANNEL'],
   //         }]
   //       })
-  //       .then(channel => console.log(channel));
-  //       // categoryChannel.setPosition(2)
-  //       //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
-  //       //   .catch(console.error);
+  //         .then(async channel => {
+  //           await channel.lockPermissions();
+  //         })
   //     })
   // } catch (err) {
   //   console.log(err);
@@ -252,7 +268,7 @@ client.on("messageCreate", async message => {
 //   await TestGuild.channels.create(`Test-PlaNFT-channel-${(Math.random()*100).toFixed()}`, {
 //     type: 'GUILD_CATEGORY',
 //     permissionOverwrites: [{
-//       id: message.guild.id,
+//       id: TestGuild.id,
 //       // deny: ['VIEW_CHANNEL'],
 //     }]
 //   })
