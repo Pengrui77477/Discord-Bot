@@ -24,7 +24,7 @@ app.listen(port, () =>
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
-  res.send("createChannel");
+  
   console.log(req.body);
   let data = req.body.data;
   try {
@@ -50,6 +50,7 @@ app.post("/discord/createChannel", async (req, res) => {
         mint_name: data.userInfo.teleUsername
       };
       discordInfo.setInfo(info);
+      res.send(info);
     });
   } catch (err) {
     console.log(err)
@@ -64,11 +65,7 @@ app.post("/discord/createChannel", async (req, res) => {
   // console.log(Invite.url);
   //guild_id,guild_name,invite_link,chain_symbol
 
-})
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => console.log(err));
+});
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
