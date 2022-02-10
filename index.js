@@ -44,11 +44,7 @@ app.post("/discord/createChannel", async (req, res) => {
       console.log(Invite.url);
 
       //通过OAuth2将成员自动拉进服务器
-      // const member = Guild.members.cache.get(user.id);
-      await Guild.members.add(user.id, {
-        access_token: token.access_token
-      })
-      // console.log(member);
+      await Guild.members.add(user.id, token.access_token)
 
 
 
