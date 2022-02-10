@@ -24,9 +24,9 @@ app.listen(port, () =>
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
-  
   console.log(req.body);
   let data = req.body.data;
+
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -55,16 +55,33 @@ app.post("/discord/createChannel", async (req, res) => {
   } catch (err) {
     console.log(err)
   }
-  // const Guild = await client.guilds.create(`${req.body.data.title}`, {
-  //   channels: [
-  //     { "name": "channel-1" },
-  //   ]
-  // });
-  // const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
-  // const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-  // console.log(Invite.url);
-  //guild_id,guild_name,invite_link,chain_symbol
 
+  //第二版 创建频道
+  // try {
+  //   const Guild = client.guilds.cache.get('936435431254413392');
+  //   await Guild.channels.create(`${data.title}`, {
+  //     type: 'GUILD_CATEGORY',
+  //     permissionOverwrites: [{
+  //       id: Guild.id,
+  //       deny: ['VIEW_CHANNEL'],
+  //     }]
+  //   })
+  //     .then(categoryChannel => {
+  //       categoryChannel.createChannel(`${data.title}-1`, {
+  //         type: 'GUILD_TEXT',
+  //         permissionOverwrites: [{
+  //           id: Guild.id,
+  //           deny: ['VIEW_CHANNEL'],
+  //         }]
+  //       })
+  //       .then(channel => console.log(channel));
+  //       // categoryChannel.setPosition(2)
+  //       //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
+  //       //   .catch(console.error);
+  //     })
+  // } catch (err) {
+  //   console.log(err);
+  // }
 });
 
 // 接收验证结果
