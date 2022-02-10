@@ -43,8 +43,9 @@ app.post("/discord/createChannel", async (req, res) => {
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
 
+      console.log(token.access_token)
       //通过OAuth2将成员自动拉进服务器
-      await Guild.members.add(user.id, token.access_token)
+      // await Guild.members.add(user.id, token.access_token)
 
 
 
