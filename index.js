@@ -37,7 +37,7 @@ app.post("/discord/createChannel", async (req, res) => {
       const robRole = Guild.members.cache.get(Guild.ownerId);
       let role = Guild.roles.cache.find(role => role.name === "[BOT]");
       robRole.roles.add(role);
-      
+
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
@@ -64,7 +64,11 @@ app.post("/discord/createChannel", async (req, res) => {
   // console.log(Invite.url);
   //guild_id,guild_name,invite_link,chain_symbol
 
-});
+})
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => console.log(err));
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
@@ -136,7 +140,7 @@ client.on('guildMemberAdd', async member => {
       .setFooter({ text: 'PlaNFT' });
     member.user.send({ ephemeral: true, embeds: [Embed] });
 
-    //超过2分钟未验证成功，踢出
+    //超过一定时间未验证成功，踢出
     // setTimeout(() => {
     //   const role = member.roles.cache.find(role => role.name === "[Verified]");
     //   if (!role) {
