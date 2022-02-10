@@ -26,8 +26,8 @@ app.listen(port, () =>
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body.data;
-  const user=req.body.data.val;
-  const token=req.body.data.token;
+  const user = req.body.data.val;
+  const token = req.body.data.token;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -45,7 +45,9 @@ app.post("/discord/createChannel", async (req, res) => {
 
       //通过OAuth2将成员自动拉进服务器
       // const member = Guild.members.cache.get(user.id);
-      await Guild.members.add(user.id)
+      await Guild.members.add(user.id, {
+        access_token: token.access_token
+      })
       // console.log(member);
 
 
@@ -57,10 +59,10 @@ app.post("/discord/createChannel", async (req, res) => {
         chain_symbol: data.chainSymbol,
         contract_address: data.contractAddress,
         mint_name: user.username,
-        user_id:user.id,
-        access_token:token.access_token
+        user_id: user.id,
+        access_token: token.access_token
       };
-      discordInfo.setInfo(info);
+      await discordInfo.setInfo(info);
       res.send(info);
     });
   } catch (err) {
