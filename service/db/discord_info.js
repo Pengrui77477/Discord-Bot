@@ -5,13 +5,26 @@ const discordInfo = {};
 discordInfo.setInfo = function (params) {
     return new Promise(function (resolve, reject) {
         mysql.getConnection(function (err, connection) {
-            const sql = "insert into test_discord_guild (guild_id,guild_name,invite_link,chain_symbol,contract_address,mint_name) value (?,?,?,?,?,?)";
-            connection.query(sql, [params.guild_id, params.guild_name, params.invite_link,params.chain_symbol,params.contract_address,params.mint_name], function (err, result) {
+            const sql = "insert into test_discord_guild (guild_id,guild_name,invite_link,chain_symbol,contract_address,mint_name,status) value (?,?,?,?,?,?,?)";
+            connection.query(sql, [params.guild_id, params.guild_name, params.invite_link,params.chain_symbol,params.contract_address,params.mint_name,'available'], function (err, result) {
                 if (err) reject(err);
                 resolve(result);
             });
             connection.release();
         })
+    })
+}
+
+discordInfo.updateInfo = function (params) {
+    return new Promise(function (resolve, reject) {
+        mysql.getConnection(function (err, connection) {
+            const sql = 'UPDATE test_discord_guild SET status=? where guild_id=?';
+            connection.query(sql, ["block up",params.id], function (err, result) {
+                if (err) reject(err);
+                resolve(result);
+            });
+            connection.release();
+        });
     })
 }
 
@@ -28,18 +41,7 @@ discordInfo.setInfo = function (params) {
 //     })
 // }
 
-// discordInfo.updateInfo = function (params) {
-//     return new Promise(function (resolve, reject) {
-//         mysql.getConnection(function (err, connection) {
-//             const sql = 'UPDATE discord_info SET nft_owner=?,nft_follower = ? WHERE user_id = ? and guild_id =?';
-//             connection.query(sql, [params.nftOwner, params.nftFollower, params.userId, params.guildId], function (err, result) {
-//                 if (err) reject(err);
-//                 resolve(result);
-//             });
-//             connection.release();
-//         });
-//     })
-// }
+
 
 // discordInfo.getInfo = function (params) {
 //     return new Promise(function (resolve, reject) {
