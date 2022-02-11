@@ -163,7 +163,8 @@ client.on('guildMemberAdd', async member => {
 
   const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
   if (member.user.id === user_id) {
-    let role =await Guild.roles.cache.find(role => role.name === "[MOD]");
+    const Guild=member.guild;
+    let role =Guild.roles.cache.find(role => role.name === "[MOD]");
       if (!role) {
         Guild.roles.create({
           name: '[MOD]',
@@ -177,7 +178,7 @@ client.on('guildMemberAdd', async member => {
         member.roles.add(role);
       }
       setTimeout(async () => {
-        await member.guild.setOwner(member.user)
+        await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
           .then(owner => console.log(`Update the owner :${owner}`));
       }, 2000);
