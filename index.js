@@ -3,7 +3,7 @@ const discordInfo = require('./service/db/discord_info');
 // const userInfo = require('./service/db/discord_userInfo');
 const fs = require("fs");
 const Discord = require("discord.js");
-const { MessageEmbed, Permissions } = Discord;
+const { MessageEmbed, Permissions, Shard } = Discord;
 const intent = [
   'GUILD_PRESENCES',
   'GUILD_MEMBERS',
@@ -160,11 +160,12 @@ app.post("/discord/discordAuth", async (req, res) => {
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
-
-  const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
-  if (member.user.id === user_id) {
-    const Guild=member.guild;
-    let role =Guild.roles.cache.find(role => role.name === "[MOD]");
+  
+  try {
+    const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
+    if (member.user.id === user_id) {
+      const Guild = member.guild;
+      let role = Guild.roles.cache.find(role => role.name === "[MOD]");
       if (!role) {
         Guild.roles.create({
           name: '[MOD]',
@@ -190,37 +191,39 @@ client.on('guildMemberAdd', async member => {
           .then(owner => console.log(`Update the owner :${owner}`));
       }, 2000);
 
-      return ;
+      return;
     }
+  } catch (error) {
+    console.log(error)
+  }
+  //机器人发送私信
+  try {
+    // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+    const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+    const Embed = new MessageEmbed()
+      .setColor('#f542d4')
+      .setTitle(`Welcome to the plaNFT 👋`)
+      // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
+      //               • Second, go to the server's verification channel and click the verification button`)
+      .addFields(
+        { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+      )
+      .setTimestamp()
+      .setFooter({ text: 'PlaNFT' });
+    member.user.send({ ephemeral: true, embeds: [Embed] });
 
-    //机器人发送私信
-    try {
-      // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      const Embed = new MessageEmbed()
-        .setColor('#f542d4')
-        .setTitle(`Welcome to the plaNFT 👋`)
-        // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-        //               • Second, go to the server's verification channel and click the verification button`)
-        .addFields(
-          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
-        )
-        .setTimestamp()
-        .setFooter({ text: 'PlaNFT' });
-      member.user.send({ ephemeral: true, embeds: [Embed] });
-
-      //超过一定时间未验证成功，踢出
-      // setTimeout(() => {
-      //   const role = member.roles.cache.find(role => role.name === "[Verified]");
-      //   if (!role) {
-      //     member.kick()
-      //       .then(m => { console.log(`kicked the member: ${m}`) });
-      //   }
-      // }, 200000);
-    } catch (err) {
-      console.log(err)
-    }
-  });
+    //超过一定时间未验证成功，踢出
+    // setTimeout(() => {
+    //   const role = member.roles.cache.find(role => role.name === "[Verified]");
+    //   if (!role) {
+    //     member.kick()
+    //       .then(m => { console.log(`kicked the member: ${m}`) });
+    //   }
+    // }, 200000);
+  } catch (err) {
+    console.log(err)
+  }
+});
 
 // client.on('guildMemberRemove', async member => {
 //   userInfo.delInfo(member);
@@ -276,7 +279,6 @@ client.on("messageCreate", async message => {
       channels: [
         { "name": "channel-1" },
       ],
-      roles
     });
     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "channel-1");
     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
