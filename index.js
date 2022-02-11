@@ -301,7 +301,9 @@ client.on("messageCreate", async message => {
     console.log(client.guilds.cache);
   }
   if (message.content.includes(".deleteGuild")) {
-    console.log(message.content);
+    
+    const res=message.content.split(" ");
+    console.log(res);
   }
 })
 
