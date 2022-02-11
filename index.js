@@ -299,6 +299,9 @@ client.on("messageCreate", async message => {
   if (message.content === ".showtable") {
     console.log(client.guilds.cache);
   }
+  if (message.content.includes(".deleteGuild")) {
+    console.log(message.content);
+  }
 })
 
 // setInterval(async ()=>{
