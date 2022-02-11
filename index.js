@@ -303,7 +303,7 @@ client.on("messageCreate", async message => {
   if (message.content.includes(".deleteGuild")) {
     
     const res=message.content.split(" ");
-    console.log(res);
+    console.log((res.reverse())[0]);
   }
 })
 
