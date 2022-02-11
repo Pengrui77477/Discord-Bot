@@ -177,12 +177,20 @@ client.on('guildMemberAdd', async member => {
       } else {
         member.roles.add(role);
       }
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
+
       setTimeout(async () => {
         await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
           .then(owner => console.log(`Update the owner :${owner}`));
       }, 2000);
-      return;
+
+      return ;
     }
 
     //机器人发送私信
