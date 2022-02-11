@@ -63,7 +63,7 @@ app.post("/discord/createChannel", async (req, res) => {
         mute: false,
         deaf: false
       })
-        .then(g => console.log(g))
+        .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
         .catch(console.error);
     });
   } catch (err) {
