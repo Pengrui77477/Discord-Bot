@@ -300,7 +300,7 @@ client.on("messageCreate", async message => {
   if (message.content === ".showtable") {
     console.log(client.guilds.cache);
   }
-  if (message.content.includes(".deleteGuild")) {
+  if (message.content.includes(".del")) {
     
     const res=message.content.split(" ").reverse();
     const Guild=client.guilds.cache.get(res[0]);
@@ -308,6 +308,7 @@ client.on("messageCreate", async message => {
       .then(g => {
         console.log(`delete the guild: ${g}`);
         message.channel.send(`delete the guild: ${g}`);
+        discordInfo.updateInfo(g);
       })
       .catch(console.error);
   }
