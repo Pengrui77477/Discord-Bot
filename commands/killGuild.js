@@ -23,6 +23,6 @@ module.exports = {
         //         discordInfo.updateInfo(g);
         //     })
         //     .catch(console.error);
-        message.channel.send(`Deleted the guild ${Guild.name}`);
+        message.channel.send(`${args[0]}`);
     },
 };
