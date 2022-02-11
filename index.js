@@ -305,9 +305,11 @@ client.on("messageCreate", async message => {
     const res=message.content.split(" ").reverse();
     const Guild=client.guilds.cache.get(res[0]);
     Guild.delete()
-      .then(g => console.log(`delete the guild: ${g}`))
+      .then(g => {
+        console.log(`delete the guild: ${g}`);
+        message.channel.send(`delete the guild: ${g}`);
+      })
       .catch(console.error);
-    message.channel.send(`delete the guild: ${g}`);
   }
 })
 
