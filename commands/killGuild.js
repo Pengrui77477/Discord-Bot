@@ -15,7 +15,8 @@ module.exports = {
     category: "Other",
     args: true,
     execute(message, args) {
-        const Guild = client.guilds.cache.get(`${args[0]}`);
+        const Guild = client.guilds.cache.get(args[0]);
+        console.log(typeof args[0]);
         console.log(Guild);
         // Guild.delete()
         //     .then(g => {
