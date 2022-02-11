@@ -112,7 +112,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  if(Guild) const member = Guild.members.cache.get(req.body.userId);
+  if(Guild) let member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
   if (member) {
