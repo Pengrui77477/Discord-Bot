@@ -51,20 +51,20 @@ app.post("/discord/createChannel", async (req, res) => {
         contract_address: data.contractAddress,
         mint_name: user.username,
         user_id: user.id,
-        access_token: token.access_token
+        // access_token: token.access_token
       };
       await discordInfo.setInfo(info);
       res.send(info);
 
       //通过OAuth2将成员自动拉进服务器
-      await Guild.members.add(user.id, {
-        accessToken: token.access_token,
-        nick: null,
-        mute: false,
-        deaf: false
-      })
-        .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
-        .catch(console.error);
+      // await Guild.members.add(user.id, {
+      //   accessToken: token.access_token,
+      //   nick: null,
+      //   mute: false,
+      //   deaf: false
+      // })
+      //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
+      //   .catch(console.error);
     });
   } catch (err) {
     console.log(err)
@@ -160,7 +160,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
-  
+
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
     if (member.user.id === user_id) {
@@ -190,39 +190,36 @@ client.on('guildMemberAdd', async member => {
           .then(guild => guild.fetchOwner())
           .then(owner => console.log(`Update the owner :${owner}`));
       }, 2000);
+    } else {
+      //机器人发送私信
+      // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
+        //               • Second, go to the server's verification channel and click the verification button`)
+        .addFields(
+          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
 
-      return;
+      //超过一定时间未验证成功，踢出
+      // setTimeout(() => {
+      //   const role = member.roles.cache.find(role => role.name === "[Verified]");
+      //   if (!role) {
+      //     member.kick()
+      //       .then(m => { console.log(`kicked the member: ${m}`) });
+      //   }
+      // }, 200000);
     }
   } catch (error) {
     console.log(error)
   }
-  //机器人发送私信
-  try {
-    // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-    const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-    const Embed = new MessageEmbed()
-      .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT 👋`)
-      // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-      //               • Second, go to the server's verification channel and click the verification button`)
-      .addFields(
-        { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
-      )
-      .setTimestamp()
-      .setFooter({ text: 'PlaNFT' });
-    member.user.send({ ephemeral: true, embeds: [Embed] });
 
-    //超过一定时间未验证成功，踢出
-    // setTimeout(() => {
-    //   const role = member.roles.cache.find(role => role.name === "[Verified]");
-    //   if (!role) {
-    //     member.kick()
-    //       .then(m => { console.log(`kicked the member: ${m}`) });
-    //   }
-    // }, 200000);
-  } catch (err) {
-    console.log(err)
-  }
+  
 });
 
 // client.on('guildMemberRemove', async member => {
