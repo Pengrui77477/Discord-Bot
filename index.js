@@ -112,7 +112,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  if(!Guild) return;
+  if (!Guild) return;
   const member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
@@ -220,7 +220,7 @@ client.on('guildMemberAdd', async member => {
     console.log(error)
   }
 
-  
+
 });
 
 // client.on('guildMemberRemove', async member => {
@@ -301,16 +301,18 @@ client.on("messageCreate", async message => {
     console.log(client.guilds.cache);
   }
   if (message.content.includes(".del")) {
-    
-    const res=message.content.split(" ").reverse();
-    const Guild=client.guilds.cache.get(res[0]);
-    Guild.delete()
-      .then(g => {
-        console.log(`delete the guild: ${g}`);
-        message.channel.send(`delete the guild: ${g}`);
-        discordInfo.updateInfo(g);
-      })
-      .catch(console.error);
+
+    const res = message.content.split(" ").reverse();
+    const Guild = client.guilds.cache.get(res[0]);
+    if (Guild) {
+      Guild.delete()
+        .then(g => {
+          console.log(`delete the guild: ${g}`);
+          message.channel.send(`delete the guild: ${g}`);
+          discordInfo.updateInfo(g);
+        })
+        .catch(console.error);
+    }
   }
 })
 
