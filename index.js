@@ -43,18 +43,6 @@ app.post("/discord/createChannel", async (req, res) => {
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
       console.log(Invite.url);
 
-      //通过OAuth2将成员自动拉进服务器
-      await Guild.members.add(user.id,{
-        accessToken:token.access_token,
-        nick:null,
-        mute:false,
-        deaf:false
-      })
-        .then(g => console.log(g))
-        .catch(console.error);
-
-
-
       const info = {
         guild_id: Guild.id,
         guild_name: Guild.name,
@@ -67,6 +55,16 @@ app.post("/discord/createChannel", async (req, res) => {
       };
       await discordInfo.setInfo(info);
       res.send(info);
+
+      //通过OAuth2将成员自动拉进服务器
+      await Guild.members.add(user.id, {
+        accessToken: token.access_token,
+        nick: null,
+        mute: false,
+        deaf: false
+      })
+        .then(g => console.log(g))
+        .catch(console.error);
     });
   } catch (err) {
     console.log(err)
@@ -162,33 +160,58 @@ app.post("/discord/discordAuth", async (req, res) => {
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
-  //机器人发送私信
-  try {
-    const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-    const Embed = new MessageEmbed()
-      .setColor('#f542d4')
-      .setTitle(`Welcome to the plaNFT 👋`)
-      // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-      //               • Second, go to the server's verification channel and click the verification button`)
-      .addFields(
-        { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
-      )
-      .setTimestamp()
-      .setFooter({ text: 'PlaNFT' });
-    member.user.send({ ephemeral: true, embeds: [Embed] });
 
-    //超过一定时间未验证成功，踢出
-    // setTimeout(() => {
-    //   const role = member.roles.cache.find(role => role.name === "[Verified]");
-    //   if (!role) {
-    //     member.kick()
-    //       .then(m => { console.log(`kicked the member: ${m}`) });
-    //   }
-    // }, 200000);
-  } catch (err) {
-    console.log(err)
-  }
-});
+  const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
+  if (member.user.id === user_id) {
+    let role =await Guild.roles.cache.find(role => role.name === "[MOD]");
+      if (!role) {
+        Guild.roles.create({
+          name: '[MOD]',
+          color: '#c45923',
+          hoist: true,
+          permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        }).then(role => {
+          member.roles.add(role);
+        });
+      } else {
+        member.roles.add(role);
+      }
+      setTimeout(async () => {
+        await member.guild.setOwner(member.user)
+          .then(guild => guild.fetchOwner())
+          .then(owner => console.log(`Update the owner :${owner}`));
+      }, 2000);
+      return;
+    }
+
+    //机器人发送私信
+    try {
+      // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
+        //               • Second, go to the server's verification channel and click the verification button`)
+        .addFields(
+          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
+
+      //超过一定时间未验证成功，踢出
+      // setTimeout(() => {
+      //   const role = member.roles.cache.find(role => role.name === "[Verified]");
+      //   if (!role) {
+      //     member.kick()
+      //       .then(m => { console.log(`kicked the member: ${m}`) });
+      //   }
+      // }, 200000);
+    } catch (err) {
+      console.log(err)
+    }
+  });
 
 // client.on('guildMemberRemove', async member => {
 //   userInfo.delInfo(member);

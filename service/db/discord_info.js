@@ -28,6 +28,19 @@ discordInfo.updateInfo = function (params) {
     })
 }
 
+discordInfo.getInfo = function (params) {
+    return new Promise(function (resolve, reject) {
+        mysql.getConnection(function (err, connection) {
+            const sql = "SELECT user_id,guild_id from test_discord_guild where guild_id=?";
+            connection.query(sql, [params], function (err, result) {
+                if (err) reject(err);
+                resolve(result.length === 0 ? null : result[0]);
+            });
+            connection.release();
+        })
+    })
+}
+
 // discordInfo.getguildId = function (userId) {
 //     return new Promise(function (resolve, reject) {
 //         mysql.getConnection(function (err, connection) {
@@ -43,17 +56,6 @@ discordInfo.updateInfo = function (params) {
 
 
 
-// discordInfo.getInfo = function (params) {
-//     return new Promise(function (resolve, reject) {
-//         mysql.getConnection(function (err, connection) {
-//             const sql = "SELECT nft_owner,nft_follower from discord_info where user_id=? and guild_id=?";
-//             connection.query(sql, [params.userId,params.guildId], function (err, result) {
-//                 if (err) reject(err);
-//                 resolve(result.length === 0 ? null : result[0]);
-//             });
-//             connection.release();
-//         })
-//     })
-// }
+
 
 module.exports = discordInfo;
