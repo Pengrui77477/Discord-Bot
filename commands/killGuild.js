@@ -16,12 +16,13 @@ module.exports = {
     args: true,
     execute(message, args) {
         const Guild = client.guilds.cache.get(`${args[0]}`);
-        Guild.delete()
-            .then(g => {
-                console.log(`Deleted the guild ${g}`);
-                discordInfo.updateInfo(g);
-            })
-            .catch(console.error);
+        console.log(Guild);
+        // Guild.delete()
+        //     .then(g => {
+        //         console.log(`Deleted the guild ${g}`);
+        //         discordInfo.updateInfo(g);
+        //     })
+        //     .catch(console.error);
         message.channel.send(`Deleted the guild ${Guild.name}`);
     },
 };
