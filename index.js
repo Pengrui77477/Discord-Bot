@@ -97,16 +97,28 @@ app.post("/discord/createChannel", async (req, res) => {
 
 app.post("/discord/inviteMember", async (req, res) => {
   console.log(req.body);
-
+  const userInfo=req.body.userInfo;
+  const tokenList=req.body.token;
+  const info={
+    guild_id,
+    mint_name:userInfo.username,
+    user_id:userInfo.id,
+    access_token:tokenList.access_token
+  }
+  
   //通过OAuth2将成员自动拉进服务器
-  // await Guild.members.add(user.id, {
-  //   accessToken: token.access_token,
-  //   nick: null,
-  //   mute: false,
-  //   deaf: false
-  // })
-  //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
-  //   .catch(console.error);
+  const Guild = client.guilds.cache.get(info.guild_id);
+  await Guild.members.add(info.user_id, {
+    accessToken: info.access_token,
+    nick: null,
+    mute: false,
+    deaf: false
+  })
+    .then(g => {
+      console.log(`Successfully pulled the user in : ${g.name}`);
+      discordInfo.updateInfo(info);
+    })
+    .catch(console.error);
 });
 
 
