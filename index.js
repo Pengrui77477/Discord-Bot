@@ -100,7 +100,7 @@ app.post("/discord/inviteMember", async (req, res) => {
   const userInfo=req.body.userInfo;
   const tokenList=req.body.token;
   const info={
-    guild_id,
+    guild_id:req.body.guild_id,
     mint_name:userInfo.username,
     user_id:userInfo.id,
     access_token:tokenList.access_token
