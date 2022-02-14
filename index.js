@@ -51,20 +51,20 @@ app.post("/discord/createChannel", async (req, res) => {
         contract_address: data.contractAddress,
         mint_name: user.username,
         user_id: user.id,
-        // access_token: token.access_token
+        access_token: token.access_token
       };
       await discordInfo.setInfo(info);
       res.send(info);
 
       //通过OAuth2将成员自动拉进服务器
-      // await Guild.members.add(user.id, {
-      //   accessToken: token.access_token,
-      //   nick: null,
-      //   mute: false,
-      //   deaf: false
-      // })
-      //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
-      //   .catch(console.error);
+      await Guild.members.add(user.id, {
+        accessToken: token.access_token,
+        nick: null,
+        mute: false,
+        deaf: false
+      })
+        .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
+        .catch(console.error);
     });
   } catch (err) {
     console.log(err)
