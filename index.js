@@ -49,9 +49,9 @@ app.post("/discord/createChannel", async (req, res) => {
         invite_link: Invite.url,
         chain_symbol: data.chainSymbol,
         contract_address: data.contractAddress,
-        mint_name: (user.username !== undefined ? user.username : null),
-        user_id: (user.id !== undefined ? user.id : null),
-        access_token: (token.access_token !== undefined ? token.access_token : null)
+        // mint_name: (user.username !== undefined ? user.username : null),
+        // user_id: (user.id !== undefined ? user.id : null),
+        // access_token: (token.access_token !== undefined ? token.access_token : null)
       };
       await discordInfo.setInfo(info);
       res.send(info);
@@ -314,7 +314,7 @@ client.on("messageCreate", async message => {
         .then(g => {
           console.log(`delete the guild: ${g}`);
           message.channel.send(`delete the guild: ${g}`);
-          discordInfo.updateInfo(g);
+          discordInfo.updateStatus(g);
         })
         .catch(console.error);
     }
