@@ -100,6 +100,16 @@ app.post("/discord/inviteMember", async (req, res) => {
   const userInfo = req.body.userInfo;
   const tokenList = req.body.token;
 
+  if(!userInfo || !tokenList) return;
+  const info = {
+    guild_id: req.body.guildId,
+    mint_name: userInfo.username,
+    user_id: userInfo.id,
+    access_token: tokenList.access_token
+  }
+  console.log(info);
+  await discordInfo.updateInfo(info);
+  
   //通过OAuth2将成员自动拉进服务器
   const Guild = client.guilds.cache.get(req.body.guildId);
   if(!Guild) return;
@@ -111,16 +121,9 @@ app.post("/discord/inviteMember", async (req, res) => {
   })
     .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
     .catch(console.error);
-  if(!userInfo || !tokenList) return;
+  
 
-  const info = {
-    guild_id: req.body.guildId,
-    mint_name: userInfo.username,
-    user_id: userInfo.id,
-    access_token: tokenList.access_token
-  }
-  console.log(info);
-  discordInfo.updateInfo(info);
+  
 });
 
 
@@ -183,7 +186,7 @@ client.on('guildMemberAdd', async member => {
 
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
-    console.log(user_id);
+    console.log('user_id',user_id);
     if (member.user.id === user_id) {
       const Guild = member.guild;
       let role = Guild.roles.cache.find(role => role.name === "[MOD]");
