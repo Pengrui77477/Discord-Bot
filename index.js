@@ -202,14 +202,17 @@ client.on('guildMemberAdd', async member => {
       const row = new Discord.MessageActionRow()
         .addComponents(
           new Discord.MessageButton()
-            // .setCustomId(`deletable`)
-            .setLabel('Invite our bot')
+            .setLabel('Invite')
             .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
             .setStyle('LINK')
         );
+      const some = 'If you want to continue using this server, please click to invite our robot to serve you';
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
+        )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
