@@ -101,15 +101,15 @@ app.post("/discord/inviteMember", async (req, res) => {
   const tokenList = req.body.token;
 
   //通过OAuth2将成员自动拉进服务器
-  // const Guild = client.guilds.cache.get(req.body.guild_id);
-  // await Guild.members.add(userInfo.id, {
-  //   accessToken: tokenList.access_token,
-  //   nick: null,
-  //   mute: false,
-  //   deaf: false
-  // })
-  //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
-  //   .catch(console.error);
+  const Guild = client.guilds.cache.get(req.body.guildId);
+  await Guild.members.add(userInfo.id, {
+    accessToken: tokenList.access_token,
+    nick: null,
+    mute: false,
+    deaf: false
+  })
+    .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
+    .catch(console.error);
   if(!userInfo || !tokenList) return;
 
   const info = {
