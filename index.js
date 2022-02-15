@@ -110,8 +110,10 @@ app.post("/discord/inviteMember", async (req, res) => {
   // })
   //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
   //   .catch(console.error);
+  if(!userInfo || !tokenList) return;
+
   const info = {
-    guild_id: req.body.guild_id,
+    guild_id: req.body.guildId,
     mint_name: userInfo.username,
     user_id: userInfo.id,
     access_token: tokenList.access_token
