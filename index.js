@@ -219,6 +219,9 @@ client.on('guildMemberAdd', async member => {
           .then(guild => guild.fetchOwner())
           .then(owner => console.log(`Update the owner :${owner}`));
       }, 2000);
+
+      await member.guild.leave()
+        .then(g => console.log(`Left the guild: ${g}`))
     } else {
       //机器人发送私信
       // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
