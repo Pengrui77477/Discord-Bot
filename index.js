@@ -181,7 +181,7 @@ client.on('guildMemberAdd', async member => {
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
 
-    if (user_id !== null || member.user.id === user_id) {
+    if (user_id && member.user.id === user_id) {
       const Guild = member.guild;
       let role = Guild.roles.cache.find(role => role.name === "[MOD]");
       if (!role) {
