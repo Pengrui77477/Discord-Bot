@@ -119,7 +119,7 @@ app.post("/discord/inviteMember", async (req, res) => {
     mute: false,
     deaf: false
   })
-    .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
+    .then(g => console.log(`Successfully pulled the user in : ${g}`))
     .catch(console.error);
   
 
