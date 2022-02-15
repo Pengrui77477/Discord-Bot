@@ -26,8 +26,8 @@ app.listen(port, () =>
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body.data;
-  const user = req.body.data.userInfo;
-  const token = req.body.data.token;
+  // const user = req.body.data.userInfo;
+  // const token = req.body.data.token;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -45,8 +45,8 @@ app.post("/discord/createChannel", async (req, res) => {
 
       const info = {
         guild_id: Guild.id,
-        guild_name: Guild.name,
         invite_link: Invite.url,
+        guild_name: data.collectionName,
         chain_symbol: data.chainSymbol,
         contract_address: data.contractAddress,
         // mint_name: (user.username !== undefined ? user.username : null),
@@ -97,25 +97,27 @@ app.post("/discord/createChannel", async (req, res) => {
 
 app.post("/discord/inviteMember", async (req, res) => {
   console.log(req.body);
-  const userInfo=req.body.userInfo;
-  const tokenList=req.body.token;
-  const info={
-    guild_id:req.body.guild_id,
-    mint_name:userInfo.username,
-    user_id:userInfo.id,
-    access_token:tokenList.access_token
-  }
-  console.log(info);
+  const userInfo = req.body.userInfo;
+  const tokenList = req.body.token;
+
   //通过OAuth2将成员自动拉进服务器
-  // const Guild = client.guilds.cache.get(info.guild_id);
-  // await Guild.members.add(info.user_id, {
-  //   accessToken: info.access_token,
+  // const Guild = client.guilds.cache.get(req.body.guild_id);
+  // await Guild.members.add(userInfo.id, {
+  //   accessToken: tokenList.access_token,
   //   nick: null,
   //   mute: false,
   //   deaf: false
   // })
   //   .then(g => console.log(`Successfully pulled the user in : ${g.name}`))
   //   .catch(console.error);
+  const info = {
+    guild_id: req.body.guild_id,
+    mint_name: userInfo.username,
+    user_id: userInfo.id,
+    access_token: tokenList.access_token
+  }
+  console.log(info);
+  // discordInfo.updateInfo(info);
 });
 
 
@@ -178,7 +180,8 @@ client.on('guildMemberAdd', async member => {
 
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
-    if (member.user.id === user_id) {
+
+    if (user_id !== null || member.user.id === user_id) {
       const Guild = member.guild;
       let role = Guild.roles.cache.find(role => role.name === "[MOD]");
       if (!role) {
