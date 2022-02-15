@@ -100,7 +100,7 @@ app.post("/discord/inviteMember", async (req, res) => {
   const userInfo = req.body.userInfo;
   const tokenList = req.body.token;
 
-  if(!userInfo || !tokenList) return;
+  if (!userInfo || !tokenList) return;
   const info = {
     guild_id: req.body.guildId,
     mint_name: userInfo.username,
@@ -109,10 +109,10 @@ app.post("/discord/inviteMember", async (req, res) => {
   }
   console.log(info);
   await discordInfo.updateInfo(info);
-  
+
   //通过OAuth2将成员自动拉进服务器
   const Guild = client.guilds.cache.get(req.body.guildId);
-  if(!Guild) return;
+  if (!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
     nick: null,
@@ -121,9 +121,6 @@ app.post("/discord/inviteMember", async (req, res) => {
   })
     .then(g => console.log(`Successfully pulled the user in : ${g}`))
     .catch(console.error);
-  
-
-  
 });
 
 
@@ -186,7 +183,7 @@ client.on('guildMemberAdd', async member => {
 
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
-    console.log('user_id',user_id);
+    console.log('user_id', user_id);
     if (member.user.id === user_id) {
       const Guild = member.guild;
       let role = Guild.roles.cache.find(role => role.name === "[MOD]");
@@ -202,12 +199,20 @@ client.on('guildMemberAdd', async member => {
       } else {
         member.roles.add(role);
       }
+      const row = new Discord.MessageActionRow()
+        .addComponents(
+          new Discord.MessageButton()
+            // .setCustomId(`deletable`)
+            .setLabel('Invite our bot')
+            .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
+            .setStyle('LINK')
+        );
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      member.user.send({ ephemeral: true, embeds: [Embed] });
+      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
         await Guild.setOwner(member.user)
