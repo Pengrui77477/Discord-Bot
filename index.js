@@ -102,6 +102,7 @@ app.post("/discord/inviteMember", async (req, res) => {
 
   //通过OAuth2将成员自动拉进服务器
   const Guild = client.guilds.cache.get(req.body.guildId);
+  if(!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
     nick: null,
