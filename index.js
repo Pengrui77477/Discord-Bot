@@ -183,7 +183,7 @@ client.on('guildMemberAdd', async member => {
 
   try {
     const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
-    console.log('user_id', user_id);
+    // console.log('user_id', user_id);
     if (member.user.id === user_id) {
       const Guild = member.guild;
       let role = Guild.roles.cache.find(role => role.name === "[MOD]");
@@ -218,10 +218,11 @@ client.on('guildMemberAdd', async member => {
         await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
           .then(owner => console.log(`Update the owner :${owner}`));
-      }, 2000);
 
-      await member.guild.leave()
-        .then(g => console.log(`Left the guild: ${g}`))
+        await member.guild.leave()
+          .then(g => console.log(`Left the guild : ${g}`))
+          .catch(console.error);
+      }, 2000);
     } else {
       //机器人发送私信
       // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
