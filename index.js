@@ -119,7 +119,7 @@ app.post("/discord/inviteMember", async (req, res) => {
     access_token: tokenList.access_token
   }
   console.log(info);
-  // discordInfo.updateInfo(info);
+  discordInfo.updateInfo(info);
 });
 
 
