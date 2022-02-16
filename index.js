@@ -16,7 +16,8 @@ const client = new Discord.Client({ intents: intent });
 
 const app = express();
 app.use(express.json());
-const port = 3002;
+const port = 3012;
+// const port = 3002;
 app.get("/", (req, res) => res.send("hello world"));
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
