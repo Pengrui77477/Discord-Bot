@@ -32,7 +32,8 @@ app.post("/discord/createChannel", async (req, res) => {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
-      const Guild = await template.createGuild(`${data.title}`);
+      const guildName=(data.collectionName.split(' '))[0]
+      const Guild = await template.createGuild(`${guildName}`);
 
       //设置机器人自身的角色
       const robRole = Guild.members.cache.get(Guild.ownerId);
