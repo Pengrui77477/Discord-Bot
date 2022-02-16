@@ -32,7 +32,7 @@ app.post("/discord/createChannel", async (req, res) => {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
-      const guildName=(data.collectionName.split(' '))[0]
+      const guildName = (data.collectionName.split(' '))[0]
       const Guild = await template.createGuild(`${guildName}`);
 
       //设置机器人自身的角色
@@ -45,14 +45,19 @@ app.post("/discord/createChannel", async (req, res) => {
       console.log(Invite.url);
 
       const info = {
-        guild_id: Guild.id,
-        invite_link: Invite.url,
-        guild_name: data.collectionName,
-        chain_symbol: data.chainSymbol,
-        contract_address: data.contractAddress,
+        code: '200',
+        data: {
+          guild_id: Guild.id,
+          invite_link: Invite.url,
+          guild_name: data.collectionName,
+          chain_symbol: data.chainSymbol,
+          contract_address: data.contractAddress,
+        },
         // mint_name: (user.username !== undefined ? user.username : null),
         // user_id: (user.id !== undefined ? user.id : null),
         // access_token: (token.access_token !== undefined ? token.access_token : null)
+        message:"success",
+        status:true
       };
       await discordInfo.setInfo(info);
       res.send(info);
