@@ -59,8 +59,8 @@ app.post("/discord/createChannel", async (req, res) => {
         message:"success",
         status:true
       };
-      await discordInfo.setInfo(info);
-      res.send(info.data);
+      await discordInfo.setInfo(info.data);
+      res.send(info);
     });
   } catch (err) {
     console.log(err)
