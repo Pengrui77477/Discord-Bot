@@ -25,7 +25,7 @@ app.listen(port, () =>
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
-  const data = req.body.data;
+  const data = req.body;
   // const user = req.body.data.userInfo;
   // const token = req.body.data.token;
   try {
