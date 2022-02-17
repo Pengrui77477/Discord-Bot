@@ -13,6 +13,7 @@ const intent = [
   'GUILD_MESSAGE_REACTIONS',
 ];
 const client = new Discord.Client({ intents: intent });
+const client2 = new Discord.Client({ intents: intent });
 
 const app = express();
 app.use(express.json());
@@ -22,12 +23,16 @@ app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
 
+setInterval(() => {
+  console.log('refresh...')
+}, 30000);
+
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
   try {
-    const TemplateGuild = client.guilds.cache.get('936435431254413392');
+    const TemplateGuild = client2.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
       const guildName = (data.collectionName.split('from'))[0]
@@ -51,8 +56,8 @@ app.post("/discord/createChannel", async (req, res) => {
           chain_symbol: data.chainSymbol,
           contract_address: data.contractAddress,
         },
-        message:"success",
-        status:true
+        message: "success",
+        status: true
       };
       await discordInfo.setInfo(info.data);
       res.send(info);
@@ -78,7 +83,7 @@ app.post("/discord/inviteMember", async (req, res) => {
   await discordInfo.updateInfo(info);
 
   //通过OAuth2将成员自动拉进服务器
-  const Guild = client.guilds.cache.get(req.body.guildId);
+  const Guild = client2.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
@@ -98,6 +103,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
+  if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   const member = Guild.members.cache.get(req.body.userId);
 
@@ -144,8 +150,24 @@ app.post("/discord/discordAuth", async (req, res) => {
   }
 });
 
-
 client.on('guildMemberAdd', async member => {
+  if (member.user.bot) return;
+
+  //机器人发送私信
+  const verifyUrl = `http://192.168.50.66:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  const Embed = new MessageEmbed()
+    .setColor('#f542d4')
+    .setTitle(`Welcome to the plaNFT 👋`)
+    .addFields(
+      { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+    )
+    .setTimestamp()
+    .setFooter({ text: 'PlaNFT' });
+  member.user.send({ ephemeral: true, embeds: [Embed] });
+})
+
+client2.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
 
   try {
@@ -195,8 +217,8 @@ client.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
-      // const verifyUrl = `http://192.168.50.60:8084/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.66:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -210,12 +232,9 @@ client.on('guildMemberAdd', async member => {
   } catch (error) {
     console.log(error)
   }
-
-
 });
-setInterval(() => {
-  console.log('refresh...')
-}, 30000);
+
+
 
 client.once("ready", () => {
   console.log(`Rob is ready!`);
@@ -334,7 +353,9 @@ client.on("messageCreate", async (message) => {
   }
 });
 
+//验证用 机器人
+client.login(process.env.token2);
 
+//建群用 机器人
+client2.login(process.env.token1);
 
-client.login(process.env.token1);
-// client.login(process.env.token2);
