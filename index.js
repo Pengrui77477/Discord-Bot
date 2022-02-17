@@ -337,4 +337,4 @@ client.on("messageCreate", async (message) => {
 
 
 client.login(process.env.token1);
-client.login(process.env.token2);
+// client.login(process.env.token2);
