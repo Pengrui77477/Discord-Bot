@@ -39,9 +39,9 @@ app.post("/discord/createChannel", async (req, res) => {
       const Guild = await template.createGuild(`${guildName}`);
 
       //设置机器人自身的角色
-      const robRole = Guild.members.cache.get(Guild.ownerId);
-      let role = Guild.roles.cache.find(role => role.name === "[BOT]");
-      robRole.roles.add(role);
+      // const robRole = Guild.members.cache.get(Guild.ownerId);
+      // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+      // robRole.roles.add(role);
 
       const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
       const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
