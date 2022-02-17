@@ -234,11 +234,14 @@ client2.on('guildMemberAdd', async member => {
   }
 });
 
-
+client2.once("ready", () => {
+  console.log(`建群机器人启动成功！`);
+});
 
 client.once("ready", () => {
-  console.log(`Rob is ready!`);
+  console.log(`验证机器人启动成功！`);
 });
+
 let prefix = ".";
 client.commands = new Discord.Collection();
 const commandFiles = fs
