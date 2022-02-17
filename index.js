@@ -295,7 +295,7 @@ client2.on("messageCreate", async message => {
       })
   }
   if (message.content == ".createguild") {
-    const Guild = await client.guilds.create("Test-PlaNFT-Guild", {
+    const Guild = await client2.guilds.create("Test-PlaNFT-Guild", {
       channels: [
         { "name": "channel-1" },
       ],
@@ -320,12 +320,12 @@ client2.on("messageCreate", async message => {
     }, 2000);
   }
   if (message.content === ".showtable") {
-    console.log(client.guilds.cache);
+    console.log(client2.guilds.cache);
   }
   if (message.content.includes(".del")) {
 
     const res = message.content.split(" ").reverse();
-    const Guild = client.guilds.cache.get(res[0]);
+    const Guild = client2.guilds.cache.get(res[0]);
     if (Guild) {
       Guild.delete()
         .then(g => {
