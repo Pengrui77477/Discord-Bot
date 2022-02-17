@@ -101,7 +101,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   res.send("createChannel");
   console.log(req.body)
 
-  const Guild = client.guilds.cache.get(req.body.guildId);
+  let Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
