@@ -252,6 +252,26 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
+client2.on("messageCreate", async message => {
+  if (message.author.bot) return;
+
+  if (message.content === ".showtable") {
+    console.log(client.guilds.cache);
+  }
+  if (message.content.includes(".del")) {
+    const res = message.content.split(" ").reverse();
+    const Guild = client.guilds.cache.get(res[0]);
+    if (Guild) {
+      Guild.delete()
+        .then(g => {
+          console.log(`delete the guild: ${g}`);
+          message.channel.send(`delete the guild: ${g}`);
+          discordInfo.updateStatus(g);
+        })
+        .catch(console.error);
+    }
+  }
+})
 
 client.on("messageCreate", async message => {
   if (message.author.bot) return;
