@@ -26,13 +26,11 @@ app.listen(port, () =>
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
-  // const user = req.body.data.userInfo;
-  // const token = req.body.data.token;
   try {
     const TemplateGuild = client.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
-      const guildName = (data.collectionName.split(' '))[0]
+      const guildName = (data.collectionName.split('from'))[0]
       const Guild = await template.createGuild(`${guildName}`);
 
       //设置机器人自身的角色
@@ -53,9 +51,6 @@ app.post("/discord/createChannel", async (req, res) => {
           chain_symbol: data.chainSymbol,
           contract_address: data.contractAddress,
         },
-        // mint_name: (user.username !== undefined ? user.username : null),
-        // user_id: (user.id !== undefined ? user.id : null),
-        // access_token: (token.access_token !== undefined ? token.access_token : null)
         message:"success",
         status:true
       };
@@ -65,40 +60,6 @@ app.post("/discord/createChannel", async (req, res) => {
   } catch (err) {
     console.log(err)
   }
-
-  //第二版 创建频道
-  // try {
-  //   const Guild = client.guilds.cache.get('940920098577870888');
-  //   await Guild.channels.create(`Test-PlaNFT-channel-${data.title}`, {
-  //     type: 'GUILD_CATEGORY',
-  //     permissionOverwrites: [{
-  //       id: Guild.id,
-  //       deny: ['VIEW_CHANNEL'],
-  //     }]
-  //   })
-  //     .then(categoryChannel => {
-  //       const member = Guild.members.cache.get('928445836004831294');
-  //       if (!categoryChannel.permissionsFor(member).has("VIEW_CHANNEL")) {
-  //         categoryChannel.permissionOverwrites.create(message.author, {
-  //           'VIEW_CHANNEL': true,
-  //           // 'EMBED_LINKS': null,
-  //           // 'ATTACH_FILES': false,
-  //         })
-  //       }
-  //       categoryChannel.createChannel(`${data.title}`, {
-  //         type: 'GUILD_TEXT',
-  //         permissionOverwrites: [{
-  //           id: Guild.id,
-  //           // deny: ['VIEW_CHANNEL'],
-  //         }]
-  //       })
-  //         .then(async channel => {
-  //           await channel.lockPermissions();
-  //         })
-  //     })
-  // } catch (err) {
-  //   console.log(err);
-  // }
 });
 
 app.post("/discord/inviteMember", async (req, res) => {
@@ -239,23 +200,12 @@ client.on('guildMemberAdd', async member => {
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
-        // .setDescription(`❗Before you start chatting, you only need to do two things: \n • First click the link to verify
-        //               • Second, go to the server's verification channel and click the verification button`)
         .addFields(
           { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       member.user.send({ ephemeral: true, embeds: [Embed] });
-
-      //超过一定时间未验证成功，踢出
-      // setTimeout(() => {
-      //   const role = member.roles.cache.find(role => role.name === "[Verified]");
-      //   if (!role) {
-      //     member.kick()
-      //       .then(m => { console.log(`kicked the member: ${m}`) });
-      //   }
-      // }, 200000);
     }
   } catch (error) {
     console.log(error)
@@ -263,13 +213,6 @@ client.on('guildMemberAdd', async member => {
 
 
 });
-
-// client.on('guildMemberRemove', async member => {
-//   userInfo.delInfo(member);
-
-// })
-
-//定时操作，避免过久未响应宕机
 setInterval(() => {
   console.log('refresh...')
 }, 30000);
@@ -307,10 +250,6 @@ client.on("messageCreate", async message => {
             deny: ['VIEW_CHANNEL'],
           }]
         });
-
-        // channel.setPosition(2)
-        //   .then(newChannel => console.log(`Channel's new position is ${newChannel.position}`))
-        //   .catch(console.error);
       })
   }
   if (message.content == ".createguild") {
@@ -356,19 +295,6 @@ client.on("messageCreate", async message => {
     }
   }
 })
-
-// setInterval(async ()=>{
-//   const TestGuild = client.guilds.cache.get('940819652915920996');
-//   await TestGuild.channels.create(`Test-PlaNFT-channel-${(Math.random()*100).toFixed()}`, {
-//     type: 'GUILD_CATEGORY',
-//     permissionOverwrites: [{
-//       id: TestGuild.id,
-//       // deny: ['VIEW_CHANNEL'],
-//     }]
-//   })
-//     .then(channel => { console.log(`Created the channel : ${channel.id}`) })
-//     .catch(console.error);
-// },1000)
 
 client.on("messageCreate", async (message) => {
   if (
