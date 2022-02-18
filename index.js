@@ -322,8 +322,9 @@ client2.on("messageCreate", async message => {
     }, 2000);
   }
   if (message.content === ".showtable") {
-    const num=client2.guilds.cache;
-    console.log(num)
+    const num1=client2.guilds.cache;
+    const num2=client.guilds.cache;
+    console.log(num1,num2)
   }
   if (message.content.includes(".del")) {
 
