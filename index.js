@@ -32,15 +32,16 @@ app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
   try {
-    let bot1,bot2 = [];
+    let bot1 = [];
+    let bot2 = [];
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
     });
     // console.log(bot1.length);
-    client2.guilds.cache.forEach(g => {
+    client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
     })
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length);
+    // console.log("bot1: " + bot1.length, "bot2: " + bot2.length);
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
