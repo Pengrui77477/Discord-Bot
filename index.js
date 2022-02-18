@@ -151,7 +151,8 @@ app.post("/discord/discordAuth", async (req, res) => {
   let Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
-
+  if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
+  if (!Guild) return;
   // switch (req.body.guildId) {
   //   case client.guilds.cache.forEach(g => {
   //     return g.id
@@ -171,7 +172,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   //     break;
   // }
 
-  if (!Guild) return;
+
   const member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
