@@ -324,7 +324,11 @@ client2.on("messageCreate", async message => {
   if (message.content === ".showtable") {
     const num1=client2.guilds.cache;
     const num2=client.guilds.cache;
-    console.log(num1,num2)
+    let res=[];
+    num2.forEach(async n =>{
+      res.push(n.id);
+    })
+    console.log(res);
   }
   if (message.content.includes(".del")) {
 
