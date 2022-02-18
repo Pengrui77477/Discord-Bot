@@ -26,54 +26,86 @@ app.listen(port, () =>
 setInterval(() => {
   console.log('refresh...')
 }, 30000);
-const bot1 = [];
-const bot2 = [];
-client1.guilds.cache.forEach(g => {
-  bot1.push(g.id);
-  console.log("guildId",g.id);
-});
-console.log(client1.guilds.cache);
-// client2.guilds.cache.forEach(g => {
-//   bot2.push(g.id);
-// });
-// console.log(bot1,bot2);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
+  let bot1, bot2 = [];
   try {
+    
+    client1.guilds.cache.forEach(g => {
+      bot1.push(g.id);
+    })
+    client2.guilds.cache.forEach(g => {
+      bot2.push(g.id);
+    })
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length);
+    if (bot1.length < 10) {
+      const TemplateGuild = client1.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
+        const Guild = await template.createGuild(`${guildName}`);
 
-    const TemplateGuild = client1.guilds.cache.get('936435431254413392');
-    (await TemplateGuild.fetchTemplates()).forEach(async template => {
-      // console.log(template);
-      const guildName = (data.collectionName.split('from'))[0]
-      const Guild = await template.createGuild(`${guildName}`);
+        //设置机器人自身的角色
+        // const robRole = Guild.members.cache.get(Guild.ownerId);
+        // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+        // robRole.roles.add(role);
 
-      //设置机器人自身的角色
-      // const robRole = Guild.members.cache.get(Guild.ownerId);
-      // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
-      // robRole.roles.add(role);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(Invite.url);
 
-      const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-      const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-      console.log(Invite.url);
+        const info = {
+          code: '200',
+          data: {
+            guild_id: Guild.id,
+            invite_link: Invite.url,
+            guild_name: data.collectionName,
+            chain_symbol: data.chainSymbol,
+            contract_address: data.contractAddress,
+          },
+          message: "success",
+          status: true
+        };
+        await discordInfo.setInfo(info.data);
+        res.send(info);
+      });
+    } else if(bot2.length<10){
+      const TemplateGuild = client2.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
+        const Guild = await template.createGuild(`${guildName}`);
 
-      const info = {
-        code: '200',
-        data: {
-          guild_id: Guild.id,
-          invite_link: Invite.url,
-          guild_name: data.collectionName,
-          chain_symbol: data.chainSymbol,
-          contract_address: data.contractAddress,
-        },
-        message: "success",
-        status: true
-      };
-      await discordInfo.setInfo(info.data);
-      res.send(info);
-    });
+        //设置机器人自身的角色
+        // const robRole = Guild.members.cache.get(Guild.ownerId);
+        // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+        // robRole.roles.add(role);
+
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(Invite.url);
+
+        const info = {
+          code: '200',
+          data: {
+            guild_id: Guild.id,
+            invite_link: Invite.url,
+            guild_name: data.collectionName,
+            chain_symbol: data.chainSymbol,
+            contract_address: data.contractAddress,
+          },
+          message: "success",
+          status: true
+        };
+        await discordInfo.setInfo(info.data);
+        res.send(info);
+      });
+    }
+
+
   } catch (err) {
     console.log(err)
   }
