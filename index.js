@@ -32,10 +32,11 @@ app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
   try {
-    let bot1, bot2 = [];
-    client1.guilds.cache.forEach(g => {
+    let bot1 = [];
+    client.guilds.cache.forEach(async g => {
       bot1.push(g.id);
-    })
+    });
+    console.log(bot1.length);
     client2.guilds.cache.forEach(g => {
       bot2.push(g.id);
     })
@@ -71,7 +72,7 @@ app.post("/discord/createChannel", async (req, res) => {
         await discordInfo.setInfo(info.data);
         res.send(info);
       });
-    } else if(bot2.length<10){
+    } else if (bot2.length < 10) {
       const TemplateGuild = client2.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
