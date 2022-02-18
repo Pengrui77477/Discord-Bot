@@ -13,8 +13,8 @@ const intent = [
   'GUILD_MESSAGE_REACTIONS',
 ];
 const client = new Discord.Client({ intents: intent });
+const client1 = new Discord.Client({ intents: intent });
 const client2 = new Discord.Client({ intents: intent });
-
 const app = express();
 app.use(express.json());
 const port = 3002;
@@ -32,7 +32,8 @@ app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
   try {
-    const TemplateGuild = client2.guilds.cache.get('936435431254413392');
+
+    const TemplateGuild = client1.guilds.cache.get('936435431254413392');
     (await TemplateGuild.fetchTemplates()).forEach(async template => {
       // console.log(template);
       const guildName = (data.collectionName.split('from'))[0]
@@ -82,8 +83,10 @@ app.post("/discord/inviteMember", async (req, res) => {
   console.log(info);
   await discordInfo.updateInfo(info);
 
+  //谁创建的服务器就让谁拉
+
   //通过OAuth2将成员自动拉进服务器
-  const Guild = client2.guilds.cache.get(req.body.guildId);
+  const Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
@@ -103,13 +106,13 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   let Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   const member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
   if (member) {
-    
+
     //目前简单判断
     if (req.body.nftOwner) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
@@ -169,7 +172,7 @@ client.on('guildMemberAdd', async member => {
   member.user.send({ ephemeral: true, embeds: [Embed] });
 })
 
-client2.on('guildMemberAdd', async member => {
+client1.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
 
   try {
@@ -236,10 +239,12 @@ client2.on('guildMemberAdd', async member => {
   }
 });
 
-client2.once("ready", () => {
-  console.log(`建群机器人启动成功!`);
+client1.once("ready", () => {
+  console.log(`建群机器人-1启动成功!`);
 });
-
+client2.once("ready",()=>{
+  console.log(`建群机器人-2启动成功!`);
+})
 client.once("ready", () => {
   console.log(`验证机器人启动成功!`);
 });
@@ -254,7 +259,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// client2.on("messageCreate", async message => {
+// client1.on("messageCreate", async message => {
 //   if (message.author.bot) return;
 
 //   if (message.content === ".showtable") {
@@ -275,7 +280,7 @@ for (const file of commandFiles) {
 //   }
 // })
 
-client2.on("messageCreate", async message => {
+client1.on("messageCreate", async message => {
   if (message.author.bot) return;
 
   if (message.content === ".createCategoryChannel") {
@@ -297,7 +302,7 @@ client2.on("messageCreate", async message => {
       })
   }
   if (message.content == ".createguild") {
-    const Guild = await client2.guilds.create("Test-PlaNFT-Guild", {
+    const Guild = await client1.guilds.create("Test-PlaNFT-Guild", {
       channels: [
         { "name": "channel-1" },
       ],
@@ -322,10 +327,10 @@ client2.on("messageCreate", async message => {
     }, 2000);
   }
   if (message.content === ".showtable") {
-    const num1=client2.guilds.cache;
-    const num2=client.guilds.cache;
-    let res=[];
-    num2.forEach(async n =>{
+    const num1 = client1.guilds.cache;
+    const num2 = client.guilds.cache;
+    let res = [];
+    num2.forEach(async n => {
       res.push(n.id);
     })
     console.log(res.length);
@@ -333,7 +338,7 @@ client2.on("messageCreate", async message => {
   if (message.content.includes(".del")) {
 
     const res = message.content.split(" ").reverse();
-    const Guild = client2.guilds.cache.get(res[0]);
+    const Guild = client1.guilds.cache.get(res[0]);
     if (Guild) {
       Guild.delete()
         .then(g => {
@@ -385,8 +390,8 @@ client.on("messageCreate", async (message) => {
 });
 
 //验证用 机器人
-client.login(process.env.token2);
+client.login(process.env.token);
 
 //建群用 机器人
-client2.login(process.env.token1);
-
+client1.login(process.env.token1);
+client2.login(process.env.token2);
