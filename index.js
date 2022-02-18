@@ -30,11 +30,12 @@ const bot1 = [];
 const bot2 = [];
 client1.guilds.cache.forEach(g => {
   bot1.push(g.id);
+  console.log(g.id);
 });
 client2.guilds.cache.forEach(g => {
   bot2.push(g.id);
 });
-console.log(bot1,bot2);
+// console.log(bot1,bot2);
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
