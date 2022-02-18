@@ -328,7 +328,7 @@ client2.on("messageCreate", async message => {
     num2.forEach(async n =>{
       res.push(n.id);
     })
-    console.log(res);
+    console.log(res.length);
   }
   if (message.content.includes(".del")) {
 
