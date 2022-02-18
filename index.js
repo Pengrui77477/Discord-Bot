@@ -31,9 +31,8 @@ setInterval(() => {
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const data = req.body;
-  let bot1, bot2 = [];
   try {
-    
+    let bot1, bot2 = [];
     client1.guilds.cache.forEach(g => {
       bot1.push(g.id);
     })
