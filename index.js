@@ -109,6 +109,8 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   //如果用户存在当前服务器
   if (member) {
+    
+    //目前简单判断
     if (req.body.nftOwner) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
       if (!role) {
@@ -320,7 +322,8 @@ client2.on("messageCreate", async message => {
     }, 2000);
   }
   if (message.content === ".showtable") {
-    console.log(client2.guilds.cache);
+    const num=client2.guilds.cache;
+    console.log(num)
   }
   if (message.content.includes(".del")) {
 
