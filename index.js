@@ -26,6 +26,14 @@ app.listen(port, () =>
 setInterval(() => {
   console.log('refresh...')
 }, 30000);
+const bot1 = [];
+const bot2 = [];
+client1.guilds.cache.forEach(g => {
+  bot1.push(g.id);
+});
+client2.guilds.cache.forEach(g => {
+  bot2.push(g.id);
+});
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
@@ -107,6 +115,26 @@ app.post("/discord/discordAuth", async (req, res) => {
   let Guild = client.guilds.cache.get(req.body.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
+
+  // switch (req.body.guildId) {
+  //   case client.guilds.cache.forEach(g => {
+  //     return g.id
+  //   }):
+  //     Guild = client.guilds.cache.get(req.body.guildId);
+  //     break;
+  //   case 1:
+  //     Guild = client1.guilds.cache.get(req.body.guildId);
+  //     break;
+  //   case 2:
+  //     Guild = client2.guilds.cache.get(req.body.guildId);
+  //     break;
+  //   case 3:
+
+  //     break;
+  //   default:
+  //     break;
+  // }
+
   if (!Guild) return;
   const member = Guild.members.cache.get(req.body.userId);
 
@@ -238,11 +266,78 @@ client1.on('guildMemberAdd', async member => {
     console.log(error)
   }
 });
+client2.on('guildMemberAdd', async member => {
+  if (member.user.bot) return;
+
+  try {
+    const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
+    // console.log('user_id', user_id);
+    if (member.user.id === user_id) {
+      const Guild = member.guild;
+      let role = Guild.roles.cache.find(role => role.name === "[MOD]");
+      if (!role) {
+        Guild.roles.create({
+          name: '[MOD]',
+          color: '#c45923',
+          hoist: true,
+          permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        }).then(role => {
+          member.roles.add(role);
+        });
+      } else {
+        member.roles.add(role);
+      }
+      const row = new Discord.MessageActionRow()
+        .addComponents(
+          new Discord.MessageButton()
+            .setLabel('Invite')
+            .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
+            .setStyle('LINK')
+        );
+      const some = 'If you want to continue using this server, please click to invite our robot to serve you';
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+
+      setTimeout(async () => {
+        await Guild.setOwner(member.user)
+          .then(guild => guild.fetchOwner())
+          .then(owner => console.log(`Update the owner :${owner}`));
+
+        await member.guild.leave()
+          .then(g => console.log(`Left the guild : ${g}`))
+          .catch(console.error);
+      }, 2000);
+    } else {
+      //机器人发送私信
+      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+});
+
 
 client1.once("ready", () => {
   console.log(`建群机器人-1启动成功!`);
 });
-client2.once("ready",()=>{
+client2.once("ready", () => {
   console.log(`建群机器人-2启动成功!`);
 })
 client.once("ready", () => {
@@ -258,27 +353,6 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
-
-// client1.on("messageCreate", async message => {
-//   if (message.author.bot) return;
-
-//   if (message.content === ".showtable") {
-//     console.log(client.guilds.cache);
-//   }
-//   if (message.content.includes(".del")) {
-//     const res = message.content.split(" ").reverse();
-//     const Guild = client.guilds.cache.get(res[0]);
-//     if (Guild) {
-//       Guild.delete()
-//         .then(g => {
-//           console.log(`delete the guild: ${g}`);
-//           message.channel.send(`delete the guild: ${g}`);
-//           discordInfo.updateStatus(g);
-//         })
-//         .catch(console.error);
-//     }
-//   }
-// })
 
 client1.on("messageCreate", async message => {
   if (message.author.bot) return;
