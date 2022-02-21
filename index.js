@@ -45,7 +45,7 @@ app.post("/discord/createChannel", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length,"bot3: " + bot3.length);
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length);
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -310,7 +310,7 @@ client1.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      const sendChannel = member.guild.channels.find("❗attention");
+      const sendChannel = member.guild.channels.find(channel => channel.name == "❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
@@ -377,7 +377,7 @@ client2.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      const sendChannel = member.guild.channels.find("❗attention");
+      const sendChannel = member.guild.channels.find(channel => channel.name == "❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
@@ -445,7 +445,7 @@ client3.on('guildMemberAdd', async member => {
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
-      const sendChannel=member.guild.channels.find("❗attention");
+      const sendChannel = member.guild.channels.find(channel => channel.name =="❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
