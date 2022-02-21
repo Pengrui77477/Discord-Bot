@@ -310,7 +310,8 @@ client1.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+      const sendChannel = member.guild.channels.find("❗attention");
+      await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
         await Guild.setOwner(member.user)
@@ -376,7 +377,8 @@ client2.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+      const sendChannel = member.guild.channels.find("❗attention");
+      await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
         await Guild.setOwner(member.user)
@@ -442,8 +444,10 @@ client3.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
-
+      // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
+      const sendChannel=member.guild.channels.find("❗attention");
+      await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
+      
       setTimeout(async () => {
         await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
