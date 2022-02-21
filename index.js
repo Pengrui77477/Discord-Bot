@@ -310,7 +310,7 @@ client1.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      const sendChannel = member.guild.channels.find(channel => channel.name == "❗attention");
+      const sendChannel = member.channels.find(channel => channel.name == "❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
@@ -377,7 +377,7 @@ client2.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      const sendChannel = member.guild.channels.find(channel => channel.name == "❗attention");
+      const sendChannel = member.channels.find(channel => channel.name == "❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
@@ -445,7 +445,7 @@ client3.on('guildMemberAdd', async member => {
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
-      const sendChannel = member.guild.channels.find(channel => channel.name =="❗attention");
+      const sendChannel = member.channels.find(channel => channel.name =="❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
