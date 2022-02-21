@@ -260,7 +260,7 @@ client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
 
   //机器人发送私信
-  const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
   // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
   const Embed = new MessageEmbed()
     .setColor('#f542d4')
@@ -323,7 +323,7 @@ client1.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -389,7 +389,7 @@ client2.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -455,7 +455,7 @@ client3.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
