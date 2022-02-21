@@ -220,22 +220,21 @@ app.post("/discord/discordAuth", async (req, res) => {
   }
 });
 
-const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-// const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-
-const verifyEmbed = new MessageEmbed()
-  .setColor('#f542d4')
-  .setTitle(`Welcome to the plaNFT 👋`)
-  .addFields(
-    { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
-  )
-  .setTimestamp()
-  .setFooter({ text: 'PlaNFT' });
-
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
+
   //机器人发送私信
-  member.user.send({ ephemeral: true, embeds: [verifyEmbed] });
+  const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  const Embed = new MessageEmbed()
+    .setColor('#f542d4')
+    .setTitle(`Welcome to the plaNFT 👋`)
+    .addFields(
+      { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+    )
+    .setTimestamp()
+    .setFooter({ text: 'PlaNFT' });
+  member.user.send({ ephemeral: true, embeds: [Embed] });
 })
 
 client1.on('guildMemberAdd', async member => {
@@ -275,7 +274,6 @@ client1.on('guildMemberAdd', async member => {
         )
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      
       member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
@@ -289,6 +287,8 @@ client1.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
+      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -353,6 +353,8 @@ client2.on('guildMemberAdd', async member => {
       }, 2000);
     } else {
       //机器人发送私信
+      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
