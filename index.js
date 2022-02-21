@@ -108,8 +108,37 @@ app.post("/discord/createChannel", async (req, res) => {
         await discordInfo.setInfo(info.data);
         res.send(info);
       });
-    }else if(bot3.length < 10){
+    } else if (bot3.length < 10) {
+      const TemplateGuild = client3.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
+        const Guild = await template.createGuild(`${guildName}`);
 
+        //设置机器人自身的角色
+        // const robRole = Guild.members.cache.get(Guild.ownerId);
+        // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+        // robRole.roles.add(role);
+
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(Invite.url);
+
+        const info = {
+          code: '200',
+          data: {
+            guild_id: Guild.id,
+            invite_link: Invite.url,
+            guild_name: data.collectionName,
+            chain_symbol: data.chainSymbol,
+            contract_address: data.contractAddress,
+          },
+          message: "success",
+          status: true
+        };
+        await discordInfo.setInfo(info.data);
+        res.send(info);
+      });
     }
 
 
@@ -136,7 +165,9 @@ app.post("/discord/inviteMember", async (req, res) => {
   //谁创建的服务器就让谁拉
 
   //通过OAuth2将成员自动拉进服务器
-  const Guild = client1.guilds.cache.get(req.body.guildId);
+  let Guild = client1.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
@@ -178,8 +209,6 @@ app.post("/discord/discordAuth", async (req, res) => {
   //   default:
   //     break;
   // }
-
-
   const member = Guild.members.cache.get(req.body.userId);
 
   //如果用户存在当前服务器
