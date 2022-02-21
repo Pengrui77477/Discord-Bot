@@ -119,6 +119,24 @@ app.post("/discord/createChannel", async (req, res) => {
         // const robRole = Guild.members.cache.get(Guild.ownerId);
         // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
         // robRole.roles.add(role);
+        const row = new Discord.MessageActionRow()
+          .addComponents(
+            new Discord.MessageButton()
+              .setLabel('Invite')
+              .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
+              .setStyle('LINK')
+          );
+        const some = 'If you want to continue using this server, please click to invite our robot to serve you';
+        const Embed = new MessageEmbed()
+          .setColor('#f542d4')
+          .setTitle(`Welcome to the plaNFT 👋`)
+          .addFields(
+            { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
+          )
+          .setTimestamp()
+          .setFooter({ text: 'PlaNFT' });
+        const sendChannel = Guild.channels.find(channel => channel.name == "❗attention");
+        await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
         const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
@@ -294,25 +312,6 @@ client1.on('guildMemberAdd', async member => {
       } else {
         member.roles.add(role);
       }
-      const row = new Discord.MessageActionRow()
-        .addComponents(
-          new Discord.MessageButton()
-            .setLabel('Invite')
-            .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
-            .setStyle('LINK')
-        );
-      const some = 'If you want to continue using this server, please click to invite our robot to serve you';
-      const Embed = new MessageEmbed()
-        .setColor('#f542d4')
-        .setTitle(`Welcome to the plaNFT 👋`)
-        .addFields(
-          { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
-        )
-        .setTimestamp()
-        .setFooter({ text: 'PlaNFT' });
-      const sendChannel = member.channels.find(channel => channel.name == "❗attention");
-      await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
-
       setTimeout(async () => {
         await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
@@ -445,7 +444,7 @@ client3.on('guildMemberAdd', async member => {
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
-      const sendChannel = member.channels.find(channel => channel.name =="❗attention");
+      const sendChannel = member.channels.find(channel => channel.name == "❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
       setTimeout(async () => {
