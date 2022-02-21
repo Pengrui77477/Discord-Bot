@@ -45,7 +45,7 @@ app.post("/discord/createChannel", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length);
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length,"bot3: " + bot3.length);
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -447,7 +447,7 @@ client3.on('guildMemberAdd', async member => {
       // member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
       const sendChannel=member.guild.channels.find("❗attention");
       await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
-      
+
       setTimeout(async () => {
         await Guild.setOwner(member.user)
           .then(guild => guild.fetchOwner())
