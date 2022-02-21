@@ -544,12 +544,15 @@ client.on("messageCreate", async message => {
   }
   if (message.content === ".showtable") {
     const num1 = client1.guilds.cache;
-    const num2 = client.guilds.cache;
-    let res = [];
-    num2.forEach(async n => {
-      res.push(n.id);
-    })
-    console.log(res.length);
+    const num2 = client2.guilds.cache;
+    const num3 = client3.guilds.cache;
+    // let res = [];
+    // num2.forEach(async n => {
+    //   res.push(n.id);
+    // })
+    console.log(num1);
+    console.log(num2);
+    console.log(num3);
   }
   if (message.content.includes(".del")) {
 
