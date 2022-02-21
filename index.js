@@ -15,6 +15,7 @@ const intent = [
 const client = new Discord.Client({ intents: intent });
 const client1 = new Discord.Client({ intents: intent });
 const client2 = new Discord.Client({ intents: intent });
+const client3 = new Discord.Client({ intents: intent });
 const app = express();
 app.use(express.json());
 const port = 3002;
@@ -34,12 +35,15 @@ app.post("/discord/createChannel", async (req, res) => {
   try {
     let bot1 = [];
     let bot2 = [];
+    let bot3 = [];
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
     });
-    // console.log(bot1.length);
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
+    })
+    client3.guilds.cache.forEach(async g => {
+      bot3.push(g.id);
     })
     console.log("bot1: " + bot1.length, "bot2: " + bot2.length);
     if (bot1.length < 10) {
@@ -104,6 +108,8 @@ app.post("/discord/createChannel", async (req, res) => {
         await discordInfo.setInfo(info.data);
         res.send(info);
       });
+    }else if(bot3.length < 10){
+
     }
 
 
@@ -152,6 +158,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   // const member = await Guild.members.fetch(req.body.userId);
   if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   // switch (req.body.guildId) {
   //   case client.guilds.cache.forEach(g => {
@@ -369,17 +376,86 @@ client2.on('guildMemberAdd', async member => {
     console.log(error)
   }
 });
+client3.on('guildMemberAdd', async member => {
+  if (member.user.bot) return;
 
+  try {
+    const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
+    // console.log('user_id', user_id);
+    if (member.user.id === user_id) {
+      const Guild = member.guild;
+      let role = Guild.roles.cache.find(role => role.name === "[MOD]");
+      if (!role) {
+        Guild.roles.create({
+          name: '[MOD]',
+          color: '#c45923',
+          hoist: true,
+          permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        }).then(role => {
+          member.roles.add(role);
+        });
+      } else {
+        member.roles.add(role);
+      }
+      const row = new Discord.MessageActionRow()
+        .addComponents(
+          new Discord.MessageButton()
+            .setLabel('Invite')
+            .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
+            .setStyle('LINK')
+        );
+      const some = 'If you want to continue using this server, please click to invite our robot to serve you';
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed], components: [row] });
 
-client1.once("ready", () => {
-  console.log(`建群机器人-1启动成功!`);
+      setTimeout(async () => {
+        await Guild.setOwner(member.user)
+          .then(guild => guild.fetchOwner())
+          .then(owner => console.log(`Update the owner :${owner}`));
+
+        await member.guild.leave()
+          .then(g => console.log(`Left the guild : ${g}`))
+          .catch(console.error);
+      }, 2000);
+    } else {
+      //机器人发送私信
+      const verifyUrl = `http://192.168.50.77:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
+    }
+  } catch (error) {
+    console.log(error)
+  }
 });
-client2.once("ready", () => {
-  console.log(`建群机器人-2启动成功!`);
-})
+
 client.once("ready", () => {
   console.log(`验证机器人启动成功!`);
 });
+client1.once("ready", () => {
+  console.log(`建群机器人-1 启动成功!`);
+});
+client2.once("ready", () => {
+  console.log(`建群机器人-2 启动成功!`);
+})
+client3.once("ready", () => {
+  console.log(`建群机器人-3 启动成功!`);
+})
+
 
 let prefix = ".";
 client.commands = new Discord.Collection();
@@ -391,7 +467,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-client1.on("messageCreate", async message => {
+client.on("messageCreate", async message => {
   if (message.author.bot) return;
 
   if (message.content === ".createCategoryChannel") {
@@ -506,3 +582,4 @@ client.login(process.env.token);
 //建群用 机器人
 client1.login(process.env.token1);
 client2.login(process.env.token2);
+client3.login(process.env.token3);
