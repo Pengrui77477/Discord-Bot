@@ -17,6 +17,7 @@ const client1 = new Discord.Client({ intents: intent });
 const client2 = new Discord.Client({ intents: intent });
 const client3 = new Discord.Client({ intents: intent });
 const client4 = new Discord.Client({ intents: intent });
+const client5 = new Discord.Client({ intents: intent });
 const app = express();
 app.use(express.json());
 const port = 3002;
@@ -38,6 +39,7 @@ app.post("/discord/createChannel", async (req, res) => {
     let bot2 = [];
     let bot3 = [];
     let bot4 = [];
+    let bot5 = [];
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
     });
@@ -49,6 +51,9 @@ app.post("/discord/createChannel", async (req, res) => {
     })
     client4.guilds.cache.forEach(async g => {
       bot4.push(g.id);
+    })
+    client5.guilds.cache.forEach(async g => {
+      bot5.push(g.id);
     })
 
     if (bot1.length < 10) {
@@ -199,8 +204,45 @@ app.post("/discord/createChannel", async (req, res) => {
         await discordInfo.setInfo(info.data);
         res.send(info);
       });
+    } else if (bot5.length < 10) {
+      const TemplateGuild = client5.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
+        const Guild = await template.createGuild(`${guildName}`);
+
+        //设置机器人自身的角色
+        // const robRole = Guild.members.cache.get(Guild.ownerId);
+        // let role = Guild.roles.cache.find(role => role.name === "[BOT]");
+        // robRole.roles.add(role);
+
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(Invite.url);
+
+        const info = {
+          code: '200',
+          data: {
+            guild_id: Guild.id,
+            invite_link: Invite.url,
+            guild_name: data.collectionName,
+            chain_symbol: data.chainSymbol,
+            contract_address: data.contractAddress,
+            client: {
+              id: "945619553910661141",
+              secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            },
+          },
+
+          message: "success",
+          status: true
+        };
+        await discordInfo.setInfo(info.data);
+        res.send(info);
+      });
     }
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length, "bot4: " + bot4.length);
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length, "bot4: " + bot4.length,"bot5: " + bot5.length);
   } catch (err) {
     console.log(err)
   }
@@ -231,6 +273,8 @@ app.post("/discord/inviteMember", async (req, res) => {
   let Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client4.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client5.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   await Guild.members.add(userInfo.id, {
     accessToken: tokenList.access_token,
@@ -603,6 +647,73 @@ client4.on('guildMemberAdd', async member => {
     console.log(error)
   }
 });
+client5.on('guildMemberAdd', async member => {
+  if (member.user.bot) return;
+
+  try {
+    const { user_id, guild_id } = await discordInfo.getInfo(member.guild.id);
+    // console.log('user_id', user_id);
+    if (member.user.id === user_id) {
+      const Guild = member.guild;
+      let role = Guild.roles.cache.find(role => role.name === "[MOD]");
+      if (!role) {
+        Guild.roles.create({
+          name: '[MOD]',
+          color: '#c45923',
+          hoist: true,
+          permissions: [Permissions.FLAGS.ADMINISTRATOR]
+        }).then(role => {
+          member.roles.add(role);
+        });
+      } else {
+        member.roles.add(role);
+      }
+      const row = new Discord.MessageActionRow()
+        .addComponents(
+          new Discord.MessageButton()
+            .setLabel('Invite')
+            .setURL('https://discord.com/api/oauth2/authorize?client_id=928483162496045108&permissions=8&scope=bot')
+            .setStyle('LINK')
+        );
+      const some = 'If you want to continue using this server, please click to invite our robot to serve you';
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to Invite our bot', value: `${some}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      const sendChannel = member.guild.channels.cache.find(channel => channel.name == "❗attention");
+      await sendChannel.send({ ephemeral: true, embeds: [Embed], components: [row] });
+
+      setTimeout(async () => {
+        await Guild.setOwner(member.user)
+          .then(guild => guild.fetchOwner())
+          .then(owner => console.log(`Update the owner :${owner}`));
+
+        await member.guild.leave()
+          .then(g => console.log(`Left the guild : ${g}`))
+          .catch(console.error);
+      }, 5000);
+    } else {
+      //机器人发送私信
+      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const Embed = new MessageEmbed()
+        .setColor('#f542d4')
+        .setTitle(`Welcome to the plaNFT 👋`)
+        .addFields(
+          { name: ' 👇 Please click the link below to verify', value: `${verifyUrl}` },
+        )
+        .setTimestamp()
+        .setFooter({ text: 'PlaNFT' });
+      member.user.send({ ephemeral: true, embeds: [Embed] });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+});
 
 client.once("ready", () => {
   console.log(`验证机器人启动成功!`);
@@ -617,7 +728,10 @@ client3.once("ready", () => {
   console.log(`建群机器人-3 启动成功!`);
 })
 client4.once("ready", () => {
-  console.log(`建群机器人-3 启动成功!`);
+  console.log(`建群机器人-4 启动成功!`);
+})
+client5.once("ready", () => {
+  console.log(`建群机器人-5 启动成功!`);
 })
 
 
@@ -751,3 +865,4 @@ client1.login(process.env.token1);
 client2.login(process.env.token2);
 client3.login(process.env.token3);
 client4.login(process.env.token4);
+client5.login(process.env.token5);
