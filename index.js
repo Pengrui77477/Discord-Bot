@@ -31,6 +31,9 @@ setInterval(() => {
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
+});
+app.post("/discord/createServer", async (req, res) => {
+  console.log(req.body);
   const data = req.body;
   try {
     let bot1 = [];
@@ -45,12 +48,12 @@ app.post("/discord/createChannel", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-
+    const guildName = (data.collectionName.split('from'))[0]
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
-        const guildName = (data.collectionName.split('from'))[0]
+        
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
@@ -86,7 +89,6 @@ app.post("/discord/createChannel", async (req, res) => {
       const TemplateGuild = client2.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
-        const guildName = (data.collectionName.split('from'))[0]
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
@@ -122,7 +124,6 @@ app.post("/discord/createChannel", async (req, res) => {
       const TemplateGuild = client3.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
-        const guildName = (data.collectionName.split('from'))[0]
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
@@ -159,9 +160,6 @@ app.post("/discord/createChannel", async (req, res) => {
   } catch (err) {
     console.log(err)
   }
-});
-app.post("/discord/createServer", async (req, res) => {
-  console.log(req.body);
 })
 //用户授权接口
 app.post("/discord/inviteMember", async (req, res) => {
