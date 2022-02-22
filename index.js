@@ -30,26 +30,8 @@ setInterval(() => {
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
-  console.log(req.body);
-  const info = {
-    code: '200',
-    data: {
-      guild_id: null,
-      invite_link: null,
-      guild_name: null,
-      chain_symbol: req.body.chainSymbol,
-      contract_address: req.body.contractAddress,
-    },
-    message: "success",
-    status: true
-  };
-  res.send(info);
-});
-app.post("/discord/createServer", async (req, res) => {
-  
   const data = req.body;
   console.log(data);
-  if(!data.collectionName) return;
   try {
     let bot1 = [];
     let bot2 = [];
@@ -63,7 +45,7 @@ app.post("/discord/createServer", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-    
+
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -177,6 +159,10 @@ app.post("/discord/createServer", async (req, res) => {
   } catch (err) {
     console.log(err)
   }
+});
+
+app.post("/discord/createServer", async (req, res) => {
+  console.log(req.body);
 })
 //用户授权接口
 app.post("/discord/inviteMember", async (req, res) => {
