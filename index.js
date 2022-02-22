@@ -33,6 +33,13 @@ app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
   const info = {
     code: '200',
+    data: {
+      guild_id: null,
+      invite_link: null,
+      guild_name: null,
+      chain_symbol: req.body.chainSymbol,
+      contract_address: req.body.contractAddress,
+    },
     message: "success",
     status: true
   };
