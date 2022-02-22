@@ -45,7 +45,7 @@ app.post("/discord/createChannel", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length);
+
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -140,7 +140,7 @@ app.post("/discord/createChannel", async (req, res) => {
         res.send(info);
       });
     }
-
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length);
   } catch (err) {
     console.log(err)
   }
