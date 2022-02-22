@@ -71,6 +71,11 @@ app.post("/discord/createChannel", async (req, res) => {
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
           },
+          client: {
+            id: "933256071554940979",
+            secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
+            redirectUrl: ""
+          },
           message: "success",
           status: true
         };
@@ -102,6 +107,11 @@ app.post("/discord/createChannel", async (req, res) => {
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
           },
+          client: {
+            id: "944117999525318676",
+            secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
+            redirectUrl: ""
+          },
           message: "success",
           status: true
         };
@@ -132,6 +142,11 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
+          },
+          client: {
+            id: "945167419800965150",
+            secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
+            redirectUrl: ""
           },
           message: "success",
           status: true
