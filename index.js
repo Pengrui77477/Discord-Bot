@@ -31,10 +31,18 @@ setInterval(() => {
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
   console.log(req.body);
+  const info = {
+    code: '200',
+    message: "success",
+    status: true
+  };
+  res.send(info);
 });
 app.post("/discord/createServer", async (req, res) => {
-  console.log(req.body);
+  
   const data = req.body;
+  console.log(data);
+  if(!data.collectionName) return;
   try {
     let bot1 = [];
     let bot2 = [];
