@@ -160,7 +160,10 @@ app.post("/discord/createChannel", async (req, res) => {
     console.log(err)
   }
 });
-
+app.post("/discord/createServer", async (req, res) => {
+  console.log(req.body);
+})
+//用户授权接口
 app.post("/discord/inviteMember", async (req, res) => {
   console.log(req.body);
   const userInfo = req.body.userInfo;
@@ -192,7 +195,6 @@ app.post("/discord/inviteMember", async (req, res) => {
     .then(g => console.log(`Successfully pulled the user in : ${g}`))
     .catch(console.error);
 });
-
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
