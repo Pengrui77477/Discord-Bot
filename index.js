@@ -248,7 +248,7 @@ app.post("/discord/createChannel", async (req, res) => {
   }
 });
 
-app.post("/discord/createServer", async (req, res) => {
+app.post("/discord/userInfo", async (req, res) => {
   console.log(req.body);
 })
 //用户授权接口
