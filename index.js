@@ -242,7 +242,7 @@ app.post("/discord/createChannel", async (req, res) => {
         res.send(info);
       });
     }
-    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length, "bot4: " + bot4.length,"bot5: " + bot5.length);
+    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length,"bot4: " + bot5.length);
   } catch (err) {
     console.log(err)
   }
