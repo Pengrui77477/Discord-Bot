@@ -48,12 +48,12 @@ app.post("/discord/createServer", async (req, res) => {
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
     })
-    const guildName = (data.collectionName.split('from'))[0]
+    
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
-        
+        const guildName = (data.collectionName.split('from'))[0]
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
@@ -89,6 +89,7 @@ app.post("/discord/createServer", async (req, res) => {
       const TemplateGuild = client2.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
@@ -124,6 +125,7 @@ app.post("/discord/createServer", async (req, res) => {
       const TemplateGuild = client3.guilds.cache.get('936435431254413392');
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
         // console.log(template);
+        const guildName = (data.collectionName.split('from'))[0]
         const Guild = await template.createGuild(`${guildName}`);
 
         //设置机器人自身的角色
