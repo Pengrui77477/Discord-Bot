@@ -74,7 +74,7 @@ app.post("/discord/createChannel", async (req, res) => {
           client: {
             id: "933256071554940979",
             secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-            redirectUrl: ""
+            redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -110,7 +110,7 @@ app.post("/discord/createChannel", async (req, res) => {
           client: {
             id: "944117999525318676",
             secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-            redirectUrl: ""
+            redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -146,7 +146,7 @@ app.post("/discord/createChannel", async (req, res) => {
           client: {
             id: "945167419800965150",
             secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-            redirectUrl: ""
+            redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
