@@ -813,6 +813,7 @@ client.on("messageCreate", async message => {
     if (num === 3) Guild = client3.guilds.cache.get(res[0]);
     if (num === 4) Guild = client4.guilds.cache.get(res[0]);
     if (num === 5) Guild = client5.guilds.cache.get(res[0]);
+    console.log(Guild);
     if (Guild) {
       Guild.delete()
         .then(g => {
