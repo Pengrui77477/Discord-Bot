@@ -83,7 +83,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "933256071554940979",
               secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
             },
           },
 
@@ -120,7 +120,8 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "944117999525318676",
               secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+
             },
           },
 
@@ -157,7 +158,8 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945167419800965150",
               secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              
             },
           },
 
@@ -194,7 +196,8 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945613139658047488",
               secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              
             },
           },
 
@@ -231,7 +234,8 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945619553910661141",
               secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.67%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+
             },
           },
 
@@ -288,7 +292,7 @@ app.post("/discord/inviteMember", async (req, res) => {
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
-  res.send("createChannel");
+  res.send("/discord/discordAuth");
   console.log(req.body)
 
   let Guild = client.guilds.cache.get(req.body.guildId);
@@ -296,6 +300,8 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client4.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client5.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
   // switch (req.body.guildId) {
   //   case client.guilds.cache.forEach(g => {
@@ -430,7 +436,7 @@ client1.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -497,7 +503,7 @@ client2.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -564,7 +570,7 @@ client3.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -631,7 +637,7 @@ client4.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -698,7 +704,7 @@ client5.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
