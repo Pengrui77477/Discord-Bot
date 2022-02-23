@@ -26,6 +26,18 @@ userInfo.getInfo = function (params) {
         })
     })
 }
+userInfo.updateInfo = function (params) {
+    return new Promise(function (resolve, reject) {
+        mysql.getConnection(function (err, connection) {
+            const sql = "update discord_userInfo set guild_id=? where user_id=?";
+            connection.query(sql, [params], function (err, result) {
+                if (err) reject(err);
+                resolve(result);
+            });
+            connection.release();
+        })
+    })
+}
 // userInfo.getInfo=function(params){
 //     return new Promise(function(resolve,reject){
 //         mysql.getConnection(function(err,connection){

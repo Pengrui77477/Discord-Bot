@@ -5,8 +5,8 @@ const discordInfo = {};
 discordInfo.setInfo = function (params) {
     return new Promise(function (resolve, reject) {
         mysql.getConnection(function (err, connection) {
-            const sql = "insert into discord_guild (guild_id,guild_name,invite_link,chain_symbol,contract_address,mint_name,status,user_id,access_token) value (?,?,?,?,?,?,?,?,?)";
-            connection.query(sql, [params.guild_id, params.guild_name, params.invite_link, params.chain_symbol, params.contract_address, params.mint_name, 'available', params.user_id, params.access_token], function (err, result) {
+            const sql = "insert into discord_guild (guild_id,guild_name,invite_link,chain_symbol,contract_address,mint_name,status,client_id,client_secret,client_secret) value (?,?,?,?,?,?,?,?,?,?)";
+            connection.query(sql, [params.guild_id, params.guild_name, params.invite_link, params.chain_symbol, params.contract_address, params.mint_name, 'available', params.client_id, params.client_secret, params.client_redirect_url], function (err, result) {
                 if (err) reject(err);
                 resolve(result);
             });

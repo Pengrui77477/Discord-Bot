@@ -80,13 +80,10 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
-            client: {
-              id: "933256071554940979",
-              secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
-            },
+            client_id: "933256071554940979",
+            client_secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
-
           message: "success",
           status: true
         };
@@ -117,14 +114,10 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
-            client: {
-              id: "944117999525318676",
-              secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
-
-            },
+            client_id: "944117999525318676",
+            client_secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
-
           message: "success",
           status: true
         };
@@ -155,12 +148,9 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
-            client: {
-              id: "945167419800965150",
-              secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
-              
-            },
+            client_id: "945167419800965150",
+            client_secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
 
           message: "success",
@@ -193,14 +183,10 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
-            client: {
-              id: "945613139658047488",
-              secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
-              
-            },
+            client_id: "945613139658047488",
+            client_secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
-
           message: "success",
           status: true
         };
@@ -231,14 +217,10 @@ app.post("/discord/createChannel", async (req, res) => {
             guild_name: data.collectionName,
             chain_symbol: data.chainSymbol,
             contract_address: data.contractAddress,
-            client: {
-              id: "945619553910661141",
-              secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
-
-            },
+            client_id: "945619553910661141",
+            client_secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
-
           message: "success",
           status: true
         };
@@ -246,7 +228,7 @@ app.post("/discord/createChannel", async (req, res) => {
         res.send(info);
       });
     }
-    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length,"bot4: " + bot5.length);
+    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
   } catch (err) {
     console.log(err)
   }
@@ -254,14 +236,14 @@ app.post("/discord/createChannel", async (req, res) => {
 
 //用户授权接口--获取信息接口
 app.post("/discord/userInfo", async (req, res) => {
-  const params=req.body;
-  console.log("params",params);
-  const exist=await userInfo.getInfo(params.userId);
-  if(exist.length===0) {
+  const params = req.body;
+  console.log("params", params);
+  const exist = await userInfo.getInfo(params.userId);
+  if (exist.length === 0) {
     await userInfo.setInfo(params);
   }
   res.send(req.body.userId);
-})
+});
 
 //用户授权接口--邀请接口
 app.post("/discord/inviteMember", async (req, res) => {
@@ -330,12 +312,12 @@ app.post("/discord/discordAuth", async (req, res) => {
   //     break;
   // }
   const member = Guild.members.cache.get(req.body.userId);
-
+  const { user_id } = userInfo.getInfo(req.body.userId);
   //如果用户存在当前服务器
   if (member) {
 
     //目前简单判断
-    if (req.body.nftOwner) {
+    if (member.user.id === user_id) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
       if (!role) {
         Guild.roles.create({
