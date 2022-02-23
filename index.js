@@ -1,6 +1,6 @@
 const express = require("express");
 const discordInfo = require('./service/db/discord_info');
-// const userInfo = require('./service/db/discord_userInfo');
+const userInfo = require('./service/db/discord_userInfo');
 const fs = require("fs");
 const Discord = require("discord.js");
 const { MessageEmbed, Permissions, Shard } = Discord;
@@ -254,6 +254,9 @@ app.post("/discord/createChannel", async (req, res) => {
 
 app.post("/discord/userInfo", async (req, res) => {
   console.log(req.body);
+  const exist=await userInfo.getInfo(req.body.userId);
+  if(!exist) await userInfo.setInfo(req.body.userId);
+  res.send(req.body.userId)
 })
 //用户授权接口
 app.post("/discord/inviteMember", async (req, res) => {
