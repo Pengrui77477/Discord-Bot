@@ -254,9 +254,12 @@ app.post("/discord/createChannel", async (req, res) => {
 
 //用户授权接口--获取信息接口
 app.post("/discord/userInfo", async (req, res) => {
-  console.log(req.body);
-  const exist=await userInfo.getInfo(req.body.userId);
-  if(exist.length===0) await userInfo.setInfo(req.body.userId);
+  const params=req.body;
+  console.log("params",params);
+  const exist=await userInfo.getInfo(params.userId);
+  if(exist.length===0) {
+    await userInfo.setInfo(params);
+  }
   res.send(req.body.userId);
 })
 
