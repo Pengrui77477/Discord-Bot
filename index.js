@@ -790,6 +790,8 @@ client.on("messageCreate", async message => {
     const num1 = client1.guilds.cache;
     const num2 = client2.guilds.cache;
     const num3 = client3.guilds.cache;
+    const num4 = client4.guilds.cache;
+    const num5 = client5.guilds.cache;
     // let res = [];
     // num2.forEach(async n => {
     //   res.push(n.id);
@@ -797,6 +799,8 @@ client.on("messageCreate", async message => {
     console.log(num1);
     console.log(num2);
     console.log(num3);
+    console.log(num4);
+    console.log(num5);
   }
   if (message.content.includes(".del")) {
 
