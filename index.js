@@ -243,11 +243,11 @@ app.post("/discord/userInfo", async (req, res) => {
   };
   console.log("params", params);
 
-  const exist = await userInfo.getInfo(params.userId);
+  const exist = await userInfo.getInfo(info.data.userId);
   if (exist.length === 0) {
-    await userInfo.setInfo(params);
+    await userInfo.setInfo(info.data.params);
   }
-  
+
   res.send(info);
 });
 
