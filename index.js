@@ -807,7 +807,6 @@ client.on("messageCreate", async message => {
     const res = message.content.split(" ").reverse();
     const num = res[1];
     let Guild;
-    console.log(num);
     if (num === 1) Guild = client1.guilds.cache.get(res[0]);
     if (num === 2) Guild = client2.guilds.cache.get(res[0]);
     if (num === 3) Guild = client3.guilds.cache.get(res[0]);
