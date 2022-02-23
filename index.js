@@ -805,7 +805,7 @@ client.on("messageCreate", async message => {
   if (message.content.includes(".del")) {
 
     const res = message.content.split(" ").reverse();
-    const Guild = client1.guilds.cache.get(res[0]);
+    const Guild = `${client}${res[1]}`.guilds.cache.get(res[0]);
     if (Guild) {
       Guild.delete()
         .then(g => {
