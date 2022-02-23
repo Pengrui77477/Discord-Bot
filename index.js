@@ -83,7 +83,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "933256071554940979",
               secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
             },
           },
 
@@ -120,7 +120,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "944117999525318676",
               secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
 
             },
           },
@@ -158,7 +158,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945167419800965150",
               secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
               
             },
           },
@@ -196,7 +196,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945613139658047488",
               secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
               
             },
           },
@@ -234,7 +234,7 @@ app.post("/discord/createChannel", async (req, res) => {
             client: {
               id: "945619553910661141",
               secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
-              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+              redirectUrl: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
 
             },
           },
@@ -256,8 +256,9 @@ app.post("/discord/userInfo", async (req, res) => {
   console.log(req.body);
   const exist=await userInfo.getInfo(req.body.userId);
   if(!exist) await userInfo.setInfo(req.body.userId);
-  res.send(req.body.userId)
+  res.send(req.body.userId);
 })
+
 //用户授权接口
 app.post("/discord/inviteMember", async (req, res) => {
   console.log(req.body);
