@@ -252,14 +252,15 @@ app.post("/discord/createChannel", async (req, res) => {
   }
 });
 
+//用户授权接口--获取信息接口
 app.post("/discord/userInfo", async (req, res) => {
   console.log(req.body);
   const exist=await userInfo.getInfo(req.body.userId);
-  if(!exist) await userInfo.setInfo(req.body.userId);
+  if(exist.length===0) await userInfo.setInfo(req.body.userId);
   res.send(req.body.userId);
 })
 
-//用户授权接口
+//用户授权接口--邀请接口
 app.post("/discord/inviteMember", async (req, res) => {
   console.log(req.body);
   const userInfo = req.body.userInfo;

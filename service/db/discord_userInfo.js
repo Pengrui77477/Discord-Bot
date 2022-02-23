@@ -5,8 +5,8 @@ const userInfo = {};
 userInfo.setInfo = function (params) {
     return new Promise(function (resolve, reject) {
         mysql.getConnection(function (err, connection) {
-            const sql = "insert into discord_userInfo (user_id) value (?)";
-            connection.query(sql, [params], function (err, result) {
+            const sql = "insert into discord_userInfo (user_id,user_name) value (?,?)";
+            connection.query(sql, [params.userId,params.userName], function (err, result) {
                 if (err) reject(err);
                 resolve(result);
             });
@@ -17,7 +17,7 @@ userInfo.setInfo = function (params) {
 userInfo.getInfo = function (params) {
     return new Promise(function (resolve, reject) {
         mysql.getConnection(function (err, connection) {
-            const sql = "select user_id from discord_userInfo where user_id=?";
+            const sql = "select user_id,user_name from discord_userInfo where user_id=?";
             connection.query(sql, [params], function (err, result) {
                 if (err) reject(err);
                 resolve(result);
