@@ -818,7 +818,6 @@ client.on("messageCreate", async message => {
     } else if (num == 5) {
       Guild = client5.guilds.cache.get(res[0]);
     }
-    console.log(Guild);
     if (Guild) {
       Guild.delete()
         .then(g => {
