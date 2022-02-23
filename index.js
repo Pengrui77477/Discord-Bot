@@ -82,7 +82,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "933256071554940979",
             client_secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.106%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -116,7 +116,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "944117999525318676",
             client_secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.106%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -150,9 +150,8 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945167419800965150",
             client_secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.106%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
-
           message: "success",
           status: true
         };
@@ -185,7 +184,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945613139658047488",
             client_secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.106%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -219,7 +218,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945619553910661141",
             client_secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.71%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.106%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
