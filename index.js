@@ -803,15 +803,16 @@ client.on("messageCreate", async message => {
     console.log(num5);
   }
   if (message.content.includes(".del")) {
-    
+
     const res = message.content.split(" ").reverse();
     const num = res[1];
     let Guild;
-    if (num === 1)  Guild = client1.guilds.cache.get(res[0]);
-    if (num === 2)  Guild = client2.guilds.cache.get(res[0]);
-    if (num === 3)  Guild = client3.guilds.cache.get(res[0]);
-    if (num === 4)  Guild = client4.guilds.cache.get(res[0]);
-    if (num === 5)  Guild = client5.guilds.cache.get(res[0]);
+    console.log(num);
+    if (num === 1) Guild = client1.guilds.cache.get(res[0]);
+    if (num === 2) Guild = client2.guilds.cache.get(res[0]);
+    if (num === 3) Guild = client3.guilds.cache.get(res[0]);
+    if (num === 4) Guild = client4.guilds.cache.get(res[0]);
+    if (num === 5) Guild = client5.guilds.cache.get(res[0]);
     if (Guild) {
       Guild.delete()
         .then(g => {
