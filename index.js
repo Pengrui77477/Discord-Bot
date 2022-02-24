@@ -322,7 +322,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   //如果用户存在当前服务器
   if (member) {
     //目前简单判断
-    if (member.user.id === user_id) {
+    if (req.body.nftOwner===1) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
       if (!role) {
         Guild.roles.create({
