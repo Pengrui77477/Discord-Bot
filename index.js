@@ -321,7 +321,6 @@ app.post("/discord/discordAuth", async (req, res) => {
   const { user_id } = userInfo.getInfo(req.body.userId);
   //如果用户存在当前服务器
   if (member) {
-
     //目前简单判断
     if (member.user.id === user_id) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
@@ -432,7 +431,7 @@ client1.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -499,7 +498,7 @@ client2.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -566,7 +565,7 @@ client3.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -633,7 +632,7 @@ client4.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
@@ -700,7 +699,7 @@ client5.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.71:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
