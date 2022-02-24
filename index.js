@@ -291,13 +291,73 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const data = req.body;
   console.log(data);
-  let Guild = client.guilds.cache.get(data.guildId);
-  // const member = await Guild.members.fetch(req.body.userId);
-  if (!Guild) Guild = client1.guilds.cache.get(data.guildId);
+  let Guild = client1.guilds.cache.get(data.guildId);
   if (!Guild) Guild = client2.guilds.cache.get(data.guildId);
   if (!Guild) Guild = client3.guilds.cache.get(data.guildId);
   if (!Guild) Guild = client4.guilds.cache.get(data.guildId);
   if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
+  if (!Guild) {
+    Guild = client.guilds.cache.get(data.guildId);
+    const member = Guild.members.cache.get(data.userId);
+    const { user_id, user_name } = await userInfo.getInfo(data.userId);
+    if (member) {
+      //目前简单判断
+      if (data.nftOwner == 1 && user_id === member.id) {
+        let role = Guild.roles.cache.find(role => role.name === "[Verified]");
+        if (!role) {
+          Guild.roles.create({
+            name: '[Verified]',
+            color: '#4fc970',
+            // hoist: true,
+            permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+          }).then(role => {
+            member.roles.add(role);
+          });
+        } else {
+          member.roles.add(role);
+        }
+        //判断用户是否已经拥有角色，避免点击重复发送信息
+        const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+        if (!isRole) {
+          embed = new MessageEmbed()
+            .setColor('#f542d4')
+            .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+            .setTimestamp()
+            .setFooter({ text: 'PlaNFT' });
+          member.send({ embeds: [embed] });
+          //将该用户信息插入数据库
+          // userInfo.setInfo(member);
+        }
+        res.send(
+          {
+            code: '200',
+            data,
+            message: "success",
+            status: true
+          }
+        )
+      } else {
+        //判断用户是否已经拥有角色，避免点击重复发送信息
+        const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+        if (isRole) return;
+
+        const embed = new MessageEmbed()
+          .setColor('#f542d4')
+          .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
+          .setTimestamp()
+          .setFooter({ text: 'PlaNFT' });
+        member.send({ embeds: [embed] })
+        res.send(
+          {
+            code: '200',
+            data,
+            message: "fail",
+            status: false
+          }
+        );
+      }
+    }
+  }
   if (!Guild) return;
 
   const member = Guild.members.cache.get(data.userId);
@@ -314,12 +374,12 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (member) {
     //目前简单判断
     if (data.nftOwner == 1 && user_id === member.id) {
-      let role = Guild.roles.cache.find(role => role.name === "[Verified]");
+      let role = Guild.roles.cache.find(role => role.name === "[verified]");
       if (!role) {
         Guild.roles.create({
-          name: '[Verified]',
+          name: '[verified]',
           color: '#4fc974',
-          hoist: true,
+          // hoist: true,
           permissions: [Permissions.FLAGS.VIEW_CHANNEL]
         }).then(role => {
           member.roles.add(role);
@@ -328,7 +388,7 @@ app.post("/discord/discordAuth", async (req, res) => {
         member.roles.add(role);
       }
       //判断用户是否已经拥有角色，避免点击重复发送信息
-      const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+      const isRole = member.roles.cache.find(role => role.name === "[verified]");
       if (!isRole) {
         embed = new MessageEmbed()
           .setColor('#f542d4')
@@ -349,7 +409,7 @@ app.post("/discord/discordAuth", async (req, res) => {
       )
     } else {
       //判断用户是否已经拥有角色，避免点击重复发送信息
-      const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+      const isRole = member.roles.cache.find(role => role.name === "[verified]");
       if (isRole) return;
 
       const embed = new MessageEmbed()
