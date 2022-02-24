@@ -290,6 +290,7 @@ app.post("/discord/inviteMember", async (req, res) => {
 app.post("/discord/discordAuth", async (req, res) => {
 
   const data = req.body;
+  console.log(data);
   let Guild = client.guilds.cache.get(data.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
   if (!Guild) Guild = client1.guilds.cache.get(data.guildId);
