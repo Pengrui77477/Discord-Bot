@@ -357,6 +357,7 @@ app.post("/discord/discordAuth", async (req, res) => {
         );
       }
     }
+    return;
   }
   if (!Guild) return;
 
