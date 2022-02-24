@@ -299,24 +299,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) Guild = client4.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client5.guilds.cache.get(req.body.guildId);
   if (!Guild) return;
-  // switch (req.body.guildId) {
-  //   case client.guilds.cache.forEach(g => {
-  //     return g.id
-  //   }):
-  //     Guild = client.guilds.cache.get(req.body.guildId);
-  //     break;
-  //   case 1:
-  //     Guild = client1.guilds.cache.get(req.body.guildId);
-  //     break;
-  //   case 2:
-  //     Guild = client2.guilds.cache.get(req.body.guildId);
-  //     break;
-  //   case 3:
 
-  //     break;
-  //   default:
-  //     break;
-  // }
   const member = Guild.members.cache.get(req.body.userId);
   const { user_id } = userInfo.getInfo(req.body.userId);
   //如果用户存在当前服务器
@@ -367,7 +350,7 @@ client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
 
   //机器人发送私信
-  const verifyUrl = `http://192.168.50.67:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
   // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
   const Embed = new MessageEmbed()
     .setColor('#f542d4')
