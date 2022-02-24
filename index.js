@@ -288,24 +288,23 @@ app.post("/discord/inviteMember", async (req, res) => {
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
-  res.send("/discord/discordAuth");
-  console.log(req.body)
 
-  let Guild = client.guilds.cache.get(req.body.guildId);
+  const data = req.body;
+  let Guild = client.guilds.cache.get(data.guildId);
   // const member = await Guild.members.fetch(req.body.userId);
-  if (!Guild) Guild = client1.guilds.cache.get(req.body.guildId);
-  if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
-  if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
-  if (!Guild) Guild = client4.guilds.cache.get(req.body.guildId);
-  if (!Guild) Guild = client5.guilds.cache.get(req.body.guildId);
+  if (!Guild) Guild = client1.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client2.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client3.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client4.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
   if (!Guild) return;
-
-  const member = Guild.members.cache.get(req.body.userId);
-  const { user_id } = userInfo.getInfo(req.body.userId);
+  
+  const member = Guild.members.cache.get(data.userId);
+  const { user_id } = userInfo.getInfo(data.userId);
   //如果用户存在当前服务器
   if (member) {
     //目前简单判断
-    if (req.body.nftOwner===1) {
+    if (data.nftOwner === 1) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
       if (!role) {
         Guild.roles.create({
@@ -331,6 +330,14 @@ app.post("/discord/discordAuth", async (req, res) => {
         //将该用户信息插入数据库
         // userInfo.setInfo(member);
       }
+      res.send(
+        {
+          code: '200',
+          data,
+          message: "success",
+          status: true
+        }
+      )
     } else {
       //判断用户是否已经拥有角色，避免点击重复发送信息
       const isRole = member.roles.cache.find(role => role.name === "[Verified]");
@@ -342,9 +349,19 @@ app.post("/discord/discordAuth", async (req, res) => {
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       member.send({ embeds: [embed] })
+      res.send(
+        {
+          code: '400',
+          data,
+          message: "success",
+          status: false
+        }
+      );
     }
   }
 });
+
+
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
