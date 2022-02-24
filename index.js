@@ -310,7 +310,7 @@ app.post("/discord/discordAuth", async (req, res) => {
     user_id,
     user_name
   }
-
+  console.log(result);
   if (member) {
     //目前简单判断
     if (data.nftOwner == 1 && user_id === member.id) {
@@ -325,12 +325,7 @@ app.post("/discord/discordAuth", async (req, res) => {
           member.roles.add(role);
         });
       } else {
-        try {
-          member.roles.add(role);
-        } catch (err) {
-          console.log(err);
-        }
-        console.log(result);
+        member.roles.add(role);
       }
       //判断用户是否已经拥有角色，避免点击重复发送信息
       const isRole = member.roles.cache.find(role => role.name === "[Verified]");
