@@ -306,29 +306,32 @@ app.post("/discord/discordAuth", async (req, res) => {
   const result={
     GuildId:Guild.id,
     memberId:member.id,
-    dataId:data.userId,
-
     nftOwner:data.nftOwner,
     user_id,
     user_name
   }
-  console.log(result);
+  
   if (member) {
     //目前简单判断
     if (data.nftOwner == 1 && user_id===member.id) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
-      if (!role) {
-        Guild.roles.create({
-          name: '[Verified]',
-          color: '#4fc974',
-          hoist: true,
-          permissions: [Permissions.FLAGS.VIEW_CHANNEL]
-        }).then(role => {
+      // if (!role) {
+      //   Guild.roles.create({
+      //     name: '[Verified]',
+      //     color: '#4fc974',
+      //     hoist: true,
+      //     permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+      //   }).then(role => {
+      //     member.roles.add(role);
+      //   });
+      // } else {
+        try{
           member.roles.add(role);
-        });
-      } else {
-        member.roles.add(role);
-      }
+        }catch(err){
+          console.log(err);
+        }
+        console.log(result);
+      // }
       //判断用户是否已经拥有角色，避免点击重复发送信息
       const isRole = member.roles.cache.find(role => role.name === "[Verified]");
       if (!isRole) {
