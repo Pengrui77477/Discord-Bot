@@ -298,7 +298,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) Guild = client4.guilds.cache.get(data.guildId);
   if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
   if (!Guild) return;
-  
+
   const member = Guild.members.cache.get(data.userId);
   const { user_id } = userInfo.getInfo(data.userId);
   //如果用户存在当前服务器
@@ -351,7 +351,7 @@ app.post("/discord/discordAuth", async (req, res) => {
       member.send({ embeds: [embed] })
       res.send(
         {
-          code: '400',
+          code: '200',
           data,
           message: "success",
           status: false
