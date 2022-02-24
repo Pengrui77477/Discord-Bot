@@ -311,7 +311,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   console.log(result);
   if (member) {
     //目前简单判断
-    if (data.nftOwner === 1) {
+    if (data.nftOwner == 1 && user_id===member.id) {
       let role = Guild.roles.cache.find(role => role.name === "[Verified]");
       if (!role) {
         Guild.roles.create({
