@@ -353,7 +353,7 @@ app.post("/discord/discordAuth", async (req, res) => {
         {
           code: '200',
           data,
-          message: "success",
+          message: "fail",
           status: false
         }
       );
