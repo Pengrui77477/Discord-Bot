@@ -52,7 +52,7 @@ setInterval(() => {
 
     if (bot1.length < 10) {
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
-      console.log(TemplateGuild);
+      // console.log(TemplateGuild);
       // (await TemplateGuild.fetchTemplates()).forEach(async template => {
       //   const Guild = await template.createGuild(`guildName-${(Math.random()*100).toFixed()}`);
 
