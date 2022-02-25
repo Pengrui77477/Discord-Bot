@@ -50,125 +50,61 @@ setInterval(async () => {
       bot5.push(g.id);
     })
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
-    switch (10) {
-      case bot5.length: {
-        const TemplateGuild = client1.guilds.cache.get('936435431254413392');
-        // console.log(TemplateGuild);
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+    if (bot1.length < 10) {
+      const TemplateGuild = await client1.guilds.cache.get('936435431254413392');
+      // console.log(TemplateGuild);
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-          const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-          const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-          console.log(bot1.length + '--' + Invite.url);
-          await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-        });
-        break;
-      }
-      case bot1.length: {
-        const TemplateGuild = client2.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot1.length + '--' + Invite.url);
+        await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
+      });
+    } else if (bot2.length < 10) {
+      const TemplateGuild = await client2.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-          const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-          const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-          console.log(bot2.length + '--' + Invite.url);
-          await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-        });
-        break;
-      }
-      case bot2.length: {
-        const TemplateGuild = client3.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot2.length + '--' + Invite.url);
+        await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
+      });
+    } else if (bot3.length < 10) {
+      const TemplateGuild = await client3.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-          const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-          const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-          console.log(bot3.length + '--' + Invite.url);
-          await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-        });
-        break;
-      }
-      case bot3.length: {
-        const TemplateGuild = client4.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot3.length + '--' + Invite.url);
+        await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
+      });
+    } else if (bot4.length < 10) {
+      const TemplateGuild = await client4.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-          const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-          const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-          console.log(bot4.length + '--' + Invite.url);
-          await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-        });
-        break;
-      }
-      case bot4.length: {
-        const TemplateGuild = client5.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-          const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-          console.log(bot5.length + '--' + Invite.url);
-          await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-        });
-        break;
-      }
-      default:
-        break;
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot4.length + '--' + Invite.url);
+        await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
+      });
+    } else if (bot5.length < 10) {
+      const TemplateGuild = await client5.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot5.length + '--' + Invite.url);
+        await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
+      });
     }
-    // if (bot1.length < 10) {
-    //   const TemplateGuild = await client1.guilds.cache.get('936435431254413392');
-    //   // console.log(TemplateGuild);
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot1.length + '--' + Invite.url);
-    //     await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-    //   });
-    // } else if (bot2.length < 10) {
-    //   const TemplateGuild = await client2.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot2.length + '--' + Invite.url);
-    //     await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-    //   });
-    // } else if (bot3.length < 10) {
-    //   const TemplateGuild = await client3.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot3.length + '--' + Invite.url);
-    //     await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-    //   });
-    // } else if (bot4.length < 10) {
-    //   const TemplateGuild = await client4.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot4.length + '--' + Invite.url);
-    //     await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-    //   });
-    // } else if (bot5.length < 10) {
-    //   const TemplateGuild = await client5.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot5.length + '--' + Invite.url);
-    //     await Guild.delete().then(g => console.log(`delete this guild: ${g}`));
-    //   });
-    // }
   } catch (err) {
     console.log(err)
   }
-}, 1000);
+}, 3000);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
