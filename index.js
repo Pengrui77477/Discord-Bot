@@ -37,37 +37,37 @@ setInterval(async () => {
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     });
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client4.guilds.cache.forEach(async g => {
       bot4.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client5.guilds.cache.forEach(async g => {
       bot5.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     // for (let i = 1; i < 10; i++) {
     //   if (bot1.length === 10) return;
@@ -133,62 +133,62 @@ setInterval(async () => {
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
     
     
-    // if (bot1.length < 10) {
-    //   if (bot1.length == 10) return;
-    //   const TemplateGuild = client1.guilds.cache.get('936435431254413392');
-    //   // console.log(TemplateGuild);
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+    if (bot1.length < 10) {
+      if (bot1.length == 10) return;
+      const TemplateGuild = client1.guilds.cache.get('936435431254413392');
+      // console.log(TemplateGuild);
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot1.length + '--' + Invite.url);
-    //   });
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot1.length + '--' + Invite.url);
+      });
       
-    // } else if (bot1.length == 10 && bot2.length < 10) {
-    //   if (bot2.length == 10) return;
-    //   const TemplateGuild = client2.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+    } else if (bot1.length == 10 && bot2.length < 10) {
+      if (bot2.length == 10) return;
+      const TemplateGuild = client2.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot2.length + '--' + Invite.url);
-    //   });
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot2.length + '--' + Invite.url);
+      });
       
-    // } else if (bot2.length == 10 && bot3.length < 10) {
-    //   if (bot3.length == 10) return;
-    //   const TemplateGuild = client3.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+    } else if (bot2.length == 10 && bot3.length < 10) {
+      if (bot3.length == 10) return;
+      const TemplateGuild = client3.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot3.length + '--' + Invite.url);
-    //   });
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot3.length + '--' + Invite.url);
+      });
       
-    // } else if (bot3.length == 10 && bot4.length < 10) {
-    //   if (bot4.length == 10) return;
-    //   const TemplateGuild = client4.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+    } else if (bot3.length == 10 && bot4.length < 10) {
+      if (bot4.length == 10) return;
+      const TemplateGuild = client4.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot4.length + '--' + Invite.url);
-    //   });
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot4.length + '--' + Invite.url);
+      });
       
-    // } else if (bot4.length == 10 && bot5.length < 10) {
-    //   if (bot5.length == 10) return;
-    //   const TemplateGuild = client5.guilds.cache.get('936435431254413392');
-    //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
-    //     const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-    //     const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-    //     const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-    //     console.log(bot5.length + '--' + Invite.url);
-    //   });
+    } else if (bot4.length == 10 && bot5.length < 10) {
+      if (bot5.length == 10) return;
+      const TemplateGuild = client5.guilds.cache.get('936435431254413392');
+      (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
+        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        console.log(bot5.length + '--' + Invite.url);
+      });
       
-    // }
+    }
 
   } catch (err) {
     console.log(err)
