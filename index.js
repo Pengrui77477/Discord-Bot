@@ -69,6 +69,7 @@ setTimeout(async () => {
       //   console.log(`delete this guild: ${guild}`);
       // })
     })
+    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
 
 
     if (bot1.length < 10) {
