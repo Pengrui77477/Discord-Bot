@@ -26,7 +26,7 @@ app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
 
-setInterval(async () => {
+setTimeout(async () => {
   // console.log('refresh...');
   try {
     let bot1 = [];
@@ -37,92 +37,92 @@ setInterval(async () => {
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     });
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client4.guilds.cache.forEach(async g => {
       bot4.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
     client5.guilds.cache.forEach(async g => {
       bot5.push(g.id);
       if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
+      // g.delete().then(guild => {
+      //   console.log(`delete this guild: ${guild}`);
+      // })
     })
-    // if (bot1.length < 10) {
-    //   if (bot1.length == 10) return;
-    //   for (let i = 1; i < 10; i++) {
-    //     const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot1"+bot1.length + '--' + Guild.name);
-    //   }
-    // } else if (bot1.length == 10 && bot2.length < 10) {
-    //   if (bot2.length == 10) return;
-    //   for (let i = 1; i < 10; i++) {
-    //     const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot2"+bot2.length + '--' + Guild.name);
-    //   }
+    if (bot1.length < 10) {
+      if (bot1.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot1"+bot1.length + '--' + Guild.name);
+      }
+    } else if (bot1.length == 10 && bot2.length < 10) {
+      if (bot2.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot2"+bot2.length + '--' + Guild.name);
+      }
 
-    // } else if (bot2.length == 10 && bot3.length < 10) {
-    //   if (bot3.length == 10) return;
-    //   for (let i = 1; i < 10; i++) {
-    //     const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot3"+bot3.length + '--' + Guild.name);
-    //   }
+    } else if (bot2.length == 10 && bot3.length < 10) {
+      if (bot3.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot3"+bot3.length + '--' + Guild.name);
+      }
 
-    // } else if (bot3.length == 10 && bot4.length < 10) {
-    //   if (bot4.length == 10) return;
-    //   for (let i = 1; i < 10; i++) {
-    //     const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot4"+bot4.length + '--' + Guild.name);
-    //   }
+    } else if (bot3.length == 10 && bot4.length < 10) {
+      if (bot4.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot4"+bot4.length + '--' + Guild.name);
+      }
 
-    // } else if (bot4.length == 10 && bot5.length < 10) {
-    //   if (bot5.length == 10) return;
-    //   for (let i = 1; i < 10; i++) {
-    //     const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot5"+bot5.length + '--' + Guild.name);
-    //   }
-    // }
+    } else if (bot4.length == 10 && bot5.length < 10) {
+      if (bot5.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot5"+bot5.length + '--' + Guild.name);
+      }
+    }
 
 
     
@@ -205,7 +205,7 @@ setInterval(async () => {
   } catch (err) {
     console.log(err)
   }
-}, 3000);
+}, 5000);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
