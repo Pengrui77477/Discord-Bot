@@ -79,12 +79,21 @@ setTimeout(async () => {
         // let gId=[];
         // gId.push('1');
         // if (gId.length == 9) return;
-        const TemplateGuild = client1.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          num.push(Guild.id)
-          console.log("bot1" + '--' + num.length + '--' + Guild.name);
+
+        const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
         });
+        num.push(Guild.id)
+        console.log("bot1" + '--' + num.length + '--' + Guild.name);
+
+        // const TemplateGuild = client1.guilds.cache.get('936435431254413392');
+        // (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        //   const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        //   num.push(Guild.id)
+        //   console.log("bot1" + '--' + num.length + '--' + Guild.name);
+        // });
       }
     }
     if (bot2.length < 10) {
@@ -94,12 +103,21 @@ setTimeout(async () => {
         // let gId=[];
         // gId.push('1');
         // if (gId.length == 9) return;
-        const TemplateGuild = client2.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          num.push(Guild.id)
-          console.log("bot2" + '--' + num.length + '--' + Guild.name);
+
+        const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
         });
+        num.push(Guild.id)
+        console.log("bot2" + '--' + num.length + '--' + Guild.name);
+
+        // const TemplateGuild = client2.guilds.cache.get('936435431254413392');
+        // (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        //   const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        //   num.push(Guild.id)
+        //   console.log("bot2" + '--' + num.length + '--' + Guild.name);
+        // });
       }
     }
     if (bot3.length < 10) {
@@ -109,12 +127,21 @@ setTimeout(async () => {
         // let gId=[];
         // gId.push('1');
         // if (gId.length == 9) return;
-        const TemplateGuild = client3.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          num.push(Guild.id)
-          console.log("bot3" + '--' + num.length + '--' + Guild.name);
+
+        const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
         });
+        num.push(Guild.id)
+        console.log("bot3" + '--' + num.length + '--' + Guild.name);
+
+        // const TemplateGuild = client3.guilds.cache.get('936435431254413392');
+        // (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        //   const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        //   num.push(Guild.id)
+        //   console.log("bot3" + '--' + num.length + '--' + Guild.name);
+        // });
       }
     }
     if (bot4.length < 10) {
@@ -124,12 +151,21 @@ setTimeout(async () => {
         // let gId=[];
         // gId.push('1');
         // if (gId.length == 9) return;
-        const TemplateGuild = client4.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          num.push(Guild.id)
-          console.log("bot4" + '--' + num.length + '--' + Guild.name);
+
+        const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
         });
+        num.push(Guild.id)
+        console.log("bot4" + '--' + num.length + '--' + Guild.name);
+
+        // const TemplateGuild = client4.guilds.cache.get('936435431254413392');
+        // (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        //   const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        //   num.push(Guild.id)
+        //   console.log("bot4" + '--' + num.length + '--' + Guild.name);
+        // });
       }
     }
     if (bot5.length < 10) {
@@ -139,12 +175,21 @@ setTimeout(async () => {
         // let gId=[];
         // gId.push('1');
         // if (gId.length == 9) return;
-        const TemplateGuild = client5.guilds.cache.get('936435431254413392');
-        (await TemplateGuild.fetchTemplates()).forEach(async template => {
-          const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
-          num.push(Guild.id)
-          console.log("bot5" + '--' + num.length + '--' + Guild.name);
+
+        const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
         });
+        num.push(Guild.id)
+        console.log("bot5" + '--' + num.length + '--' + Guild.name);
+
+        // const TemplateGuild = client5.guilds.cache.get('936435431254413392');
+        // (await TemplateGuild.fetchTemplates()).forEach(async template => {
+        //   const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+        //   num.push(Guild.id)
+        //   console.log("bot5" + '--' + num.length + '--' + Guild.name);
+        // });
       }
     }
     client1.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot1.push(g.id) });
