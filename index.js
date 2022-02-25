@@ -26,7 +26,7 @@ app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
 
-setTimeout(async () => {
+setInterval(async () => {
   // console.log('refresh...');
   try {
     let bot1 = [];
@@ -77,7 +77,7 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot1"+bot1.length + '--' + Guild.name);
+        console.log("bot1"+'--'+bot1.length + '--' + Guild.name);
       }
     } else if (bot1.length == 10 && bot2.length < 10) {
       if (bot2.length == 10) return;
@@ -87,7 +87,7 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot2"+bot2.length + '--' + Guild.name);
+        console.log("bot2"+'--'+bot2.length + '--' + Guild.name);
       }
 
     } else if (bot2.length == 10 && bot3.length < 10) {
@@ -98,7 +98,7 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot3"+bot3.length + '--' + Guild.name);
+        console.log("bot3"+'--'+bot3.length + '--' + Guild.name);
       }
 
     } else if (bot3.length == 10 && bot4.length < 10) {
@@ -109,7 +109,7 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot4"+bot4.length + '--' + Guild.name);
+        console.log("bot4"+'--'+bot4.length + '--' + Guild.name);
       }
 
     } else if (bot4.length == 10 && bot5.length < 10) {
@@ -120,7 +120,7 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot5"+bot5.length + '--' + Guild.name);
+        console.log("bot5"+'--'+bot5.length + '--' + Guild.name);
       }
     }
 
