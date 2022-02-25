@@ -75,7 +75,7 @@ setTimeout(async () => {
     if (bot1.length < 10) {
 
       console.log('bot1.length', bot1.length);
-      let num=[];
+      let num = [];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -92,7 +92,7 @@ setTimeout(async () => {
     if (bot2.length < 10) {
 
       console.log('bot2.length', bot2.length);
-      let num=[];
+      let num = [];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -110,7 +110,7 @@ setTimeout(async () => {
     if (bot3.length < 10) {
 
       console.log('bot3.length', bot3.length);
-      let num=[];
+      let num = [];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -128,7 +128,7 @@ setTimeout(async () => {
     if (bot4.length < 10) {
 
       console.log('bot4.length', bot4.length);
-      let num=[];
+      let num = [];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -146,7 +146,7 @@ setTimeout(async () => {
     if (bot5.length < 10) {
 
       console.log('bot5.length', bot5.length);
-      let num=[];
+      let num = [];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -160,11 +160,11 @@ setTimeout(async () => {
         console.log("bot5" + '--' + num.length + '--' + Guild.name);
       }
     }
-    client1.guilds.cache.forEach(g => bot1.push(g.id));
-    client2.guilds.cache.forEach(g => bot2.push(g.id));
-    client3.guilds.cache.forEach(g => bot3.push(g.id));
-    client4.guilds.cache.forEach(g => bot4.push(g.id));
-    client5.guilds.cache.forEach(g => bot5.push(g.id));
+    client1.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot1.push(g.id) });
+    client2.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot2.push(g.id) });
+    client3.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot3.push(g.id) });
+    client4.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot4.push(g.id) });
+    client5.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot5.push(g.id) });
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
 
     // if (bot1.length < 10) {
