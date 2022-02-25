@@ -86,54 +86,54 @@ setInterval(async () => {
       if (bot1.length == 10) return;
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
       // console.log(TemplateGuild);
-      (await TemplateGuild.fetchTemplates()).forEach(async template => {
-        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+      (TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild =template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        const Invite = GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
         console.log(bot1.length + '--' + Invite.url);
       });
       
     } else if (bot1.length == 10 && bot2.length < 10) {
       if (bot2.length == 10) return;
       const TemplateGuild = client2.guilds.cache.get('936435431254413392');
-      (await TemplateGuild.fetchTemplates()).forEach(async template => {
-        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+      ( TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        const Invite = GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
         console.log(bot2.length + '--' + Invite.url);
       });
       
     } else if (bot2.length == 10 && bot3.length < 10) {
       if (bot3.length == 10) return;
       const TemplateGuild = client3.guilds.cache.get('936435431254413392');
-      (await TemplateGuild.fetchTemplates()).forEach(async template => {
-        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+      ( TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        const Invite = GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
         console.log(bot3.length + '--' + Invite.url);
       });
       
     } else if (bot3.length == 10 && bot4.length < 10) {
       if (bot4.length == 10) return;
       const TemplateGuild = client4.guilds.cache.get('936435431254413392');
-      (await TemplateGuild.fetchTemplates()).forEach(async template => {
-        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+      ( TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        const Invite = GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
         console.log(bot4.length + '--' + Invite.url);
       });
       
     } else if (bot4.length == 10 && bot5.length < 10) {
       if (bot5.length == 10) return;
       const TemplateGuild = client5.guilds.cache.get('936435431254413392');
-      (await TemplateGuild.fetchTemplates()).forEach(async template => {
-        const Guild = await template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
+      ( TemplateGuild.fetchTemplates()).forEach(async template => {
+        const Guild = template.createGuild(`guildName-${(Math.random() * 100).toFixed()}`);
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
-        const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
+        const Invite = GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
         console.log(bot5.length + '--' + Invite.url);
       });
       
