@@ -73,6 +73,7 @@ setInterval(async () => {
 
     if (bot1.length < 10) {
       if (bot1.length == 10) return;
+      console.log(bot1.length);
       for (let i = 1; i < 10; i++) {
         const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
@@ -83,6 +84,7 @@ setInterval(async () => {
       }
     } else if (bot2.length < 10) {
       if (bot2.length == 10) return;
+      console.log(bot2.length);
       for (let i = 1; i < 10; i++) {
         const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
@@ -94,6 +96,7 @@ setInterval(async () => {
 
     } else if (bot3.length < 10) {
       if (bot3.length == 10) return;
+      console.log(bot3.length);
       for (let i = 1; i < 10; i++) {
         const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
@@ -105,6 +108,7 @@ setInterval(async () => {
 
     } else if (bot4.length < 10) {
       if (bot4.length == 10) return;
+      console.log(bot4.length);
       for (let i = 1; i < 10; i++) {
         const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
@@ -116,6 +120,7 @@ setInterval(async () => {
 
     } else if (bot5.length < 10) {
       if (bot5.length == 10) return;
+      console.log(bot5.length);
       for (let i = 1; i < 10; i++) {
         const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
@@ -124,27 +129,6 @@ setInterval(async () => {
         });
         console.log("bot5" + '--' + bot5.length + '--' + Guild.name);
       }
-    }
-
-
-    for (let i = 1; i < 10; i++) {
-      // if (bot4.length === 10) return;
-      const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-        channels: [
-          { "name": "channel-1" },
-        ],
-      });
-      console.log("bot4"+bot4.length + '--' + Guild.name);
-    }
-
-    for (let i = 1; i < 10; i++) {
-      // if (bot5.length === 10) return;
-      const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-        channels: [
-          { "name": "channel-1" },
-        ],
-      });
-      console.log("bot5"+bot5.length + '--' + Guild.name);
     }
 
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
