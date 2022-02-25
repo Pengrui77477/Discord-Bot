@@ -26,7 +26,7 @@ app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
 
-setInterval(async () => {
+setTimeout(async () => {
   // console.log('refresh...');
   try {
     let bot1 = [];
