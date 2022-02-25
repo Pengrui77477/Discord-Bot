@@ -34,126 +34,122 @@ setInterval(async () => {
     let bot3 = [];
     let bot4 = [];
     let bot5 = [];
-    client1.guilds.cache.forEach(g => {
-      bot1.push(g.id);
-      if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
-    });
-    client2.guilds.cache.forEach(g => {
-      bot2.push(g.id);
-      if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
-    })
-    client3.guilds.cache.forEach(g => {
-      bot3.push(g.id);
-      if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
-    })
-    client4.guilds.cache.forEach(g => {
-      bot4.push(g.id);
-      if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
-    })
-    client5.guilds.cache.forEach(g => {
-      bot5.push(g.id);
-      if (g.id == '936435431254413392') return;
-      g.delete().then(guild => {
-        console.log(`delete this guild: ${guild}`);
-      })
-    })
+    // client1.guilds.cache.forEach(g => {
+    //   bot1.push(g.id);
+    //   if (g.id == '936435431254413392') return;
+    //   g.delete().then(guild => {
+    //     console.log(`delete this guild: ${guild}`);
+    //   })
+    // });
+    // client2.guilds.cache.forEach(g => {
+    //   bot2.push(g.id);
+    //   if (g.id == '936435431254413392') return;
+    //   g.delete().then(guild => {
+    //     console.log(`delete this guild: ${guild}`);
+    //   })
+    // })
+    // client3.guilds.cache.forEach(g => {
+    //   bot3.push(g.id);
+    //   if (g.id == '936435431254413392') return;
+    //   g.delete().then(guild => {
+    //     console.log(`delete this guild: ${guild}`);
+    //   })
+    // })
+    // client4.guilds.cache.forEach(g => {
+    //   bot4.push(g.id);
+    //   if (g.id == '936435431254413392') return;
+    //   g.delete().then(guild => {
+    //     console.log(`delete this guild: ${guild}`);
+    //   })
+    // })
+    // client5.guilds.cache.forEach(g => {
+    //   bot5.push(g.id);
+    //   if (g.id == '936435431254413392') return;
+    //   g.delete().then(guild => {
+    //     console.log(`delete this guild: ${guild}`);
+    //   })
+    // })
 
 
-    // if (bot1.length < 10) {
-    //   if (bot1.length == 10) return;
-    //   console.log('bot1.length',bot1.length);
-    //   for (let i = 1; i < 9; i++) {
-    //     let gId;
-    //     client1.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-    //     bot1.push(gId);
-        
-    //     const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot1" + '--' + bot1.length + '--' + Guild.name);
-    //   }
-    // }
-    // if (bot2.length < 10) {
-    //   if (bot2.length == 10) return;
-    //   console.log('bot2.length',bot2.length);
-    //   for (let i = 1; i < 9; i++) {
-    //     let gId;
-    //     client2.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-    //     bot2.push(gId);
-        
-    //     const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot2" + '--' + bot2.length + '--' + Guild.name);
-    //   }
+    if (bot1.length < 10) {
+      if (bot1.length == 10) return;
+      console.log('bot1.length', bot1.length);
+      for (let i = 1; i < 9; i++) {
+        let gId;
+        client1.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
+        bot1.push(gId);
 
-    // }
-    // if (bot3.length < 10) {
-    //   if (bot3.length == 10) return;
-    //   console.log('bot3.length',bot3.length);
-    //   for (let i = 1; i < 9; i++) {
-    //     let gId;
-    //     client3.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-    //     bot3.push(gId);
-        
-    //     const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot3" + '--' + bot3.length + '--' + Guild.name);
-    //   }
+        const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot1" + '--' + bot1.length + '--' + Guild.name);
+      }
+    } else if (bot2.length < 10) {
+      if (bot2.length == 10) return;
+      console.log('bot2.length', bot2.length);
+      for (let i = 1; i < 9; i++) {
+        let gId;
+        client2.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
+        bot2.push(gId);
 
-    // }
-    // if (bot4.length < 10) {
-    //   if (bot4.length == 10) return;
-    //   console.log('bot4.length',bot4.length);
-    //   for (let i = 1; i < 9; i++) {
-    //     let gId;
-    //     client4.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-    //     bot4.push(gId);
-        
-    //     const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot4" + '--' + bot4.length + '--' + Guild.name);
-    //   }
+        const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot2" + '--' + bot2.length + '--' + Guild.name);
+      }
 
-    // }
-    // if (bot5.length < 10) {
-    //   if (bot5.length == 10) return;
-    //   console.log('bot5.length',bot5.length);
-    //   for (let i = 1; i < 9; i++) {
-    //     let gId;
-    //     client5.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-    //     bot5.push(gId);
-        
-    //     const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //       channels: [
-    //         { "name": "channel-1" },
-    //       ],
-    //     });
-    //     console.log("bot5" + '--' + bot5.length + '--' + Guild.name);
-    //   }
-    // }
+    } else if (bot3.length < 10) {
+      if (bot3.length == 10) return;
+      console.log('bot3.length', bot3.length);
+      for (let i = 1; i < 9; i++) {
+        let gId;
+        client3.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
+        bot3.push(gId);
+
+        const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot3" + '--' + bot3.length + '--' + Guild.name);
+      }
+
+    } else if (bot4.length < 10) {
+      if (bot4.length == 10) return;
+      console.log('bot4.length', bot4.length);
+      for (let i = 1; i < 9; i++) {
+        let gId;
+        client4.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
+        bot4.push(gId);
+
+        const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot4" + '--' + bot4.length + '--' + Guild.name);
+      }
+
+    } else if (bot5.length < 10) {
+      if (bot5.length == 10) return;
+      console.log('bot5.length', bot5.length);
+      for (let i = 1; i < 9; i++) {
+        let gId;
+        client5.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
+        bot5.push(gId);
+
+        const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot5" + '--' + bot5.length + '--' + Guild.name);
+      }
+    }
 
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
 
@@ -1086,7 +1082,7 @@ client.on("messageCreate", async message => {
         .catch(console.error);
     }
   }
-  if(message.content===".delall"){
+  if (message.content === ".delall") {
     client1.guilds.cache.forEach(g => {
       if (g.id == '936435431254413392') return;
       g.delete().then(guild => {
