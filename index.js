@@ -25,11 +25,11 @@ app.get("/", (req, res) => res.send("hello world"));
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
-let bot1 = [];
-let bot2 = [];
-let bot3 = [];
-let bot4 = [];
-let bot5 = [];
+let bot1 = ['0'];
+let bot2 = ['0'];
+let bot3 = ['0'];
+let bot4 = ['0'];
+let bot5 = ['0'];
 setInterval(async () => {
   // console.log('refresh...');
   try {
