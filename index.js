@@ -26,10 +26,6 @@ app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
 
-
-
-
-
 setInterval(async () => {
   // console.log('refresh...');
   try {
