@@ -112,7 +112,7 @@ setInterval(async () => {
   } catch (err) {
     console.log(err)
   }
-}, 30000);
+}, 3000);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
