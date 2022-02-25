@@ -139,10 +139,9 @@ setTimeout(async () => {
 
       console.log('bot5.length', bot5.length);
       for (let i = 1; i < 10; i++) {
-        let gId;
-        client5.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; gId = g.id });
-        bot5.push(gId);
-        if (bot5.length == 10) return;
+        // let gId=[];
+        // gId.push('1');
+        // if (gId.length == 9) return;
         const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
           channels: [
             { "name": "channel-1" },
