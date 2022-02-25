@@ -142,7 +142,7 @@ setInterval(async () => {
 
         const GuildChannel = Guild.channels.cache.find(channel => channel.name == "🔮portal");
         const Invite = await GuildChannel.createInvite({ maxAge: 0, unique: true, reason: "Testing." });
-        console.log(bot1.length + '--' + Invite.url);
+        console.log(bot1.length + '--' + Guild.name);
       });
       
     } else if (bot1.length == 10 && bot2.length < 10) {
@@ -193,7 +193,7 @@ setInterval(async () => {
   } catch (err) {
     console.log(err)
   }
-}, 2000);
+}, 2500);
 
 // 接收创建服务器的请求
 app.post("/discord/createChannel", async (req, res) => {
