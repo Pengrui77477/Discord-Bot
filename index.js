@@ -165,7 +165,7 @@ setTimeout(async () => {
     client3.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot3.push(g.id) });
     client4.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot4.push(g.id) });
     client5.guilds.cache.forEach(g => { if (g.id == '936435431254413392') return; bot5.push(g.id) });
-    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
+    console.log("bot1: " + bot1.length, "bot2: " + bot2.length, "bot3: " + bot3.length, "bot4: " + bot4.length, "bot5: " + bot5.length);
 
     // if (bot1.length < 10) {
     //   if (bot1.length == 10) return;
