@@ -36,6 +36,7 @@ setInterval(async () => {
     let bot5 = [];
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
+      if(g.id=='936435431254413392') return;
       const deleteGuild = client1.guilds.cache.get(g.id);
       deleteGuild.delete().then(g => {
         console.log(`delete this guild: ${g}`);
@@ -43,6 +44,7 @@ setInterval(async () => {
     });
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
+      if(g.id=='936435431254413392') return;
       const deleteGuild = client1.guilds.cache.get(g.id);
       deleteGuild.delete().then(g => {
         console.log(`delete this guild: ${g}`);
@@ -50,12 +52,15 @@ setInterval(async () => {
     })
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
+      if(g.id=='936435431254413392') return;
     })
     client4.guilds.cache.forEach(async g => {
       bot4.push(g.id);
+      if(g.id=='936435431254413392') return;
     })
     client5.guilds.cache.forEach(async g => {
       bot5.push(g.id);
+      if(g.id=='936435431254413392') return;
     })
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
     // if (bot1.length < 10) {
