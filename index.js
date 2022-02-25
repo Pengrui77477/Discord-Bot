@@ -27,7 +27,10 @@ app.listen(port, () =>
 );
 
 setInterval(() => {
-  console.log('refresh...')
+  console.log('refresh...');
+  client1.guilds.cache.forEach(async g => {
+    console.log(g);
+  });
 }, 30000);
 
 // 接收创建服务器的请求
@@ -448,7 +451,7 @@ client.on('guildMemberAdd', async member => {
     .setTimestamp()
     .setFooter({ text: 'PlaNFT' });
   member.user.send({ ephemeral: true, embeds: [Embed] });
-})
+});
 
 client1.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
