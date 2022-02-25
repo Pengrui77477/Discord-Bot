@@ -69,7 +69,7 @@ setInterval(async () => {
       //   console.log(`delete this guild: ${guild}`);
       // })
     })
-    
+    console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
     for (let i = 1; i < 10; i++) {
       if (bot1.length === 10) return;
       const TemplateGuild = client1.guilds.cache.get('936435431254413392');
@@ -131,8 +131,8 @@ setInterval(async () => {
       });
     }
 
-
     console.log("bot: " + bot1.length, "bot1: " + bot2.length, "bot2: " + bot3.length, "bot3: " + bot4.length, "bot4: " + bot5.length);
+    
     // if (bot1.length < 10) {
     //   if (bot1.length == 10) return;
     //   const TemplateGuild = client1.guilds.cache.get('936435431254413392');
