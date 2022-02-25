@@ -75,6 +75,7 @@ setTimeout(async () => {
     if (bot1.length < 10) {
 
       console.log('bot1.length', bot1.length);
+      let num=[];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -84,12 +85,14 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot1" + '--' + bot1.length + '--' + Guild.name);
+        num.push(Guild.id)
+        console.log("bot1" + '--' + num.length + '--' + Guild.name);
       }
     }
     if (bot2.length < 10) {
 
       console.log('bot2.length', bot2.length);
+      let num=[];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -99,13 +102,15 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot2" + '--' + bot2.length + '--' + Guild.name);
+        num.push(Guild.id)
+        console.log("bot2" + '--' + num.length + '--' + Guild.name);
       }
 
     }
     if (bot3.length < 10) {
 
       console.log('bot3.length', bot3.length);
+      let num=[];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -115,13 +120,15 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot3" + '--' + bot3.length + '--' + Guild.name);
+        num.push(Guild.id)
+        console.log("bot3" + '--' + num.length + '--' + Guild.name);
       }
 
     }
     if (bot4.length < 10) {
 
       console.log('bot4.length', bot4.length);
+      let num=[];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -131,13 +138,15 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot4" + '--' + bot4.length + '--' + Guild.name);
+        num.push(Guild.id)
+        console.log("bot4" + '--' + num.length + '--' + Guild.name);
       }
 
     }
     if (bot5.length < 10) {
 
       console.log('bot5.length', bot5.length);
+      let num=[];
       for (let i = 1; i < 10; i++) {
         // let gId=[];
         // gId.push('1');
@@ -147,7 +156,8 @@ setTimeout(async () => {
             { "name": "channel-1" },
           ],
         });
-        console.log("bot5" + '--' + bot5.length + '--' + Guild.name);
+        num.push(Guild.id)
+        console.log("bot5" + '--' + num.length + '--' + Guild.name);
       }
     }
 
