@@ -36,9 +36,17 @@ setInterval(async () => {
     let bot5 = [];
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
+      const deleteGuild = client1.guilds.cache.get(g.id);
+      deleteGuild.delete().then(g => {
+        console.log(`delete this guild: ${g}`);
+      })
     });
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
+      const deleteGuild = client1.guilds.cache.get(g.id);
+      deleteGuild.delete().then(g => {
+        console.log(`delete this guild: ${g}`);
+      })
     })
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
