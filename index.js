@@ -69,36 +69,65 @@ setInterval(async () => {
       //   console.log(`delete this guild: ${guild}`);
       // })
     })
+    if (bot1.length < 10) {
+      if (bot1.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot1"+bot1.length + '--' + Guild.name);
+      }
+    } else if (bot1.length == 10 && bot2.length < 10) {
+      if (bot2.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot2"+bot2.length + '--' + Guild.name);
+      }
+
+    } else if (bot2.length == 10 && bot3.length < 10) {
+      if (bot3.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot3"+bot3.length + '--' + Guild.name);
+      }
+
+    } else if (bot3.length == 10 && bot4.length < 10) {
+      if (bot4.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client4.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot4"+bot4.length + '--' + Guild.name);
+      }
+
+    } else if (bot4.length == 10 && bot5.length < 10) {
+      if (bot5.length == 10) return;
+      for (let i = 1; i < 10; i++) {
+        const Guild = await client5.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
+          channels: [
+            { "name": "channel-1" },
+          ],
+        });
+        console.log("bot5"+bot5.length + '--' + Guild.name);
+      }
+    }
 
 
-    // for (let i = 1; i < 10; i++) {
-    //   // if (bot1.length === 10) return;
-    //   const Guild = await client1.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //     channels: [
-    //       { "name": "channel-1" },
-    //     ],
-    //   });
-    //   console.log("bot1"+bot1.length + '--' + Guild.name);
-    // }
-    // for (let i = 1; i < 10; i++) {
-    //   // if (bot2.length === 10) return;
-    //   const Guild = await client2.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //     channels: [
-    //       { "name": "channel-1" },
-    //     ],
-    //   });
-    //   console.log("bot2"+bot2.length + '--' + Guild.name);
-    // }
+    
 
-    // for (let i = 1; i < 10; i++) {
-    //   // if (bot3.length === 10) return;
-    //   const Guild = await client3.guilds.create(`guildName-${(Math.random() * 100).toFixed()}`, {
-    //     channels: [
-    //       { "name": "channel-1" },
-    //     ],
-    //   });
-    //   console.log("bot3"+bot3.length + '--' + Guild.name);
-    // }
+    
 
     // for (let i = 1; i < 10; i++) {
     //   // if (bot4.length === 10) return;
@@ -125,6 +154,7 @@ setInterval(async () => {
 
     // if (bot1.length < 10) {
     //   if (bot1.length == 10) return;
+
     //   const TemplateGuild = client1.guilds.cache.get('936435431254413392');
     //   // console.log(TemplateGuild);
     //   (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -171,9 +201,7 @@ setInterval(async () => {
     //     console.log(bot5.length + '--' + Guild.name);
     //     bot5.push(Guild.name);
     //   });
-
     // }
-    
   } catch (err) {
     console.log(err)
   }
