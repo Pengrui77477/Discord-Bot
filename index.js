@@ -83,7 +83,8 @@ setTimeout(async () => {
         });
         console.log("bot1" + '--' + bot1.length + '--' + Guild.name);
       }
-    } else if (bot2.length < 10) {
+    } 
+    if (bot2.length < 10) {
       if (bot2.length == 10) return;
       console.log(bot2.length);
       for (let i = 1; i < 10; i++) {
@@ -95,7 +96,8 @@ setTimeout(async () => {
         console.log("bot2" + '--' + bot2.length + '--' + Guild.name);
       }
 
-    } else if (bot3.length < 10) {
+    } 
+    if (bot3.length < 10) {
       if (bot3.length == 10) return;
       console.log(bot3.length);
       for (let i = 1; i < 10; i++) {
@@ -107,7 +109,8 @@ setTimeout(async () => {
         console.log("bot3" + '--' + bot3.length + '--' + Guild.name);
       }
 
-    } else if (bot4.length < 10) {
+    } 
+    if (bot4.length < 10) {
       if (bot4.length == 10) return;
       console.log(bot4.length);
       for (let i = 1; i < 10; i++) {
@@ -119,7 +122,8 @@ setTimeout(async () => {
         console.log("bot4" + '--' + bot4.length + '--' + Guild.name);
       }
 
-    } else if (bot5.length < 10) {
+    } 
+    if (bot5.length < 10) {
       if (bot5.length == 10) return;
       console.log(bot5.length);
       for (let i = 1; i < 10; i++) {
