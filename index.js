@@ -83,7 +83,7 @@ setInterval(async () => {
       });
     }
     for (let i = 1; i < 10; i++) {
-      if (bot1.length === 10) return;
+      if (bot2.length === 10) return;
       const TemplateGuild = client2.guilds.cache.get('936435431254413392');
       // console.log(TemplateGuild);
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -95,7 +95,7 @@ setInterval(async () => {
       });
     }
     for (let i = 1; i < 10; i++) {
-      if (bot1.length === 10) return;
+      if (bot3.length === 10) return;
       const TemplateGuild = client3.guilds.cache.get('936435431254413392');
       // console.log(TemplateGuild);
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -107,7 +107,7 @@ setInterval(async () => {
       });
     }
     for (let i = 1; i < 10; i++) {
-      if (bot1.length === 10) return;
+      if (bot4.length === 10) return;
       const TemplateGuild = client4.guilds.cache.get('936435431254413392');
       // console.log(TemplateGuild);
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
@@ -119,7 +119,7 @@ setInterval(async () => {
       });
     }
     for (let i = 1; i < 10; i++) {
-      if (bot1.length === 10) return;
+      if (bot5.length === 10) return;
       const TemplateGuild = client5.guilds.cache.get('936435431254413392');
       // console.log(TemplateGuild);
       (await TemplateGuild.fetchTemplates()).forEach(async template => {
