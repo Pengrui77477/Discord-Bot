@@ -37,37 +37,37 @@ setInterval(async () => {
     client1.guilds.cache.forEach(async g => {
       bot1.push(g.id);
       if (g.id == '936435431254413392') return;
-      // g.delete().then(guild => {
-      //   console.log(`delete this guild: ${guild}`);
-      // })
+      g.delete().then(guild => {
+        console.log(`delete this guild: ${guild}`);
+      })
     });
     client2.guilds.cache.forEach(async g => {
       bot2.push(g.id);
       if (g.id == '936435431254413392') return;
-      // g.delete().then(guild => {
-      //   console.log(`delete this guild: ${guild}`);
-      // })
+      g.delete().then(guild => {
+        console.log(`delete this guild: ${guild}`);
+      })
     })
     client3.guilds.cache.forEach(async g => {
       bot3.push(g.id);
       if (g.id == '936435431254413392') return;
-      // g.delete().then(guild => {
-      //   console.log(`delete this guild: ${guild}`);
-      // })
+      g.delete().then(guild => {
+        console.log(`delete this guild: ${guild}`);
+      })
     })
     client4.guilds.cache.forEach(async g => {
       bot4.push(g.id);
       if (g.id == '936435431254413392') return;
-      // g.delete().then(guild => {
-      //   console.log(`delete this guild: ${guild}`);
-      // })
+      g.delete().then(guild => {
+        console.log(`delete this guild: ${guild}`);
+      })
     })
     client5.guilds.cache.forEach(async g => {
       bot5.push(g.id);
       if (g.id == '936435431254413392') return;
-      // g.delete().then(guild => {
-      //   console.log(`delete this guild: ${guild}`);
-      // })
+      g.delete().then(guild => {
+        console.log(`delete this guild: ${guild}`);
+      })
     })
     // for (let i = 1; i < 10; i++) {
     //   if (bot1.length === 10) return;
