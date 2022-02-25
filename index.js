@@ -27,7 +27,7 @@ app.listen(port, () =>
 );
 
 setInterval(async () => {
-  console.log('refresh...');
+  // console.log('refresh...');
   try {
     let bot1 = [];
     let bot2 = [];
