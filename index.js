@@ -25,9 +25,9 @@ app.get("/", (req, res) => res.send("hello world"));
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
-setTimeout(()=>{
-  console.log('刷新…');
-},3000)
+setTimeout(async () => {
+  console.log('refresh...');
+},3000);
 // setTimeout(async () => {
 //   // console.log('refresh...');
 //   try {
@@ -258,7 +258,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "933256071554940979",
             client_secret: "Zm3Or8XWWttk0oExMCfRCaMq_vuX-E73",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=http%3A%2F%2F192.168.50.65%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=933256071554940979&redirect_uri=https%3A%2F%2Ftest.planft.com%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -292,7 +292,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "944117999525318676",
             client_secret: "229kSIbmpptmrkW___r64gRxSvuGYwhG",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=http%3A%2F%2F192.168.50.65%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=944117999525318676&redirect_uri=https%3A%2F%2Ftest.planft.com%2Fp_marketplace&response_type=code&scope=identify%20connections%20email%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -326,7 +326,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945167419800965150",
             client_secret: "stPFx3I5z9MtUdMOgG0gPtJPQATWutpq",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2F192.168.50.65%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945167419800965150&redirect_uri=http%3A%2F%2Ftest.planft.com%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -360,7 +360,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945613139658047488",
             client_secret: "XYu1j8roFac-Mn4ZkQAcfNnFObHP4YJs",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2F192.168.50.65%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945613139658047488&redirect_uri=http%3A%2F%2Ftest.planft.com%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -394,7 +394,7 @@ app.post("/discord/createChannel", async (req, res) => {
             contract_address: data.contractAddress,
             client_id: "945619553910661141",
             client_secret: "IyUIqvY6rHp3oFd01Ix5mf0Ypu-PIwLy",
-            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2F192.168.50.65%3A8082%2Fdashboard&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
+            client_redirect_url: "https://discord.com/api/oauth2/authorize?client_id=945619553910661141&redirect_uri=http%3A%2F%2Ftest.planft.com%2Fp_marketplace&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20guilds.members.read%20gdm.join"
           },
           message: "success",
           status: true
@@ -613,8 +613,8 @@ client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
 
   //机器人发送私信
-  const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-  // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+  const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
   const Embed = new MessageEmbed()
     .setColor('#f542d4')
     .setTitle(`Welcome to the plaNFT 👋`)
@@ -677,8 +677,8 @@ client1.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -744,8 +744,8 @@ client2.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -811,8 +811,8 @@ client3.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -878,8 +878,8 @@ client4.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
@@ -945,8 +945,8 @@ client5.on('guildMemberAdd', async member => {
       }, 5000);
     } else {
       //机器人发送私信
-      const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
-      // const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      // const verifyUrl = `http://192.168.50.65:8082/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
+      const verifyUrl = `https://test.planft.com/authDiscord?userId=${member.user.id}&guildId=${member.guild.id}`;
       const Embed = new MessageEmbed()
         .setColor('#f542d4')
         .setTitle(`Welcome to the plaNFT 👋`)
