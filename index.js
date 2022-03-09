@@ -27,7 +27,7 @@ app.listen(port, () =>
 );
 setTimeout(()=>{
   console.log('刷新…');
-})
+},3000)
 // setTimeout(async () => {
 //   // console.log('refresh...');
 //   try {
