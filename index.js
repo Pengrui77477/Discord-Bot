@@ -28,6 +28,7 @@ app.listen(port, () =>
 setTimeout(async () => {
   console.log('refresh...');
 },3000);
+
 // setTimeout(async () => {
 //   // console.log('refresh...');
 //   try {
@@ -423,7 +424,6 @@ app.post("/discord/userInfo", async (req, res) => {
   if (!exist) {
     await userInfo.setInfo(info.data);
   }
-
   res.send(info);
 });
 
@@ -444,7 +444,6 @@ app.post("/discord/inviteMember", async (req, res) => {
   await discordInfo.updateInfo(info);
 
   //谁创建的服务器就让谁拉
-
   //通过OAuth2将成员自动拉进服务器
   let Guild = client1.guilds.cache.get(req.body.guildId);
   if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
@@ -464,7 +463,6 @@ app.post("/discord/inviteMember", async (req, res) => {
 
 // 接收验证结果
 app.post("/discord/discordAuth", async (req, res) => {
-
   const data = req.body;
   console.log(data);
   let Guild = client1.guilds.cache.get(data.guildId);
