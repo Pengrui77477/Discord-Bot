@@ -543,39 +543,44 @@ app.post("/discord/discordAuth", async (req, res) => {
   console.log(result);
   if (member) {
     //目前简单判断
-    if (user_id === member.id && guild_id === member.guild.id) {
-    // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
-      let role = Guild.roles.cache.find(role => role.name === "[verified]");
-      if (!role) {
-        Guild.roles.create({
-          name: '[verified]',
-          color: '#4fc974',
-          // hoist: true,
-          permissions: [Permissions.FLAGS.VIEW_CHANNEL]
-        }).then(role => {
+    //如果数据库存在数据
+    if (result) {
+      const user_id=result.user_id;
+      const guild_id=result.guild_id;
+      if (user_id === member.id && guild_id === member.guild.id) {
+        // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
+        let role = Guild.roles.cache.find(role => role.name === "[verified]");
+        if (!role) {
+          Guild.roles.create({
+            name: '[verified]',
+            color: '#4fc974',
+            // hoist: true,
+            permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+          }).then(role => {
+            member.roles.add(role);
+          });
+        } else {
           member.roles.add(role);
-        });
-      } else {
-        member.roles.add(role);
-      }
-      //判断用户是否已经拥有角色，避免点击重复发送信息
-      const isRole = member.roles.cache.find(role => role.name === "[verified]");
-      if (!isRole) {
-        embed = new MessageEmbed()
-          .setColor('#f542d4')
-          .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
-          .setTimestamp()
-          .setFooter({ text: 'PlaNFT' });
-        member.send({ embeds: [embed] });
-      }
-      res.send(
-        {
-          code: '200',
-          data,
-          message: "success",
-          status: true
         }
-      )
+        //判断用户是否已经拥有角色，避免点击重复发送信息
+        const isRole = member.roles.cache.find(role => role.name === "[verified]");
+        if (!isRole) {
+          embed = new MessageEmbed()
+            .setColor('#f542d4')
+            .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+            .setTimestamp()
+            .setFooter({ text: 'PlaNFT' });
+          member.send({ embeds: [embed] });
+        }
+        res.send(
+          {
+            code: '200',
+            data,
+            message: "success",
+            status: true
+          }
+        )
+      }
     } else {
       //判断用户是否已经拥有角色，避免点击重复发送信息
       const isRole = member.roles.cache.find(role => role.name === "[verified]");
@@ -596,6 +601,7 @@ app.post("/discord/discordAuth", async (req, res) => {
         }
       );
     }
+
   }
 });
 
