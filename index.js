@@ -25,7 +25,9 @@ app.get("/", (req, res) => res.send("hello world"));
 app.listen(port, () =>
   console.log(`Rob listening at http://localhost:${port}`)
 );
-setTimeout(async () => {
+
+
+setTimeout(() => {
   console.log('refresh...');
 }, 3000);
 
