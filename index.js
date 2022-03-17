@@ -421,6 +421,7 @@ app.post("/discord/userInfo", async (req, res) => {
   console.log("info", info);
 
   const exist = await userInfo.getInfo(info.data.userId);
+  console.log(exist);
   if (!exist) {
     await userInfo.setInfo(info.data);
   }
@@ -499,8 +500,6 @@ app.post("/discord/discordAuth", async (req, res) => {
             .setTimestamp()
             .setFooter({ text: 'PlaNFT' });
           member.send({ embeds: [embed] });
-          //将该用户信息插入数据库
-          // userInfo.setInfo(member);
         }
         res.send(
           {
@@ -543,9 +542,9 @@ app.post("/discord/discordAuth", async (req, res) => {
     memberId: member.id,
     nftOwner: data.nftOwner,
     user_id,
-    user_name
+    // user_name
   }
-  console.log(result);
+  // console.log(result);
   if (member) {
     //目前简单判断
     if (data.nftOwner == 1 && user_id === member.id) {
@@ -571,8 +570,6 @@ app.post("/discord/discordAuth", async (req, res) => {
           .setTimestamp()
           .setFooter({ text: 'PlaNFT' });
         member.send({ embeds: [embed] });
-        //将该用户信息插入数据库
-        // userInfo.setInfo(member);
       }
       res.send(
         {
