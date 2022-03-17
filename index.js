@@ -27,7 +27,7 @@ app.listen(port, () =>
 );
 
 
-setTimeout(() => {
+setInterval(() => {
   console.log('refresh...');
 }, 3000);
 
@@ -210,6 +210,7 @@ setTimeout(() => {
 // }, 5000);
 
 // 接收创建服务器的请求
+
 app.post("/discord/createChannel", async (req, res) => {
   const data = req.body;
   console.log(data);
