@@ -27,7 +27,7 @@ app.listen(port, () =>
 );
 setTimeout(async () => {
   console.log('refresh...');
-},3000);
+}, 3000);
 
 // setTimeout(async () => {
 //   // console.log('refresh...');
@@ -419,13 +419,14 @@ app.post("/discord/userInfo", async (req, res) => {
     status: true
   };
   console.log("info", info);
-
-  const exist = await userInfo.getInfo(info.data);
-  console.log(exist);
-  if (!exist) {
-    await userInfo.setInfo(info.data);
+  try {
+    const exist = await userInfo.getInfo(info.data);
+    console.log(exist);
+    // if (exist) await userInfo.setInfo(info.data);
+    res.send(info);
+  } catch (error) {
+    console.log(error);
   }
-  res.send(info);
 });
 
 //用户授权接口--邀请接口
