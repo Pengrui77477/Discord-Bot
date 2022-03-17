@@ -549,7 +549,8 @@ app.post("/discord/discordAuth", async (req, res) => {
     // user_name
   }
   console.log(user_id === member.user.id);
-  console.log(guild_id === member.id);
+  console.log(guild_id);
+  console.log(guild_id);
   if (member) {
     //目前简单判断
     if (user_id === member.user.id && guild_id === member.id) {
