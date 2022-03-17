@@ -553,7 +553,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   console.log(member.id);
   if (member) {
     //目前简单判断
-    if (user_id === member.user.id && guild_id === member.id) {
+    if (user_id === member.id && guild_id === member.guild.id) {
     // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
       let role = Guild.roles.cache.find(role => role.name === "[verified]");
       if (!role) {
