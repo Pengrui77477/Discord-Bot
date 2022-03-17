@@ -20,7 +20,7 @@ userInfo.getInfo = function (params) {
             const sql = "select user_id,user_name from discord_user_info where user_id=? and guild_id=?";
             connection.query(sql, [params.user_id, params.guild_id], function (err, result) {
                 if (err) reject(err);
-                resolve(result);
+                resolve(result.length === 0 ? null : result[0]);
             });
             connection.release();
         })
