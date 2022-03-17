@@ -17,8 +17,8 @@ userInfo.setInfo = function (params) {
 userInfo.getInfo = function (params) {
     return new Promise(function (resolve, reject) {
         mysql.getConnection(function (err, connection) {
-            const sql = "select user_id,user_name from discord_user_info where user_id=? and guild_id=?";
-            connection.query(sql, [params.userId, params.userId], function (err, result) {
+            const sql = "select user_id,guild_id from discord_user_info where user_id=? and guild_id=?";
+            connection.query(sql, [params.userId, params.guildId], function (err, result) {
                 if (err) reject(err);
                 resolve(result);
                 // resolve(result.length === 0 ? null : result[0]);
