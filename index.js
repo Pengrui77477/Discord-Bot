@@ -540,13 +540,11 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const member = Guild.members.cache.get(data.userId);
   const result = await userInfo.getInfo(data);
-  const user_id = result.user_id;
-  const guild_id = result.guild_id;
-  console.log(user_id, guild_id);
+  console.log(result);
   if (member) {
     //目前简单判断
     if (user_id === member.id && guild_id === member.guild.id) {
-      // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
+    // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
       let role = Guild.roles.cache.find(role => role.name === "[verified]");
       if (!role) {
         Guild.roles.create({
