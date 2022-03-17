@@ -541,16 +541,6 @@ app.post("/discord/discordAuth", async (req, res) => {
   const member = Guild.members.cache.get(data.userId);
   const { user_id, guild_id } = await userInfo.getInfo(data);
   //如果用户存在当前服务器
-  const result = {
-    GuildId: Guild.id,
-    memberId: member.id,
-    nftOwner: data.nftOwner,
-    user_id,
-    // user_name
-  }
-  console.log(user_id === member.user.id);
-  console.log(guild_id);
-  console.log(member.id);
   if (member) {
     //目前简单判断
     if (user_id === member.id && guild_id === member.guild.id) {
