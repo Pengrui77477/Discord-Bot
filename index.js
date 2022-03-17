@@ -414,7 +414,7 @@ app.post("/discord/createChannel", async (req, res) => {
 });
 
 //用户授权接口--获取信息接口
-app.post("/discord/userInfo", async (req, res) => {
+app.post("/discord/getInfo", async (req, res) => {
   const info = {
     code: '200',
     data: req.body,
@@ -542,11 +542,10 @@ app.post("/discord/discordAuth", async (req, res) => {
   const result = await userInfo.getInfo(data);
   console.log(result);
   if (member) {
-    //目前简单判断
-    //如果数据库存在数据
+    
+    //如果用户数据库存在userInfo中
     if (result) {
-      const user_id=result.user_id;
-      const guild_id=result.guild_id;
+      const {user_id, guild_id} = result;
       if (user_id === member.id && guild_id === member.guild.id) {
         // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
         let role = Guild.roles.cache.find(role => role.name === "[verified]");
@@ -604,8 +603,6 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   }
 });
-
-
 
 client.on('guildMemberAdd', async member => {
   if (member.user.bot) return;
