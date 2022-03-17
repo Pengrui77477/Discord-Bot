@@ -539,9 +539,9 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) return;
 
   const member = Guild.members.cache.get(data.userId);
-  const res = await userInfo.getInfo(data);
-  const user_id = res.user_id;
-  const guild_id = res.guild_id;
+  const result = await userInfo.getInfo(data);
+  const user_id = result.user_id;
+  const guild_id = result.guild_id;
   console.log(user_id, guild_id);
   if (member) {
     //目前简单判断
