@@ -29,7 +29,7 @@ app.listen(port, () =>
 
 setInterval(() => {
   console.log('refresh...');
-}, 3000);
+}, 30000);
 
 // setTimeout(async () => {
 //   // console.log('refresh...');
@@ -477,7 +477,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
   if (!Guild) {
     Guild = client.guilds.cache.get(data.guildId);
-    const member = Guild.members.cache.get(data.userId);
+    const member = Guild.members.cache.get(data);
     const { user_id, user_name } = await userInfo.getInfo(data.userId);
     if (member) {
       //目前简单判断
@@ -539,7 +539,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) return;
 
   const member = Guild.members.cache.get(data.userId);
-  const { user_id, user_name } = await userInfo.getInfo(data.userId);
+  const { user_id, guild_id } = await userInfo.getInfo(data);
   //如果用户存在当前服务器
   const result = {
     GuildId: Guild.id,
@@ -551,7 +551,8 @@ app.post("/discord/discordAuth", async (req, res) => {
   // console.log(result);
   if (member) {
     //目前简单判断
-    if (data.nftOwner == 1 && user_id === member.id) {
+    if (user_id === member.id && guild_id === member.guild) {
+    // if (data.nftOwner == 1 && user_id === member.id && guild_id === member.guild) {
       let role = Guild.roles.cache.find(role => role.name === "[verified]");
       if (!role) {
         Guild.roles.create({
