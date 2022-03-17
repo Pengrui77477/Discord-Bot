@@ -476,7 +476,7 @@ app.post("/discord/discordAuth", async (req, res) => {
     const { user_id, user_name } = await userInfo.getInfo(data.userId);
     if (member) {
       //目前简单判断
-      if (data.nftOwner == 1 && user_id === member.id) {
+      if (data.nftOwner == 1 && user_id === member.id) { //user_id 为/discord/userInfo接口存进的用户信息
         let role = Guild.roles.cache.find(role => role.name === "[Verified]");
         if (!role) {
           Guild.roles.create({

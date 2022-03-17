@@ -20,7 +20,7 @@ userInfo.getInfo = function (params) {
             const sql = "select user_id,user_name from discord_userInfo where user_id=?";
             connection.query(sql, [params], function (err, result) {
                 if (err) reject(err);
-                resolve(result.length === 0 ? null : result[0]);
+                resolve(result);
             });
             connection.release();
         })
