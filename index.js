@@ -422,7 +422,7 @@ app.post("/discord/userInfo", async (req, res) => {
   try {
     const exist = await userInfo.getInfo(req.body);
     console.log(exist);
-    // if (exist) await userInfo.setInfo(info.data);
+    if (!exist) await userInfo.setInfo(info.data);
     res.send(info);
   } catch (error) {
     console.log(error);
