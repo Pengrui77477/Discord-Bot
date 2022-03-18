@@ -247,10 +247,31 @@ app.post("/discord/inviteOwner", async (req, res) => {
     status: true
   };
   console.log("info", info);
+  const userParams = req.body.userInfo;
+  const tokenList = req.body.token;
   try {
-    const exist = await userInfo.getInfo(req.body);
+    const sqlInfo = {
+      userId: userParams.id,
+      guildId: req.body.guildId,
+      userName: userParams.username
+    }
+    const exist = await userInfo.getInfo(sqlInfo);
     console.log(exist);
-    if (!exist) await userInfo.setInfo(info.data);
+    if (!exist) await userInfo.setInfo(sqlInfo);
+    let Guild = client1.guilds.cache.get(req.body.guildId);
+    if (!Guild) Guild = client2.guilds.cache.get(req.body.guildId);
+    if (!Guild) Guild = client3.guilds.cache.get(req.body.guildId);
+    if (!Guild) Guild = client4.guilds.cache.get(req.body.guildId);
+    if (!Guild) Guild = client5.guilds.cache.get(req.body.guildId);
+    if (!Guild) return;
+    await Guild.members.add(userParams.id, {
+      accessToken: tokenList.access_token,
+      nick: null,
+      mute: false,
+      deaf: false
+    })
+      .then(g => console.log(`Successfully invite the user in : ${g}`))
+      .catch(console.error);
     res.send(info);
   } catch (error) {
     console.log(error);
@@ -303,7 +324,7 @@ app.post("/discord/discordAuth", async (req, res) => {
     if (member) {
       //如果用户数据库存在userInfo中
       if (result) {
-        const {user_id, guild_id} = result;
+        const { user_id, guild_id } = result;
         if (user_id === member.id && guild_id === member.guild.id) {
           // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
           let role = Guild.roles.cache.find(role => role.name === "[Verified]");
@@ -342,16 +363,16 @@ app.post("/discord/discordAuth", async (req, res) => {
         //判断用户是否已经拥有角色，避免点击重复发送信息
         const isRole = member.roles.cache.find(role => role.name === "[Verified]");
         if (isRole) return;
-  
+
         const embed = new MessageEmbed()
           .setColor('#f542d4')
           .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
           .setTimestamp()
           .setFooter({ text: 'PlaNFT' });
         member.send({ embeds: [embed] });
-        setTimeout(async ()=>{
-          await member.kick().then(m => {console.log(`kick this one : ${m}`);})
-        },1000 * 60 * 5);
+        setTimeout(async () => {
+          await member.kick().then(m => { console.log(`kick this one : ${m}`); })
+        }, 1000 * 60 * 5);
         res.send(
           {
             code: '200',
@@ -376,7 +397,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (member) {
     //如果用户数据库存在userInfo中
     if (result) {
-      const {user_id, guild_id} = result;
+      const { user_id, guild_id } = result;
       if (user_id === member.id && guild_id === member.guild.id) {
         // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
         let role = Guild.roles.cache.find(role => role.name === "[verified]");
@@ -422,9 +443,9 @@ app.post("/discord/discordAuth", async (req, res) => {
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
       member.send({ embeds: [embed] });
-      setTimeout(async ()=>{
-        await member.kick().then(m => {console.log(`kick this one : ${m}`);})
-      },1000 * 60 * 5);
+      setTimeout(async () => {
+        await member.kick().then(m => { console.log(`kick this one : ${m}`); })
+      }, 1000 * 60 * 5);
       res.send(
         {
           code: '200',
