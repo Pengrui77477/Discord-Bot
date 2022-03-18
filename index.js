@@ -442,7 +442,11 @@ app.post("/discord/discordAuth", async (req, res) => {
         .setFooter({ text: 'PlaNFT' });
       member.send({ embeds: [embed] });
       setTimeout(async () => {
-        await member.kick().then(m => { console.log(`kick this one : ${m}`); })
+        try {
+          await member.kick().then(m => { console.log(`kick this one : ${m}`); })
+        } catch (error) {
+          console.log(error);
+        }
       }, 1000 * 60 * 5);
       res.send(
         {
