@@ -294,8 +294,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   let Guild = client.guilds.cache.get(data.guildId);
   //验证机器人
   if (Guild) {
-    const member = Guild.members.cache.get(data.guildId);
-    console.log(Guild);
+    const member = Guild.members.cache.get(data.userId);
     const result = await userInfo.getInfo(data);
     if (member) {
       //如果用户数据库存在userInfo中
