@@ -291,13 +291,9 @@ app.post("/discord/inviteMember", async (req, res) => {
 app.post("/discord/discordAuth", async (req, res) => {
   const data = req.body;
   console.log(data);
-  let Guild = client1.guilds.cache.get(data.guildId);
-  if (!Guild) Guild = client2.guilds.cache.get(data.guildId);
-  if (!Guild) Guild = client3.guilds.cache.get(data.guildId);
-  if (!Guild) Guild = client4.guilds.cache.get(data.guildId);
-  if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
-  if (!Guild) {
-    Guild = client.guilds.cache.get(data.guildId);
+  let Guild = client.guilds.cache.get(data.guildId);
+  //验证机器人
+  if (Guild) {
     const member = Guild.members.cache.get(data.guildId);
     console.log(member);
     const result = await userInfo.getInfo(data);
@@ -365,6 +361,11 @@ app.post("/discord/discordAuth", async (req, res) => {
     }
     return;
   }
+  if (!Guild) Guild = client1.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client2.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client3.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client4.guilds.cache.get(data.guildId);
+  if (!Guild) Guild = client5.guilds.cache.get(data.guildId);
   if (!Guild) return;
 
   const member = Guild.members.cache.get(data.userId);
