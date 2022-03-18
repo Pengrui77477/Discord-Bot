@@ -23,14 +23,12 @@ app.use(express.json());
 const port = 3002;
 app.get("/", (req, res) => res.send("hello world"));
 app.listen(port, () =>
-  console.log(`Rob listening at http://localhost:${port}`)
+  console.log(`Rob listening at http://10.0.0.18:${port}`)
 );
-
 
 setInterval(() => {
   console.log('refresh...');
 }, 30000);
-
 
 app.post("/discord/createChannel", async (req, res) => {
   const data = req.body;
