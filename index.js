@@ -478,52 +478,59 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) {
     Guild = client.guilds.cache.get(data.guildId);
     const member = Guild.members.cache.get(data);
-    const { user_id, user_name } = await userInfo.getInfo(data.userId);
+    const result = await userInfo.getInfo(data);
     if (member) {
-      //目前简单判断
-      if (data.nftOwner == 1 && user_id === member.id) { //user_id 为/discord/userInfo接口存进的用户信息
-        let role = Guild.roles.cache.find(role => role.name === "[Verified]");
-        if (!role) {
-          Guild.roles.create({
-            name: '[Verified]',
-            color: '#4fc970',
-            // hoist: true,
-            permissions: [Permissions.FLAGS.VIEW_CHANNEL]
-          }).then(role => {
+      //如果用户数据库存在userInfo中
+      if (result) {
+        const {user_id, guild_id} = result;
+        if (user_id === member.id && guild_id === member.guild.id) {
+          // if (data.nftOwner == 1 && user_id === member.user.id && guild_id === member.id) {
+          let role = Guild.roles.cache.find(role => role.name === "[Verified]");
+          if (!role) {
+            Guild.roles.create({
+              name: '[Verified]',
+              color: '#4fc974',
+              // hoist: true,
+              permissions: [Permissions.FLAGS.VIEW_CHANNEL]
+            }).then(role => {
+              member.roles.add(role);
+            });
+          } else {
             member.roles.add(role);
-          });
-        } else {
-          member.roles.add(role);
-        }
-        //判断用户是否已经拥有角色，避免点击重复发送信息
-        const isRole = member.roles.cache.find(role => role.name === "[Verified]");
-        if (!isRole) {
-          embed = new MessageEmbed()
-            .setColor('#f542d4')
-            .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
-            .setTimestamp()
-            .setFooter({ text: 'PlaNFT' });
-          member.send({ embeds: [embed] });
-        }
-        res.send(
-          {
-            code: '200',
-            data,
-            message: "success",
-            status: true
           }
-        )
+          //判断用户是否已经拥有角色，避免点击重复发送信息
+          const isRole = member.roles.cache.find(role => role.name === "[Verified]");
+          if (!isRole) {
+            embed = new MessageEmbed()
+              .setColor('#f542d4')
+              .setTitle('✅  Verification successful! Now you can chat freely in your guild!')
+              .setTimestamp()
+              .setFooter({ text: 'PlaNFT' });
+            member.send({ embeds: [embed] });
+          }
+          res.send(
+            {
+              code: '200',
+              data,
+              message: "success",
+              status: true
+            }
+          )
+        }
       } else {
         //判断用户是否已经拥有角色，避免点击重复发送信息
         const isRole = member.roles.cache.find(role => role.name === "[Verified]");
         if (isRole) return;
-
+  
         const embed = new MessageEmbed()
           .setColor('#f542d4')
           .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
           .setTimestamp()
           .setFooter({ text: 'PlaNFT' });
-        member.send({ embeds: [embed] })
+        member.send({ embeds: [embed] });
+        setTimeout(async ()=>{
+          await member.kick().then(m => {console.log(`kick this one : ${m}`);})
+        },1000 * 60 * 5);
         res.send(
           {
             code: '200',
@@ -540,9 +547,7 @@ app.post("/discord/discordAuth", async (req, res) => {
 
   const member = Guild.members.cache.get(data.userId);
   const result = await userInfo.getInfo(data);
-  console.log(result);
   if (member) {
-    
     //如果用户数据库存在userInfo中
     if (result) {
       const {user_id, guild_id} = result;
@@ -590,7 +595,10 @@ app.post("/discord/discordAuth", async (req, res) => {
         .setTitle(`❌  Sorry ${member.user.username} , you're not a follower of the NFT`)
         .setTimestamp()
         .setFooter({ text: 'PlaNFT' });
-      member.send({ embeds: [embed] })
+      member.send({ embeds: [embed] });
+      setTimeout(async ()=>{
+        await member.kick().then(m => {console.log(`kick this one : ${m}`);})
+      },1000 * 60 * 5);
       res.send(
         {
           code: '200',
@@ -600,7 +608,6 @@ app.post("/discord/discordAuth", async (req, res) => {
         }
       );
     }
-
   }
 });
 
