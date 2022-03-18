@@ -234,8 +234,8 @@ app.post("/discord/createChannel", async (req, res) => {
   }
 });
 
-//用户授权接口--获取信息接口
-app.post("/discord/getInfo", async (req, res) => {
+//用户授权接口--邀请nft拥有者
+app.post("/discord/inviteOwner", async (req, res) => {
   const info = {
     code: '200',
     data: req.body,
@@ -253,8 +253,8 @@ app.post("/discord/getInfo", async (req, res) => {
   }
 });
 
-//用户授权接口--邀请接口
-app.post("/discord/inviteMember", async (req, res) => {
+//用户授权接口--邀请nft铸造者
+app.post("/discord/inviteMinter", async (req, res) => {
   console.log(req.body);
   const userInfo = req.body.userInfo;
   const tokenList = req.body.token;
