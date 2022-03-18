@@ -299,6 +299,7 @@ app.post("/discord/discordAuth", async (req, res) => {
   if (!Guild) {
     Guild = client.guilds.cache.get(data.guildId);
     const member = Guild.members.cache.get(data.guildId);
+    console.log(member);
     const result = await userInfo.getInfo(data);
     if (member) {
       //如果用户数据库存在userInfo中
