@@ -1,3 +1,5 @@
 node_modules/
-testmysql.js
+test-two.js
+test.js
+.env/
 historical-Code.js
